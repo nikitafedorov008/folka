@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1087955299039",
+    "firebase_url": "https://blogapp-3a071.firebaseio.com",
+    "project_id": "blogapp-3a071",
+    "storage_bucket": "blogapp-3a071.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087955299039:android:307f6398dd7542bc9a176a",
+        "android_client_info": {
+          "package_name": "com.example.fireinsta_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087955299039-hes0kcnfmtcqf401dv4ki2a6054ch6ja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm4f_YX818K3LccTZ7g_aa9AeLOQgK69g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087955299039-hes0kcnfmtcqf401dv4ki2a6054ch6ja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087955299039:android:e7a08a8ee64f3b9f9a176a",
+        "android_client_info": {
+          "package_name": "com.example.flutterInstagramClone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087955299039-hes0kcnfmtcqf401dv4ki2a6054ch6ja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm4f_YX818K3LccTZ7g_aa9AeLOQgK69g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087955299039-hes0kcnfmtcqf401dv4ki2a6054ch6ja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087955299039:android:3299a269006e18249a176a",
+        "android_client_info": {
+          "package_name": "com.nudle.folka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087955299039-hes0kcnfmtcqf401dv4ki2a6054ch6ja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm4f_YX818K3LccTZ7g_aa9AeLOQgK69g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087955299039-hes0kcnfmtcqf401dv4ki2a6054ch6ja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
