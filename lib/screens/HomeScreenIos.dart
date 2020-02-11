@@ -80,7 +80,7 @@ class _HomeScreenIosState extends State<HomeScreenIos> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.event_note,
+              Icons.mail,
               size: 32.0,
             ),
           ),

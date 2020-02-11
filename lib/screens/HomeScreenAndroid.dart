@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:folka/models/UserData.dart';
 import 'package:folka/screens/ActivityScreen.dart';
 import 'package:folka/screens/CreatePostScreen.dart';
@@ -18,6 +20,7 @@ class HomeScreenAndroid extends StatefulWidget {
 
 class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
   int bottomSelectedIndex = 0;
+
 
   /*List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
@@ -50,8 +53,25 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
   );
 
   @override
-  void initState() {
+  Future<void> initState() {
     super.initState();
+    //WidgetsBinding.instance.renderView.automaticSystemUiAdjustment=false;  //<--
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        //statusBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+    //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    FlutterStatusbarcolor.setStatusBarColor(Colors.greenAccent);
+    FlutterStatusbarcolor.setNavigationBarColor(Colors.white);
+    if (useWhiteForeground(Colors.greenAccent)) {
+      FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+    } else {
+      FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+      FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+    }
   }
 
   void pageChanged(int index) {
@@ -139,7 +159,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
               title: Text('Add'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.event),
+              icon: Icon(Icons.mail_outline),
               title: Text('Activity'),
             ),
             BottomNavigationBarItem(

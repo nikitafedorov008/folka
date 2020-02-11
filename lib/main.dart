@@ -8,6 +8,7 @@ import 'package:folka/screens/LoginScreen.dart';
 import 'package:folka/screens/SignUpScreen.dart';
 import 'package:provider/provider.dart';
 import 'screens/HomeScreenAndroid.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 

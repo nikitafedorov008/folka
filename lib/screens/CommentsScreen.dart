@@ -115,7 +115,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Comments',
+          'Mail',
           style: TextStyle(fontFamily: 'ProductSans', color: Colors.black),
         ),
       ),
