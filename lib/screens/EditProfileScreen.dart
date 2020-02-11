@@ -23,6 +23,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File _profileImage;
   String _name = '';
   String _surname = '';
+  String _phone = '';
   String _birthdate = '';
   String _bio = '';
   bool _isLoading = false;
@@ -34,6 +35,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     _name = widget.user.name;
     _surname = widget.user.surname;
+    _phone = widget.user.phone;
     _birthdate = widget.user.birthdate;
     _bio = widget.user.bio;
   }
@@ -88,6 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         id: widget.user.id,
         name: _name,
         surname: _surname,
+        phone: _phone,
         birthdate: _birthdate,
         profileImageUrl: _profileImageUrl,
         bio: _bio,
@@ -250,6 +253,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       validator: (input) => input.trim().length < 1
                           ? 'Please enter a valid surname'
+                          : null,
+                      onSaved: (input) => _name = input,
+                    ),
+                    SizedBox(height: 20.0),
+                    TextFormField(
+                      initialValue: _phone,
+                      style: TextStyle(fontSize: 18.0),
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: new BorderSide(color: Colors.greenAccent),
+                        ),
+                        icon: Icon(
+                          Icons.phone,
+                          size: 30.0,
+                        ),
+                        labelText: 'Phone',
+                      ),
+                      validator: (input) => input.trim().length < 5
+                          ? 'Please enter a valid phone'
                           : null,
                       onSaved: (input) => _name = input,
                     ),

@@ -19,6 +19,9 @@ class CreatePostScreen extends StatefulWidget {
 class _CreatePostScreenState extends State<CreatePostScreen> {
   File _image;
   TextEditingController _captionController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
   String _caption = '';
   String _name = '';
   String _price = '';
@@ -313,10 +316,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
       // Reset data
       _captionController.clear();
+      _nameController.clear();
+      _priceController.clear();
+      _timeController.clear();
 
       setState(() {
         _caption = '';
-        _image = null;
+        _name = '';
+        _price = '';
+        _time = '';
+        _category = null;
         _isLoading = false;
       });
     }
@@ -361,7 +370,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextFormField(
-                    controller: _captionController,
+                    controller: _nameController,
                     style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
                     decoration: InputDecoration(
                       border: new OutlineInputBorder(
@@ -377,7 +386,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextFormField(
-                    controller: _captionController,
+                    keyboardType: TextInputType.numberWithOptions(),
+                    controller: _priceController,
                     style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
                     decoration: InputDecoration(
                       border: new OutlineInputBorder(
@@ -393,7 +403,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextFormField(
-                    controller: _captionController,
+                    keyboardType: TextInputType.numberWithOptions(),
+                    controller: _timeController,
                     style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
                     decoration: InputDecoration(
                       border: new OutlineInputBorder(

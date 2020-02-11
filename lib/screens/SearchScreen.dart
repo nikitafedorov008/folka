@@ -108,7 +108,9 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Image.asset('assets/images/notfound.png'),
                     Text('Nothing found, Please try again later',

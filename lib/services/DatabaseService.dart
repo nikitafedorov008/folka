@@ -25,6 +25,10 @@ class DatabaseService {
     postsRef.document(post.authorId).collection('userPosts').add({
       'imageUrl': post.imageUrl,
       'caption': post.caption,
+      'name': post.name,
+      'price': post.price,
+      'time': post.time,
+      'category': post.category,
       'likeCount': post.likeCount,
       'authorId': post.authorId,
       'timestamp': post.timestamp,

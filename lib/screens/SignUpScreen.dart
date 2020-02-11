@@ -14,7 +14,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _name, _surname, _birthdate, _email, _password;
+  String _name, _surname, _birthdate, _email, _phone, _password;
 
   String birthDate = "";
   int age = -1;
@@ -33,7 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       // Logging in the user w/ Firebase
-      AuthService.signUpUser(context, _name, _surname, _birthdate, _email, _password);
+      AuthService.signUpUser(context, _name, _surname, _birthdate, _email, _phone, _password);
     }
   }
 
@@ -202,6 +202,25 @@ class _SignupScreenState extends State<SignupScreen> {
                             ? 'Please enter a valid email'
                             : null,
                         onSaved: (input) => _email = input,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 30.0,
+                        vertical: 10.0,
+                      ),
+                      child: TextFormField(
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                            border: new OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              borderSide: new BorderSide(color: Colors.greenAccent),
+                            ),
+                            labelText: 'Phone'),
+                        validator: (input) => input.length < 6
+                            ? 'Please enter a valid phone number'
+                            : null,
+                        onSaved: (input) => _phone = input,
                       ),
                     ),
                     Padding(
