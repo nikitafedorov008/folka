@@ -38,6 +38,7 @@ dependencies:
   animator: ^1.0.0+3
   flutter_cupertino_date_picker: ^0.8.0
   flutter_statusbarcolor: ^0.2.3
+  url_launcher: ^5.0.2
   intl: ^0.16.0
 
 dev_dependencies:

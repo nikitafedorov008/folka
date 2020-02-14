@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
+import 'package:folka/models/User.dart';
+import 'package:folka/models/User.dart';
 import 'package:folka/models/UserData.dart';
 import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/services/StorageService.dart';
@@ -12,6 +14,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class CreatePostScreen extends StatefulWidget {
+
+  final User user;
+
+  CreatePostScreen({this.user});
+
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
@@ -22,10 +29,14 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
+  TextEditingController _locationController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   String _caption = '';
   String _name = '';
   String _price = '';
   String _time = '';
+  String _phone = '';
+  String _location = '';
   String _category = '';
   bool _isLoading = false;
 
@@ -309,6 +320,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         time: _time,
         category: _category,
         likeCount: 0,
+        phone: _phone,// = Provider.of<User>(context).phone.toString(),
+        //phone: Provider.of<User>(context).phone,
         authorId: Provider.of<UserData>(context).currentUserId,
         timestamp: Timestamp.fromDate(DateTime.now()),
       );
@@ -316,6 +329,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
       // Reset data
       _captionController.clear();
+      _locationController.clear();
+      _phoneController.clear();
       _nameController.clear();
       _priceController.clear();
       _timeController.clear();
@@ -340,7 +355,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Container(
-            height: height,
+            //height: height,
             child: Column(
               children: <Widget>[
                 _isLoading
@@ -383,6 +398,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ),
                 ),
                 SizedBox(height: 10.0,),
+                Row(),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextFormField(
@@ -411,7 +427,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         borderRadius: BorderRadius.circular(18.0),
                         borderSide: new BorderSide(color: Colors.greenAccent),
                       ),
-                      labelText: 'Time',
+                      labelText: 'Time(days)',
                     ),
                     onChanged: (input) => _time = input,
                   ),
@@ -448,6 +464,22 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextFormField(
+                    controller: _locationController,
+                    style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
+                    decoration: InputDecoration(
+                      border: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        borderSide: new BorderSide(color: Colors.greenAccent),
+                      ),
+                      labelText: 'Location',
+                    ),
+                    onChanged: (input) => _location = input,
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: TextFormField(
                     controller: _captionController,
                     style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
                     decoration: InputDecoration(
@@ -471,6 +503,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   textColor: Colors.black,
                   onPressed: _submit,
                 ),
+                SizedBox(height: 10.0,),
               ],
             ),
           ),

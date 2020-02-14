@@ -79,13 +79,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _followOrUnfollow() {
     if (_isFollowing) {
-      _unfollowUser();
+      _unFollowUser();
     } else {
       _followUser();
     }
   }
 
-  _unfollowUser() {
+  _unFollowUser() {
     DatabaseService.unFollowUser(
       currentUserId: widget.currentUserId,
       userId: widget.userId,
@@ -348,7 +348,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(children: <Widget>[
-                              Text('36', style: TextStyle(
+                              Text('D', style: TextStyle(
                                 fontSize: 16.0,
                                 fontFamily: 'ProductSans',
                                 fontWeight: FontWeight.w600,),),

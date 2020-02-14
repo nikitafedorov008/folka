@@ -5,6 +5,7 @@ class User {
   final String name;
   final String surname;
   final String birthdate;
+  final String rating;
   final String profileImageUrl;
   final String email;
   final String phone;
@@ -15,6 +16,7 @@ class User {
     this.name,
     this.surname,
     this.birthdate,
+    this.rating,
     this.profileImageUrl,
     this.email,
     this.phone,
@@ -27,6 +29,7 @@ class User {
       name: doc['name'],
       surname: doc['surname'],
       birthdate: doc['bithdate'],
+      rating: doc['rating'],
       profileImageUrl: doc['profileImageUrl'],
       email: doc['email'],
       phone: doc['phone'],

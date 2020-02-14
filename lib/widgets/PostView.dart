@@ -142,9 +142,9 @@ class _PostViewState extends State<PostView> {
                   builder: (anim) => Transform.scale(
                     scale: anim.value,
                     child: Icon(
-                      Icons.favorite,
+                      Icons.star,
                       size: 100.0,
-                      color: Colors.red[400],
+                      color: Colors.yellow[400],
                     ),
                   ),
                 )
@@ -162,15 +162,15 @@ class _PostViewState extends State<PostView> {
                     IconButton(
                       icon: _isLiked
                           ? Icon(
-                        Icons.favorite,
-                        color: Colors.red,
+                        Icons.star,
+                        color: Colors.yellow,
                       )
-                          : Icon(Icons.favorite_border),
+                          : Icon(Icons.star_border),
                       iconSize: 30.0,
                       onPressed: _likePost,
                     ),
                     IconButton(
-                      icon: Icon(Icons.comment),
+                      icon: Icon(Icons.add_comment),
                       iconSize: 30.0,
                       onPressed: () => Navigator.push(
                         context,
@@ -187,7 +187,7 @@ class _PostViewState extends State<PostView> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12.0),
                   child: Text(
-                    '${_likeCount.toString()} likes',
+                    '${_likeCount.toString()} stars',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,

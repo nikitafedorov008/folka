@@ -11,3 +11,4 @@ final feedsRef = _firestore.collection('feeds');
 final likesRef = _firestore.collection('likes');
 final commentsRef = _firestore.collection('comments');
 final activitiesRef = _firestore.collection('activities');
+final ratingRef = _firestore.collection('rating');

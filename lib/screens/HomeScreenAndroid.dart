@@ -127,7 +127,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
           pageChanged(index);
         },
         children: <Widget>[
-          FeedScreen(currentUserId: currentUserId,),
+          FeedScreen(currentUserId: currentUserId),
           SearchScreen(),
           CreatePostScreen(),
           ActivityScreen(currentUserId: currentUserId),
@@ -194,7 +194,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
     );
   }
 
-  Widget _buildFab(BuildContext context) {
+  /*Widget _buildFab(BuildContext context) {
     final icons = [ Icons.sms, Icons.mail, Icons.phone ];
     child: FloatingActionButton(
       onPressed: () { },
@@ -202,5 +202,5 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
       child: Icon(Icons.add_circle_outline),
       elevation: 2.0,
     );
-  }
+  }*/
 }
