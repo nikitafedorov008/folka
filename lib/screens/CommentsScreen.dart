@@ -124,7 +124,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           Padding(
             padding: EdgeInsets.all(12.0),
             child: Text(
-              '${widget.likeCount} likes',
+              '${widget.likeCount} stars',
               style: TextStyle(
                 fontFamily: 'ProductSans',
                 fontSize: 20.0,

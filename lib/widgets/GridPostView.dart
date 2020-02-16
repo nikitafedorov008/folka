@@ -9,18 +9,18 @@ import 'package:folka/screens/CommentsScreen.dart';
 import 'package:folka/screens/ProfileScreen.dart';
 import 'package:folka/services/DatabaseService.dart';
 
-class PostView extends StatefulWidget {
+class GridPostView extends StatefulWidget {
   final String currentUserId;
   final Post post;
   final User author;
 
-  PostView({this.currentUserId, this.post, this.author});
+  GridPostView({this.currentUserId, this.post, this.author});
 
   @override
   _PostViewState createState() => _PostViewState();
 }
 
-class _PostViewState extends State<PostView> {
+class _PostViewState extends State<GridPostView> {
   int _likeCount = 0;
   bool _isLiked = false;
   bool _heartAnim = false;
@@ -33,7 +33,7 @@ class _PostViewState extends State<PostView> {
   }
 
   @override
-  void didUpdateWidget(PostView oldWidget) {
+  void didUpdateWidget(GridPostView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.post.likeCount != widget.post.likeCount) {
       _likeCount = widget.post.likeCount;
@@ -81,6 +81,7 @@ class _PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Column(
         children: <Widget>[
           /*GestureDetector(
@@ -136,8 +137,8 @@ class _PostViewState extends State<PostView> {
               alignment: Alignment.center,
               children: <Widget>[
                 Container(
-                  height: 182,
-                  width: 400,
+                  height: 100,
+                  width: 200,
                   //height: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14.0),
