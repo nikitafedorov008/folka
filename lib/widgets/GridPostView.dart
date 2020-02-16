@@ -137,8 +137,8 @@ class _PostViewState extends State<GridPostView> {
               alignment: Alignment.center,
               children: <Widget>[
                 Container(
-                  height: 100,
-                  width: 200,
+                  height: 95,
+                  width: 204,
                   //height: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14.0),
