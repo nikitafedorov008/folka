@@ -63,8 +63,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   }
                 );
               }
-          );
-  }
+          );}
         ),
         /*child: ListView.builder(
           itemCount: _posts.length,

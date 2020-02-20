@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:animator/animator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
@@ -81,168 +82,202 @@ class _PostViewState extends State<GridPostView> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      semanticContainer: true,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 1,
+      margin: EdgeInsets.all(3),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      child: Column(
-        children: <Widget>[
-          /*GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ProfileScreen(
-                  currentUserId: widget.currentUserId,
-                  userId: widget.post.authorId,
-                ),
-              ),
-            ),
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 10.0,
-              ),
-              child: Row(
+      child: Container(
+        width: 320,
+        height: 320,
+        child: Column(
+          children: <Widget>[
+            GestureDetector(
+              onDoubleTap: _likePost,
+              child: Stack(
+                alignment: Alignment.topCenter,
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 25.0,
-                    backgroundColor: Colors.grey,
-                    backgroundImage: widget.author.profileImageUrl.isEmpty
-                        ? AssetImage('assets/images/avatar.png')
-                        : CachedNetworkImageProvider(
-                        widget.author.profileImageUrl),
-                  ),
-                  SizedBox(width: 8.0),
-                  Text(
-                    widget.author.name,
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'ProductSans',
-                      fontWeight: FontWeight.w600,
+                  Container(
+                    height: 124,
+                    width: 204,
+                    //height: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14.0),
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(widget.post.imageUrl),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Stack(
+                            children: <Widget>[
+                              IconButton(
+                                icon: _isLiked
+                                    ? Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                )
+                                    : Icon(Icons.star_border),
+                                iconSize: 25.0,
+                                color: Colors.white,
+                                onPressed: _likePost,
+                              ),
+                            ],
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              IconButton(
+                                icon: Icon(Icons.mail_outline),
+                                iconSize: 25.0,
+                                color: Colors.white,
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => CommentsScreen(
+                                      post: widget.post,
+                                      likeCount: _likeCount,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(width: 4.0),
-                  Text(
-                    widget.author.surname,
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'ProductSans',
-                      fontWeight: FontWeight.w600,
+                  _heartAnim
+                      ? Animator(
+                    duration: Duration(milliseconds: 300),
+                    tween: Tween(begin: 0.5, end: 1.4),
+                    curve: Curves.elasticOut,
+                    builder: (anim) => Transform.scale(
+                      scale: anim.value,
+                      child: Icon(
+                        Icons.stars,
+                        size: 100.0,
+                        color: Colors.yellow[400],
+                      ),
                     ),
-                  ),
+                  )
+                      : SizedBox.shrink(),
                 ],
               ),
             ),
-          ),*/
-          GestureDetector(
-            onDoubleTap: _likePost,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Container(
-                  height: 95,
-                  width: 204,
-                  //height: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14.0),
-                    image: DecorationImage(
-                      image: CachedNetworkImageProvider(widget.post.imageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                _heartAnim
-                    ? Animator(
-                  duration: Duration(milliseconds: 300),
-                  tween: Tween(begin: 0.5, end: 1.4),
-                  curve: Curves.elasticOut,
-                  builder: (anim) => Transform.scale(
-                    scale: anim.value,
-                    child: Icon(
-                      Icons.stars,
-                      size: 100.0,
-                      color: Colors.yellow[400],
-                    ),
-                  ),
-                )
-                    : SizedBox.shrink(),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: _isLiked
-                          ? Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      )
-                          : Icon(Icons.star_border),
-                      iconSize: 30.0,
-                      onPressed: _likePost,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.mail_outline),
-                      iconSize: 30.0,
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => CommentsScreen(
-                            post: widget.post,
-                            likeCount: _likeCount,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  /*Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: _isLiked
+                            ? Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        )
+                            : Icon(Icons.star_border),
+                        iconSize: 30.0,
+                        onPressed: _likePost,
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.mail_outline),
+                        iconSize: 30.0,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CommentsScreen(
+                              post: widget.post,
+                              likeCount: _likeCount,
+                            ),
                           ),
                         ),
                       ),
+                      Text(
+                        widget.post.name,
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'ProductSans'
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),*/
+                  SizedBox(height: 2,),
+                  Text(
+                    widget.post.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      fontFamily: 'ProductSans',
+                      color: Colors.black,
                     ),
-                    Text(
-                      widget.post.name,
+                  ),
+                  SizedBox(height: 2,),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.timer, color: Colors.blue,),
+                      Text(
+                        widget.post.time + 'DAY',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'ProductSans'
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(width: 4,),
+                      Icon(Icons.attach_money, color: Colors.green,),
+                      Text(
+                        widget.post.price + 'RUB',
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'ProductSans'
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Text(
+                      widget.post.caption,
                       style: TextStyle(
+                          color: Colors.blueGrey,
                           fontSize: 16.0,
+                          fontWeight: FontWeight.w400,
                           fontFamily: 'ProductSans'
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Text(
-                    '${_likeCount.toString()} stars',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'ProductSans',
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
-                ),
-                SizedBox(height: 4.0),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: 12.0,
-                        right: 6.0,
+                  /*Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Text(
+                      '${_likeCount.toString()} stars',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontFamily: 'ProductSans',
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Expanded(
-                      child: Text(
-                        widget.post.caption,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'ProductSans'
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12.0),
-              ],
+                  ),*/
+                  //SizedBox(height: 4.0),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
