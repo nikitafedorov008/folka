@@ -188,7 +188,6 @@ class _PostViewState extends State<PostView> {
                       ],
                     ),
                     Stack(
-
                       children: <Widget>[
                         Row(
                           children: <Widget>[

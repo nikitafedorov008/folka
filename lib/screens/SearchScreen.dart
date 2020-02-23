@@ -85,13 +85,21 @@ class _SearchScreenState extends State<SearchScreen> {
           ? Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset('assets/images/searching.png'),
-              Text('Search for something or somebody',
-                style: TextStyle(fontFamily: 'ProductSans'),),
-            ],
+          child: OrientationBuilder(
+            builder: (context, orentation) {
+              return Container(
+                height: 320,
+                width: orentation == Orientation.portrait ? 420 : 220,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset('assets/images/searching.png'),
+                    Text('Search for something or somebody',
+                      style: TextStyle(fontFamily: 'ProductSans'),),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       )
@@ -107,15 +115,21 @@ class _SearchScreenState extends State<SearchScreen> {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Image.asset('assets/images/notfound.png'),
-                    Text('Nothing found, Please try again later',
-                      style: TextStyle(fontFamily: 'ProductSans'),),
-                  ],
+                child: OrientationBuilder(
+                  builder: (context, orentation) {
+                    return Container(
+                      height: 320,
+                      width: orentation == Orientation.portrait ? 420 : 220,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.asset('assets/images/notfound.png'),
+                          Text('Nothing found, try again later',
+                            style: TextStyle(fontFamily: 'ProductSans'),),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             );
