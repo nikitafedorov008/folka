@@ -172,50 +172,105 @@ class _PostViewState extends State<PostView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    IconButton(
-                      icon: _isLiked
-                          ? Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      )
-                          : Icon(Icons.star_border),
-                      iconSize: 30.0,
-                      onPressed: _likePost,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.mail_outline),
-                      iconSize: 30.0,
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => CommentsScreen(
-                            post: widget.post,
-                            likeCount: _likeCount,
+                    Stack(
+                      children: <Widget>[
+                        Text(
+                          widget.post.name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                              fontFamily: 'ProductSans'
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
+                      ],
                     ),
-                    Text(
-                      widget.post.name,
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'ProductSans'
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                    Stack(
+
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            IconButton(
+                              icon: _isLiked
+                                  ? Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                              )
+                                  : Icon(Icons.star_border),
+                              iconSize: 30.0,
+                              onPressed: _likePost,
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.mail_outline),
+                              iconSize: 30.0,
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => CommentsScreen(
+                                    post: widget.post,
+                                    likeCount: _likeCount,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Text(
-                    '${_likeCount.toString()} stars',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'ProductSans',
-                      fontWeight: FontWeight.bold,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Icon(Icons.timer, color: Colors.blue,),
+                            Text(
+                              widget.post.time + 'DAY',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'ProductSans'
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(width: 4,),
+                            Icon(Icons.attach_money, color: Colors.green,),
+                            Text(
+                              widget.post.price + 'RUB',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'ProductSans'
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
+                    Stack(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Text(
+                            '${_likeCount.toString()} stars',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'ProductSans',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 SizedBox(height: 4.0),
                 Row(
@@ -230,6 +285,7 @@ class _PostViewState extends State<PostView> {
                       child: Text(
                         widget.post.caption,
                         style: TextStyle(
+                          color: Colors.grey,
                           fontSize: 16.0,
                           fontFamily: 'ProductSans'
                         ),
