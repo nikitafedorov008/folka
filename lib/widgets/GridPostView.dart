@@ -99,7 +99,7 @@ class _PostViewState extends State<GridPostView> {
                 children: <Widget>[
                   Container(
                     height: 124,
-                    width: 204,
+                    width: 224,
                     //height: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14.0),
@@ -170,110 +170,113 @@ class _PostViewState extends State<GridPostView> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  /*Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: _isLiked
-                            ? Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                        )
-                            : Icon(Icons.star_border),
-                        iconSize: 30.0,
-                        onPressed: _likePost,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.mail_outline),
-                        iconSize: 30.0,
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => CommentsScreen(
-                              post: widget.post,
-                              likeCount: _likeCount,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    /*Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: _isLiked
+                              ? Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                          )
+                              : Icon(Icons.star_border),
+                          iconSize: 30.0,
+                          onPressed: _likePost,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.mail_outline),
+                          iconSize: 30.0,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CommentsScreen(
+                                post: widget.post,
+                                likeCount: _likeCount,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Text(
-                        widget.post.name,
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'ProductSans'
+                        Text(
+                          widget.post.name,
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'ProductSans'
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),*/
-                  SizedBox(height: 2,),
-                  Text(
-                    widget.post.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      fontFamily: 'ProductSans',
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 2,),
-                  Row(
-                    children: <Widget>[
-                      Icon(Icons.timer, color: Colors.blue,),
-                      Text(
-                        widget.post.time + 'DAY',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'ProductSans'
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(width: 4,),
-                      Icon(Icons.attach_money, color: Colors.green,),
-                      Text(
-                        widget.post.price + 'RUB',
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'ProductSans'
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: Text(
-                      widget.post.caption,
+                      ],
+                    ),*/
+                    SizedBox(height: 2,),
+                    Text(
+                      widget.post.name,
                       style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'ProductSans'
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  /*Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text(
-                      '${_likeCount.toString()} stars',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'ProductSans',
                         fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        fontFamily: 'ProductSans',
+                        color: Colors.black,
                       ),
                     ),
-                  ),*/
-                  //SizedBox(height: 4.0),
-                ],
+                    SizedBox(height: 2,),
+                    Row(
+                      children: <Widget>[
+                        Icon(Icons.timer, color: Colors.blue,),
+                        Text(
+                          widget.post.time + 'DAY',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'ProductSans'
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(width: 4,),
+                        Icon(Icons.attach_money, color: Colors.green,),
+                        Text(
+                          widget.post.price + 'RUB',
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'ProductSans'
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text(
+                        widget.post.caption,
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'ProductSans'
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    /*Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Text(
+                        '${_likeCount.toString()} stars',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'ProductSans',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),*/
+                    //SizedBox(height: 4.0),
+                  ],
+                ),
               ),
             ),
           ],

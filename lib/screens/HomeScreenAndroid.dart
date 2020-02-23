@@ -137,6 +137,8 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
+        notchMargin: 4,
+        clipBehavior: Clip.antiAlias,
         child: BottomNavigationBar(
           onTap: (index) {
             bottomTapped(index);
