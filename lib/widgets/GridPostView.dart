@@ -254,7 +254,7 @@ class _PostViewState extends State<GridPostView> {
                       widget.post.caption,
                       style: TextStyle(
                           color: Colors.blueGrey,
-                          fontSize: 16.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.w400,
                           fontFamily: 'ProductSans'
                       ),

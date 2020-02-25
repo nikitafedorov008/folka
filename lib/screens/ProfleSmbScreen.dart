@@ -6,7 +6,7 @@ import 'package:folka/models/User.dart';
 import 'package:folka/screens/EditProfileScreen.dart';
 import 'package:folka/services/AuthService.dart';
 import 'package:folka/services/DatabaseService.dart';
-import 'package:folka/utilities/constants.dart';
+import 'package:folka/utilities/Constants.dart';
 import 'package:folka/widgets/PostView.dart';
 import 'package:provider/provider.dart';
 import 'CommentsScreen.dart';

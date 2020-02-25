@@ -180,7 +180,7 @@ class _PostViewState extends State<PostView> {
                           widget.post.name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
+                              fontSize: 18.0,
                               fontFamily: 'ProductSans'
                           ),
                           overflow: TextOverflow.ellipsis,

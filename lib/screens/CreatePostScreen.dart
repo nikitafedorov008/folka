@@ -326,6 +326,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         timestamp: Timestamp.fromDate(DateTime.now()),
       );
       DatabaseService.createPost(post);
+      DatabaseService.createFeedPost(post);
 
       // Reset data
       _captionController.clear();
@@ -503,7 +504,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   textColor: Colors.black,
                   onPressed: _submit,
                 ),
-                SizedBox(height: 10.0,),
+                SizedBox(height: 30.0,),
               ],
             ),
           ),

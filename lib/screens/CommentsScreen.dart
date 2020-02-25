@@ -5,7 +5,7 @@ import 'package:folka/models/Post.dart';
 import 'package:folka/models/UserData.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/services/DatabaseService.dart';
-import 'package:folka/utilities/constants.dart';
+import 'package:folka/utilities/Constants.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 

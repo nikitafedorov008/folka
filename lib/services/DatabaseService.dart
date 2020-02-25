@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:folka/models/Activity.dart';
 import 'package:folka/models/Comment.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
-import 'package:folka/utilities/constants.dart';
+import 'package:folka/utilities/Constants.dart';
+import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class DatabaseService {
   static void updateUser(User user) {
@@ -21,14 +24,23 @@ class DatabaseService {
     return users;
   }
 
-  /*static Future<QuerySnapshot> searchPosts(String name) {
-    Future<QuerySnapshot> posts =
-    postsRef.where('name', isGreaterThanOrEqualTo: name).getDocuments();
-    return posts;
-  }*/
-
   static void createPost(Post post) {
     postsRef.document(post.authorId).collection('userPosts').add({
+      'imageUrl': post.imageUrl,
+      'caption': post.caption,
+      'name': post.name,
+      'price': post.price,
+      'time': post.time,
+      'category': post.category,
+      'likeCount': post.likeCount,
+      'phone': post.phone,
+      'authorId': post.authorId,
+      'timestamp': post.timestamp,
+    });
+  }
+
+  static void createFeedPost(Post post) {
+    feedRef.document(Uuid().v4()).setData({
       'imageUrl': post.imageUrl,
       'caption': post.caption,
       'name': post.name,
@@ -123,6 +135,33 @@ class DatabaseService {
     QuerySnapshot userPostsSnapshot = await postsRef
         .document(userId)
         .collection('userPosts')
+        .orderBy('timestamp', descending: true)
+        .getDocuments();
+    List<Post> posts =
+    userPostsSnapshot.documents.map((doc) => Post.fromDoc(doc)).toList();
+    return posts;
+  }
+
+  /*static Future<List<Post>> getAllUserPosts(String userId) async {
+    QuerySnapshot userPostsSnapshot = await postsRef
+        .document(userId)
+        .collection('userPosts')
+        .where('authorId')
+        .where('name')
+        .orderBy('timestamp', descending: true)
+        .getDocuments();
+    List<Post> posts =
+    userPostsSnapshot.documents.map((doc) => Post.fromDoc(doc)).toList();
+    return posts;
+  }*/
+
+
+  static Future<List<Post>> getAllUserPosts() async {
+    QuerySnapshot userPostsSnapshot = await feedRef
+        .where('authorId')
+        .where('price')
+        .where('time')
+        .where('caption')
         .orderBy('timestamp', descending: true)
         .getDocuments();
     List<Post> posts =
