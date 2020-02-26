@@ -43,28 +43,28 @@ class _FeedScreenState extends State<FeedScreen> {
         child: OrientationBuilder(
           builder: (context, orentation) {
             return GridView.builder(
-              gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: orentation == Orientation.portrait ? 2 : 4,),
-              itemCount: _posts.length,
-              itemBuilder: (BuildContext context, int index) {
-                Post post = _posts[index];
-                return FutureBuilder(
-                  future: DatabaseService.getUserWithId(post.authorId),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (!snapshot.hasData) {
-                      return SizedBox.shrink();
-                    }
-                    User author = snapshot.data;
-                    return GridPostView(
-                      currentUserId: widget.currentUserId,
-                      post: post,
-                      author: author,
-                    );
-                  }
-                );
-              }
-          );}
+                itemCount: _posts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Post post = _posts[index];
+                  return FutureBuilder(
+                      future: DatabaseService.getUserWithId(post.authorId),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (!snapshot.hasData) {
+                          return SizedBox.shrink();
+                        }
+                        User author = snapshot.data;
+                        return GridPostView(
+                          currentUserId: widget.currentUserId,
+                          post: post,
+                          author: author,
+                        );
+                      }
+                  );
+                }
+            );}
         ),
         /*child: ListView.builder(
           itemCount: _posts.length,
