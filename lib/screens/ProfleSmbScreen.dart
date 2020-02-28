@@ -212,9 +212,11 @@ class _ProfileSMDScreenState extends State<ProfileSMDScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        bottomOpacity: 0.0,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         title: Text(
-          'polka',
+          'shelf',
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'ProductSans',

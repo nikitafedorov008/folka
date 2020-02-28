@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => UserData(),
       child: MaterialApp(
-        title: 'polka',
+        title: 'shelf',
         debugShowCheckedModeBanner: true,
         theme: ThemeData(
           primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(

@@ -28,6 +28,16 @@ class _HomeScreenIosState extends State<HomeScreenIos> {
   Widget build(BuildContext context) {
     final String currentUserId = Provider.of<UserData>(context).currentUserId;
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('shelf'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app, color: Colors.black,),
+            onPressed: AuthService.logout,
+          )
+        ],
+      ),
       body: PageView(
         controller: _pageController,
         children: <Widget>[

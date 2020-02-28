@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                'polka',
+                'shelf',
                 style: TextStyle(
                   fontFamily: 'ProductSans',
                   fontSize: 50.0,
