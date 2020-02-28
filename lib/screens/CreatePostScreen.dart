@@ -370,16 +370,21 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     : SizedBox.shrink(),
                 GestureDetector(
                   onTap: _showSelectImageDialog,
-                  child: Container(
-                    height: width,
-                    width: width,
-                    color: Colors.white,
-                    child: _image == null
-                        ? Image(image: AssetImage('assets/images/images.png'),)
-                        : Image(
-                      image: FileImage(_image),
-                      fit: BoxFit.cover,
-                    ),
+                  child: OrientationBuilder(
+                    builder: (context, orentation) {
+                      return Container(
+                        height: 220,
+                        width: orentation == Orientation.portrait ? 420 : 220,
+                        color: Colors.white,
+                        child: _image == null
+                            ? Image(image: AssetImage(
+                            'assets/images/images.png'),)
+                            : Image(
+                          image: FileImage(_image),
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    }
                   ),
                 ),
                 SizedBox(height: 20.0),

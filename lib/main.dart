@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:folka/models/UserData.dart';
+import 'package:folka/screens/DetailsScreen.dart';
 import 'package:folka/screens/FeedScreen.dart';
 import 'package:folka/screens/HomeScreenIos.dart';
 import 'package:folka/screens/LoginScreen.dart';
 import 'package:folka/screens/SignUpScreen.dart';
 import 'package:provider/provider.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'screens/HomeScreenAndroid.dart';
 import 'package:flutter/services.dart';
 

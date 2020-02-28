@@ -64,15 +64,17 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
       ),
     );
     //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    FlutterStatusbarcolor.setStatusBarColor(Colors.greenAccent);
-    FlutterStatusbarcolor.setNavigationBarColor(Colors.white);
-    if (useWhiteForeground(Colors.greenAccent)) {
-      FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+    FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+    FlutterStatusbarcolor.setNavigationBarColor(Colors.greenAccent);
+    FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+    //FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+    /*if (useWhiteForeground(Colors.greenAccent)) {
+      FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
       FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
     } else {
       FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
       FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
-    }
+    }*/
   }
 
   void pageChanged(int index) {
@@ -102,7 +104,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
         bottomOpacity: 0.0,
         elevation: 0,
         //centerTitle: true,
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.transparent,
         title: Text(
           'shelf', style:  TextStyle(
             color: Colors.black,
@@ -150,6 +152,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.greenAccent,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.domain),
@@ -172,7 +175,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
               title: Text('Profile'),
             ),
           ],
-          selectedItemColor: Colors.greenAccent,
+          selectedItemColor: Colors.black87,
           currentIndex: bottomSelectedIndex,
         ),
       ),
@@ -182,7 +185,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
         child: FittedBox(
           child: FloatingActionButton(
             tooltip: 'Increment',
-            backgroundColor: Colors.greenAccent,
+            backgroundColor: Colors.greenAccent[100],
             onPressed: () {
               setState(() {
                 pageController.jumpToPage(2);

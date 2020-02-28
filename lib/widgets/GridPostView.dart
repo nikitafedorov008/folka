@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/screens/CommentsScreen.dart';
+import 'package:folka/screens/DetailsScreen.dart';
 import 'package:folka/screens/ProfileScreen.dart';
 import 'package:folka/services/DatabaseService.dart';
 
@@ -79,204 +80,219 @@ class _PostViewState extends State<GridPostView> {
     }
   }
 
+  GoToDetails() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => DetailsScreen(
+          post: widget.post,
+          //likeCount: _likeCount,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      semanticContainer: true,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 1,
-      margin: EdgeInsets.all(3),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      child: Container(
-        width: 320,
-        height: 320,
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              onDoubleTap: _likePost,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: <Widget>[
-                  Container(
-                    height: 124,
-                    width: 224,
-                    //height: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14.0),
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(widget.post.imageUrl),
-                        fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: GoToDetails,
+      child: Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 1,
+        margin: EdgeInsets.all(3),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        child: Container(
+          width: 320,
+          height: 320,
+          child: Column(
+            children: <Widget>[
+              GestureDetector(
+                onDoubleTap: _likePost,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: <Widget>[
+                    Container(
+                      height: 124,
+                      width: 224,
+                      //height: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14.0),
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(widget.post.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Stack(
-                            children: <Widget>[
-                              IconButton(
-                                icon: _isLiked
-                                    ? Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                )
-                                    : Icon(Icons.star_border),
-                                iconSize: 25.0,
-                                color: Colors.white,
-                                onPressed: _likePost,
-                              ),
-                            ],
-                          ),
-                          Stack(
-                            children: <Widget>[
-                              IconButton(
-                                icon: Icon(Icons.mail_outline),
-                                iconSize: 25.0,
-                                color: Colors.white,
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => CommentsScreen(
-                                      post: widget.post,
-                                      likeCount: _likeCount,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Stack(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: _isLiked
+                                      ? Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                  )
+                                      : Icon(Icons.star_border),
+                                  iconSize: 25.0,
+                                  color: Colors.white,
+                                  onPressed: _likePost,
+                                ),
+                              ],
+                            ),
+                            Stack(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.mail_outline),
+                                  iconSize: 25.0,
+                                  color: Colors.white,
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => CommentsScreen(
+                                        post: widget.post,
+                                        likeCount: _likeCount,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  _heartAnim
-                      ? Animator(
-                    duration: Duration(milliseconds: 300),
-                    tween: Tween(begin: 0.5, end: 1.4),
-                    curve: Curves.elasticOut,
-                    builder: (anim) => Transform.scale(
-                      scale: anim.value,
-                      child: Icon(
-                        Icons.stars,
-                        size: 100.0,
-                        color: Colors.yellow[400],
+                    _heartAnim
+                        ? Animator(
+                      duration: Duration(milliseconds: 300),
+                      tween: Tween(begin: 0.5, end: 1.4),
+                      curve: Curves.elasticOut,
+                      builder: (anim) => Transform.scale(
+                        scale: anim.value,
+                        child: Icon(
+                          Icons.stars,
+                          size: 100.0,
+                          color: Colors.yellow[400],
+                        ),
                       ),
-                    ),
-                  )
-                      : SizedBox.shrink(),
-                ],
+                    )
+                        : SizedBox.shrink(),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  /*Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: _isLiked
-                            ? Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                        )
-                            : Icon(Icons.star_border),
-                        iconSize: 30.0,
-                        onPressed: _likePost,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.mail_outline),
-                        iconSize: 30.0,
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => CommentsScreen(
-                              post: widget.post,
-                              likeCount: _likeCount,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    /*Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: _isLiked
+                              ? Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                          )
+                              : Icon(Icons.star_border),
+                          iconSize: 30.0,
+                          onPressed: _likePost,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.mail_outline),
+                          iconSize: 30.0,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CommentsScreen(
+                                post: widget.post,
+                                likeCount: _likeCount,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Text(
-                        widget.post.name,
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'ProductSans'
+                        Text(
+                          widget.post.name,
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'ProductSans'
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),*/
-                  SizedBox(height: 2,),
-                  Text(
-                    widget.post.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      fontFamily: 'ProductSans',
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 2,),
-                  Row(
-                    children: <Widget>[
-                      Icon(Icons.timer, color: Colors.blue,),
-                      Text(
-                        widget.post.time + 'DAY',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'ProductSans'
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(width: 4,),
-                      Icon(Icons.attach_money, color: Colors.green,),
-                      Text(
-                        widget.post.price + 'RUB',
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'ProductSans'
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: Text(
-                      widget.post.caption,
+                      ],
+                    ),*/
+                    SizedBox(height: 2,),
+                    Text(
+                      widget.post.name,
                       style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'ProductSans'
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  /*Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text(
-                      '${_likeCount.toString()} stars',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'ProductSans',
                         fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        fontFamily: 'ProductSans',
+                        color: Colors.black,
                       ),
                     ),
-                  ),*/
-                  //SizedBox(height: 4.0),
-                ],
+                    SizedBox(height: 2,),
+                    Row(
+                      children: <Widget>[
+                        Icon(Icons.timer, color: Colors.blue,),
+                        Text(
+                          widget.post.time + 'DAY',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'ProductSans'
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(width: 4,),
+                        Icon(Icons.attach_money, color: Colors.green,),
+                        Text(
+                          widget.post.price + 'RUB',
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'ProductSans'
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text(
+                        widget.post.caption,
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'ProductSans'
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    /*Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Text(
+                        '${_likeCount.toString()} stars',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'ProductSans',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),*/
+                    //SizedBox(height: 4.0),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
