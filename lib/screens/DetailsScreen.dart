@@ -102,36 +102,62 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
 
     return new Scaffold(
-      appBar: new AppBar(
+      /*appBar: new AppBar(
         bottomOpacity: 0.0,
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: new Text("Details", style: TextStyle(fontFamily: 'ProductSans'),),
-      ),
-      body: ListView(
-        children: <Widget>[
-          /*Image.asset(
-            "images/japanism.jpg",
-            width: 600,
-            height: 241,
-            fit: BoxFit.cover,
-          ),*/
-          Container(
-            height: 350,
-            width: 241,
-            //height: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              image: DecorationImage(
-                image: CachedNetworkImageProvider(widget.post.imageUrl),
-                fit: BoxFit.cover,
+      ),*/
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
+          return<Widget>[
+            SliverAppBar(
+              expandedHeight: 350.0,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                title: new Text("Details", style: TextStyle(fontFamily: 'ProductSans'),),
+                background: Container(
+                  height: 350,
+                  width: 241,
+                  //height: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(widget.post.imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-          titleSection,
-          buttonSection,
-          textSection,
-        ],
+          ];
+        },
+        body: ListView(
+          children: <Widget>[
+            /*Image.asset(
+              "images/japanism.jpg",
+              width: 600,
+              height: 241,
+              fit: BoxFit.cover,
+            ),*/
+            /*Container(
+              height: 350,
+              width: 241,
+              //height: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(widget.post.imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),*/
+            titleSection,
+            buttonSection,
+            textSection,
+          ],
+        ),
       ),
     );
   }
