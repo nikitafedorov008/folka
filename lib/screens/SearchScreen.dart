@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:folka/models/Post.dart';
 import 'package:folka/models/UserData.dart';
 import 'package:folka/models/User.dart';
+import 'package:folka/screens/DetailsScreen.dart';
 import 'package:folka/screens/ProfileScreen.dart';
 import 'package:folka/services/DatabaseService.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
   Future<QuerySnapshot> _users;
 
-  _buildUserTile(User user) {
+  /*_buildUserTile(User user) {
     return ListTile(
       leading: CircleAvatar(
         radius: 20.0,
@@ -32,6 +34,62 @@ class _SearchScreenState extends State<SearchScreen> {
           builder: (_) => ProfileSMDScreen(
             currentUserId: Provider.of<UserData>(context).currentUserId,
             userId: user.id,
+          ),
+        ),
+      ),
+    );
+  }*/
+
+  _buildPostTile(Post post) {
+    return ListTile(
+      leading: Container(
+        height: 350,
+        width: 91,
+        //height: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          image: DecorationImage(
+            image: CachedNetworkImageProvider(post.imageUrl),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      title: Text(post.name,
+        style: TextStyle(
+          fontFamily: 'ProductSans',
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),),
+      subtitle: Row(
+        children: <Widget>[
+          Icon(
+            Icons.timer,
+            color: Colors.green,
+          ),
+          Text(post.time + 'days',
+            style: TextStyle(
+                fontFamily: 'ProductSans',
+              color: Colors.green,
+            ),),
+          SizedBox(width: 10.0,),
+          Icon(
+            Icons.attach_money,
+            color: Colors.blue,
+          ),
+          Text(post.price + 'RUB',
+            style: TextStyle(
+                fontFamily: 'ProductSans',
+              color: Colors.blue,
+            ),),
+        ],
+      ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => DetailsScreen(
+            post: post,
+            //currentUserId: Provider.of<UserData>(context).currentUserId,
+            //userId: post.id,
           ),
         ),
       ),
@@ -77,7 +135,7 @@ class _SearchScreenState extends State<SearchScreen> {
           onSubmitted: (input) {
             if (input.isNotEmpty) {
               setState(() {
-                _users = DatabaseService.searchUsers(input);
+                _users = DatabaseService.searchPosts(input);
               });
             }
           },
@@ -139,10 +197,17 @@ class _SearchScreenState extends State<SearchScreen> {
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (BuildContext context, int index) {
+              Post post = Post.fromDoc(snapshot.data.documents[index]);
+              return _buildPostTile(post);
+            },
+          );
+          /*return ListView.builder(
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (BuildContext context, int index) {
               User user = User.fromDoc(snapshot.data.documents[index]);
               return _buildUserTile(user);
             },
-          );
+          );*/
         },
       ),
     );

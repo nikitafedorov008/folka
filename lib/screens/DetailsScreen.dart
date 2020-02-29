@@ -1,16 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:animator/animator.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
-import 'package:folka/screens/CommentsScreen.dart';
-import 'package:folka/screens/DetailsScreen.dart';
-import 'package:folka/screens/ProfileScreen.dart';
-import 'package:folka/services/DatabaseService.dart';
 
 
 class DetailsScreen extends StatefulWidget {
@@ -44,17 +36,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
 
     //Color color = Theme.of(context).primaryColor;
-    Color color = Colors.green;
+    Color color = Colors.black;
 
     Widget buttonSection = Container(
-      //color: Colors.black12,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children:[
-          buildButtonColumn(color, Icons.call, "CALL",),
-          buildButtonColumn(color, Icons.near_me, "ROUTE"),
-          buildButtonColumn(color, Icons.share, "SHARE"),
-        ],
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        color: Colors.black12,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children:[
+              buildButtonColumn(color, Icons.call, "CALL",),
+              buildButtonColumn(color, Icons.near_me, "ROUTE"),
+              buildButtonColumn(color, Icons.share, "SHARE"),
+            ],
+          ),
+        ),
       ),
     );
 
@@ -69,24 +67,37 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 Container(
                   padding: const EdgeInsets.only(bottom:8),
                   child: Text(
-                    //"Japanism",
                     widget.post.name,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Row(
                   children: <Widget>[
+                    Icon(
+                      Icons.timer,
+                      color: Colors.green,
+                      size: 32.0,
+                    ),
                     Text(
-                      //"Kyoto",
                       widget.post.price + 'RUB',
-                      style: TextStyle(color: Colors.green, fontFamily: 'ProductSans'),
-                    ),
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontFamily: 'ProductSans',
+                          fontSize: 22.0,
+                      ),),
                     SizedBox(width: 10,),
-                    Text(
-                      //"Kyoto",
-                      widget.post.time + 'DAYS',
-                      style: TextStyle(color: Colors.indigo, fontFamily: 'ProductSans'),
+                    Icon(
+                      Icons.attach_money,
+                      color: Colors.blue,
+                      size: 32.0,
                     ),
+                    Text(
+                      widget.post.time + 'DAYS',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontFamily: 'ProductSans',
+                          fontSize: 22.0,
+                      ),),
                   ],
                 ),
               ],
@@ -112,6 +123,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
           return<Widget>[
             SliverAppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               expandedHeight: 350.0,
               floating: false,
               pinned: true,
@@ -135,12 +148,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
         },
         body: ListView(
           children: <Widget>[
-            /*Image.asset(
-              "images/japanism.jpg",
-              width: 600,
-              height: 241,
-              fit: BoxFit.cover,
-            ),*/
             /*Container(
               height: 350,
               width: 241,
@@ -153,8 +160,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             ),*/
-            titleSection,
             buttonSection,
+            titleSection,
             textSection,
           ],
         ),

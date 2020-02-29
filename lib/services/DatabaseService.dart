@@ -24,6 +24,12 @@ class DatabaseService {
     return users;
   }
 
+  static Future<QuerySnapshot> searchPosts(String name) {
+    Future<QuerySnapshot> posts =
+    feedRef.where('name', isGreaterThanOrEqualTo: name).getDocuments();
+    return posts;
+  }
+
   static void createPost(Post post) {
     postsRef.document(post.authorId).collection('userPosts').add({
       'imageUrl': post.imageUrl,

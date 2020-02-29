@@ -101,6 +101,11 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
     final String currentUserId = Provider.of<UserData>(context).currentUserId;
     return Scaffold(
       appBar: AppBar(
+        /*shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30.0),
+          ),
+        ),*/
         bottomOpacity: 0.0,
         elevation: 0,
         //centerTitle: true,
