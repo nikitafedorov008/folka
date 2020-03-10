@@ -21,32 +21,6 @@ class HomeScreenAndroid extends StatefulWidget {
 class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
   int bottomSelectedIndex = 0;
 
-
-  /*List<BottomNavigationBarItem> buildBottomNavBarItems() {
-    return [
-      BottomNavigationBarItem(
-          icon: new Icon(Icons.domain),
-          title: new Text('Home')
-      ),
-      BottomNavigationBarItem(
-        icon: new Icon(Icons.search),
-        title: new Text('Search'),
-      ),
-      BottomNavigationBarItem(
-          icon: Icon(Icons.add_circle_outline, color: Colors.transparent,),
-          title: Text('Add')
-      ),
-      BottomNavigationBarItem(
-          icon: Icon(Icons.event),
-          title: Text('Activity')
-      ),
-      BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
-          title: Text('Profile')
-      ),
-    ];
-  }*/
-
   PageController pageController = PageController(
     initialPage: 0,
     keepPage: true,
@@ -206,14 +180,4 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
       ),
     );
   }
-
-  /*Widget _buildFab(BuildContext context) {
-    final icons = [ Icons.sms, Icons.mail, Icons.phone ];
-    child: FloatingActionButton(
-      onPressed: () { },
-      tooltip: 'Increment',
-      child: Icon(Icons.add_circle_outline),
-      elevation: 2.0,
-    );
-  }*/
 }

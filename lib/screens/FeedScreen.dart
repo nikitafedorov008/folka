@@ -57,7 +57,7 @@ class _FeedScreenState extends State<FeedScreen> {
                         }
                         User author = snapshot.data;
                         return GridPostView(
-                          currentUserId: widget.currentUserId,
+                          //currentUserId: widget.currentUserId,
                           post: post,
                           author: author,
                         );

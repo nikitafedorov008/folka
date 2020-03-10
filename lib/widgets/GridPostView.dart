@@ -86,6 +86,7 @@ class _PostViewState extends State<GridPostView> {
       MaterialPageRoute(
         builder: (_) => DetailsScreen(
           post: widget.post,
+          author: widget.author,
           //likeCount: _likeCount,
         ),
       ),

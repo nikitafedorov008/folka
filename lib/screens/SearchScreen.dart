@@ -7,6 +7,9 @@ import 'package:folka/models/User.dart';
 import 'package:folka/screens/DetailsScreen.dart';
 import 'package:folka/screens/ProfileScreen.dart';
 import 'package:folka/services/DatabaseService.dart';
+import 'package:folka/widgets/GridPostView.dart';
+import 'package:folka/widgets/PostView.dart';
+import 'package:folka/widgets/SearchPostView.dart';
 import 'package:provider/provider.dart';
 import 'ProfleSmbScreen.dart';
 
@@ -41,58 +44,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }*/
 
   _buildPostTile(Post post) {
-    return ListTile(
-      leading: Container(
-        height: 350,
-        width: 91,
-        //height: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(post.imageUrl),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      title: Text(post.name,
-        style: TextStyle(
-          fontFamily: 'ProductSans',
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-        ),),
-      subtitle: Row(
-        children: <Widget>[
-          Icon(
-            Icons.timer,
-            color: Colors.green,
-          ),
-          Text(post.time + 'days',
-            style: TextStyle(
-                fontFamily: 'ProductSans',
-              color: Colors.green,
-            ),),
-          SizedBox(width: 10.0,),
-          Icon(
-            Icons.attach_money,
-            color: Colors.blue,
-          ),
-          Text(post.price + 'RUB',
-            style: TextStyle(
-                fontFamily: 'ProductSans',
-              color: Colors.blue,
-            ),),
-        ],
-      ),
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => DetailsScreen(
-            post: post,
-            //currentUserId: Provider.of<UserData>(context).currentUserId,
-            //userId: post.id,
-          ),
-        ),
-      ),
+    return PostView(
+      post: post,
     );
   }
 
@@ -194,13 +147,22 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             );
           }
-          return ListView.builder(
-            itemCount: snapshot.data.documents.length,
-            itemBuilder: (BuildContext context, int index) {
-              Post post = Post.fromDoc(snapshot.data.documents[index]);
-              return _buildPostTile(post);
-            },
-          );
+          //User author = snapshot.data;
+          return OrientationBuilder(
+          builder: (context, orentation) {
+            return GridView.builder(
+              gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: orentation == Orientation.portrait ? 1 : 2,),
+              itemCount: snapshot.data.documents.length,
+              itemBuilder: (BuildContext context, int index) {
+                Post post = Post.fromDoc(snapshot.data.documents[index]);
+                return SearchPostView(
+                  post: post, /*author: post.authorId,*/
+                );
+              },
+            );
+          },);
           /*return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (BuildContext context, int index) {

@@ -5,21 +5,21 @@ import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
 
 
-class DetailsScreen extends StatefulWidget {
+class DetailsSearchScreen extends StatefulWidget {
 
   final Post post;
-  final User author;
+  // User author;
 
-  DetailsScreen({this.post, this.author});
+  DetailsSearchScreen({this.post, /*this.author*/});
 
   @override
   State<StatefulWidget> createState() {
 
-    return _DetailsScreenState();
+    return _DetailsSearchScreenState();
   }
 }
 
-class _DetailsScreenState extends State<DetailsScreen> {
+class _DetailsSearchScreenState extends State<DetailsSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       ),
     );
 
-    Widget authorSection = Row(
+    /*Widget authorSection = Row(
       children: <Widget>[
         CircleAvatar(
           radius: 25.0,
@@ -84,7 +84,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
         ),
       ],
-    );
+    );*/
 
     Widget titleSection = Container(
       padding: const EdgeInsets.all(33),
@@ -193,7 +193,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             buttonSection,
             titleSection,
             textSection,
-            authorSection,
+            //authorSection,
           ],
         ),
       ),

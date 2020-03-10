@@ -27,6 +27,7 @@ class DatabaseService {
   static Future<QuerySnapshot> searchPosts(String name) {
     Future<QuerySnapshot> posts =
     feedRef.where('name', isGreaterThanOrEqualTo: name).getDocuments();
+    usersRef.where('name', isGreaterThanOrEqualTo: name).getDocuments();
     return posts;
   }
 
