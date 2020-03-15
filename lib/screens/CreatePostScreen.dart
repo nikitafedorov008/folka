@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +14,18 @@ import 'package:provider/provider.dart';
 
 class CreatePostScreen extends StatefulWidget {
 
+  final String currentUserId;
+  final String userId;
   final User user;
 
-  CreatePostScreen({this.user});
+  CreatePostScreen({this.userId, this.currentUserId, this.user});
 
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
+  User user;
   File _image;
   TextEditingController _captionController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -285,6 +287,26 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     );
   }
 
+  phoneTextFiled(User user) {
+    return user.id == Provider.of<UserData>(context).currentUserId ?
+    _phone = widget.user.phone:
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      child: TextFormField(
+        controller: _locationController,
+        style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
+        decoration: InputDecoration(
+          border: new OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18.0),
+            borderSide: new BorderSide(color: Colors.greenAccent),
+          ),
+          labelText: 'Phone',
+        ),
+        onChanged: (input) => _phone = input,
+      ),
+    );
+  }
+
   _handleImage(ImageSource source) async {
     Navigator.pop(context);
     File imageFile = await ImagePicker.pickImage(source: source);
@@ -483,6 +505,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ),
                 ),
                 SizedBox(height: 10.0,),
+                //phoneTextFiled(user),
+                //SizedBox(height: 10.0,),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextFormField(

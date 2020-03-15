@@ -113,7 +113,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
         children: <Widget>[
           FeedScreen(currentUserId: currentUserId),
           SearchScreen(),
-          CreatePostScreen(),
+          CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
           ActivityScreen(currentUserId: currentUserId),
           ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
         ],

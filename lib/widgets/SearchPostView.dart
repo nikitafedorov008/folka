@@ -14,9 +14,9 @@ import 'package:folka/services/DatabaseService.dart';
 class SearchPostView extends StatefulWidget {
   final String currentUserId;
   final Post post;
-  //final User author;
+  final User author;
 
-  SearchPostView({this.currentUserId, this.post, /*this.author*/});
+  SearchPostView({this.currentUserId, this.post, this.author});
 
   @override
   _PostViewState createState() => _PostViewState();

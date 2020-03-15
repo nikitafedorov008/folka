@@ -3,12 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class DetailsScreen extends StatefulWidget {
 
   final Post post;
   final User author;
+  Future<void> _launched;
 
   DetailsScreen({this.post, this.author});
 
@@ -46,9 +48,72 @@ class _DetailsScreenState extends State<DetailsScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children:[
-              buildButtonColumn(color, Icons.call, "CALL",),
+              FlatButton(
+                onPressed: makeCall,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    Icon(Icons.call, color: Colors.black),
+                    Container(
+                      margin: const EdgeInsets.only(top:8),
+                      child: Text(
+                        'CALL',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w100,
+                          color: color,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              FlatButton(
+                //onPressed: makeCall,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    Icon(Icons.near_me, color: Colors.black),
+                    Container(
+                      margin: const EdgeInsets.only(top:8),
+                      child: Text(
+                        'ROUTE',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w100,
+                          color: color,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              FlatButton(
+                //onPressed: makeCall,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:[
+                    Icon(Icons.share, color: Colors.black),
+                    Container(
+                      margin: const EdgeInsets.only(top:8),
+                      child: Text(
+                        'SHARE',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w100,
+                          color: color,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              /*buildButtonColumn(color, Icons.call, "CALL",),
               buildButtonColumn(color, Icons.near_me, "ROUTE"),
-              buildButtonColumn(color, Icons.share, "SHARE"),
+              buildButtonColumn(color, Icons.share, "SHARE"),*/
             ],
           ),
         ),
@@ -203,23 +268,35 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   Column buildButtonColumn(Color color, IconData icon, String lable){
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children:[
-        Icon(icon, color: color),
-        Container(
-          margin: const EdgeInsets.only(top:8),
-          child: Text(
-            lable,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w100,
-              color: color,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:[
+          Icon(icon, color: color),
+          Container(
+            margin: const EdgeInsets.only(top:8),
+            child: Text(
+              lable,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w100,
+                color: color,
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
     );
+  }
+
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  makeCall() {
+    _makePhoneCall('tel:${widget.author.phone}');
   }
 
 }

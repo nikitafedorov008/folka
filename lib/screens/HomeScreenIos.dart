@@ -43,7 +43,7 @@ class _HomeScreenIosState extends State<HomeScreenIos> {
         children: <Widget>[
           FeedScreen(currentUserId: currentUserId),
           SearchScreen(),
-          CreatePostScreen(),
+          CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
           ActivityScreen(currentUserId: currentUserId),
           ProfileScreen(
             currentUserId: currentUserId,

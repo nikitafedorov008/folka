@@ -21,6 +21,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
   Future<QuerySnapshot> _users;
+  Future<QuerySnapshot> _posts;
 
   /*_buildUserTile(User user) {
     return ListTile(
@@ -53,7 +54,8 @@ class _SearchScreenState extends State<SearchScreen> {
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _searchController.clear());
     setState(() {
-      _users = null;
+      //_users = null;
+      _posts = null;
     });
   }
 
@@ -73,13 +75,13 @@ class _SearchScreenState extends State<SearchScreen> {
             hintStyle: TextStyle(fontFamily: 'ProductSans'),
             prefixIcon: Icon(
               Icons.search,
-              color: Colors.grey,
+              //color: Colors.grey,
               size: 30.0,
             ),
             suffixIcon: IconButton(
               icon: Icon(
                 Icons.clear,
-                color: Colors.grey,
+                //color: Colors.grey,
               ),
               onPressed: _clearSearch,
             ),
@@ -88,13 +90,15 @@ class _SearchScreenState extends State<SearchScreen> {
           onSubmitted: (input) {
             if (input.isNotEmpty) {
               setState(() {
-                _users = DatabaseService.searchPosts(input);
+                //_users = DatabaseService.searchUsers(input);
+                _posts = DatabaseService.searchPosts(input);
               });
             }
           },
         ),
       ),
-      body: _users == null
+      //body: _users == null
+        body: _posts == null
           ? Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -117,7 +121,8 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       )
           : FutureBuilder(
-        future: _users,
+        //future: _users,
+          future: _posts,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -157,8 +162,10 @@ class _SearchScreenState extends State<SearchScreen> {
               itemCount: snapshot.data.documents.length,
               itemBuilder: (BuildContext context, int index) {
                 Post post = Post.fromDoc(snapshot.data.documents[index]);
+                User author;
                 return SearchPostView(
-                  post: post, /*author: post.authorId,*/
+                  post: post,
+                  author: author,
                 );
               },
             );
