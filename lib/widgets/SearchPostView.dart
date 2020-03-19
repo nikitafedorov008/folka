@@ -80,7 +80,7 @@ class _PostViewState extends State<SearchPostView> {
     }
   }
 
-  GoToDetails() {
+  pushToDetails() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -96,7 +96,7 @@ class _PostViewState extends State<SearchPostView> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: GoToDetails,
+      onTap: pushToDetails,
       child: Container(
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),

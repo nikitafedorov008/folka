@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
+import 'package:folka/screens/ProfleSmbScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -258,8 +259,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
             buttonSection,
             titleSection,
             textSection,
-            authorSection,
+            GestureDetector(
+              onTap: pushToProfile,
+                child: authorSection),
           ],
+        ),
+      ),
+    );
+  }
+
+  pushToProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ProfileSMDScreen(
+          userId: widget.author.id,
+          //author: widget.author,
+          //likeCount: _likeCount,
         ),
       ),
     );
