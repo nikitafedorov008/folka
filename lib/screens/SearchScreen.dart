@@ -162,10 +162,20 @@ class _SearchScreenState extends State<SearchScreen> {
               itemCount: snapshot.data.documents.length,
               itemBuilder: (BuildContext context, int index) {
                 Post post = Post.fromDoc(snapshot.data.documents[index]);
-                User author;
-                return SearchPostView(
-                  post: post,
-                  author: author,
+                //User author;
+                return FutureBuilder(
+                    future: DatabaseService.getUserWithId(post.authorId),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        return SizedBox.shrink();
+                      }
+                      User author = snapshot.data;
+                      return SearchPostView(
+                        //currentUserId: widget.currentUserId,
+                        post: post,
+                        author: author,
+                      );
+                    }
                 );
               },
             );

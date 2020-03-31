@@ -7,7 +7,7 @@ import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/screens/CommentsScreen.dart';
 import 'package:folka/screens/DetailsScreen.dart';
-import 'package:folka/screens/DetailsSearchScreen.dart';
+import 'package:folka/screens/SearchScreen.dart';
 import 'package:folka/screens/ProfileScreen.dart';
 import 'package:folka/services/DatabaseService.dart';
 
@@ -84,8 +84,9 @@ class _PostViewState extends State<SearchPostView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => DetailsSearchScreen(
+        builder: (_) => DetailsScreen(
           post: widget.post,
+          author: widget.author,
           //author: widget.author,
           //likeCount: _likeCount,
         ),

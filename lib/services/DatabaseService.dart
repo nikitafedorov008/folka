@@ -40,7 +40,6 @@ class DatabaseService {
       'time': post.time,
       'category': post.category,
       'likeCount': post.likeCount,
-      'phone': post.phone,
       'authorId': post.authorId,
       'timestamp': post.timestamp,
     });
