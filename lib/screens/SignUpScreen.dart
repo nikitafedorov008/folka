@@ -283,6 +283,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   ],
                 ),
               ),
+              Text(
+                  'by clicking sign up you agree to the terms of use'
+              ),
             ],
           ),
         ),

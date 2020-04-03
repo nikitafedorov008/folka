@@ -1,16 +1,20 @@
 # folka
 
-Flutter edition of Polka
+Flutter edition of Polka(Shelf) app
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is kind of Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Here there is list of few resources are used in this Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Marcus NG instagram clone](https://github.com/MarcusNg/flutter_instagram_clone)
+- [Stuff: open source marketplace app example](https://github.com/dvmjoshi/stuff)
+- [Documentation for migration to android X (if your project has no android X packages)](https://www.cnblogs.com/hupo376787/p/10563454.html)
+- [Bottom bar navigation with floating action button](https://medium.com/coding-with-flutter/flutter-bottomappbar-navigation-with-fab-8b962bb55013)
+- [Illustrations for projects](https://undraw.co/)
 
-For help getting started with Flutter, view our
+For help getting started with Flutter, view
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+Also check [pub.dev](https://pub.dev/) to find and use packages to build Dart and Flutter apps.
