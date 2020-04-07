@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:folka/services/AuthService.dart';
@@ -94,16 +95,55 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
+  List<String> items = [
+    "Saint-Peterburg",
+    "Moscow",
+    "Novosibirsk",
+    "Tula",
+    "Tula",
+    "Tula",
+    "Tula",
+    "Tula",
+  ];
+  int selected_item = 0;
+
+  _iosItemPicker(){
+    showModalBottomSheet<int>(
+        context: context,
+        builder: (BuildContext context){
+          return CupertinoPicker(
+            itemExtent: 50.0,
+            onSelectedItemChanged: (index){
+              setState(() {
+                selected_item = index;
+                print("You selected ${items[selected_item]}");
+              });
+            },
+            children: List<Widget>.generate(items.length, (index){
+              return Center(
+                child: GestureDetector(
+                  child: Text(items[index]),
+                ),
+              );
+            }),
+          );
+        }
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              //SizedBox(height: 24,),
               Text(
                 'Sign Up',
                 style: TextStyle(
@@ -189,6 +229,33 @@ class _SignupScreenState extends State<SignupScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 30.0,
+                        vertical: 5.0,
+                      ),
+                      child: GestureDetector(
+                        //onTap: () async {_showSelectRegionDialog();},
+                        onTap: _iosItemPicker,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                            border: Border.all(color: Colors.grey),
+                          ),
+                          padding: EdgeInsets.fromLTRB(10,20,20,20,),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Region ",
+                                style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
+                              //Text("$_region",
+                                //style: TextStyle(fontFamily: 'ProductSans'),)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 30.0,
                         vertical: 10.0,
                       ),
                       child: TextFormField(
@@ -264,7 +331,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     SizedBox(height: 20.0),
                     Container(
                       width: 250.0,
-                      child: FlatButton(
+                      child: OutlineButton(
+                        borderSide: BorderSide(color: Colors.greenAccent),
+                        highlightedBorderColor: Colors.green,
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(28.0)),
                         onPressed: () => Navigator.pop(context),
@@ -283,8 +352,25 @@ class _SignupScreenState extends State<SignupScreen> {
                   ],
                 ),
               ),
-              Text(
-                  'by clicking sign up you agree to the terms of use'
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                          'by clicking sign up you agree to the '
+                      ),
+                      Text(
+                          'terms of use',
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

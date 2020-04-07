@@ -85,7 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 20.0),
                     Container(
                       width: 250.0,
-                      child: FlatButton(
+                      child: OutlineButton(
+                        borderSide: BorderSide(color: Colors.greenAccent),
+                        highlightedBorderColor: Colors.green,
                         onPressed: _submit,
                         color: Colors.greenAccent,
                         shape: RoundedRectangleBorder(
