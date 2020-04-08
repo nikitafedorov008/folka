@@ -3,8 +3,6 @@
 Flutter edition of Polka(Shelf) app
 
 ## Getting Started
-
-
              _ _         
             | | |        
  _ __   ___ | | | ____ _ 
