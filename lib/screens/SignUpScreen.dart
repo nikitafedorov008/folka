@@ -19,6 +19,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   String birthDate = "";
   int age = -1;
+  String _region = "";
 
   _submit() {
     _birthdate = birthDate;
@@ -109,25 +110,34 @@ class _SignupScreenState extends State<SignupScreen> {
   ];
   int selected_item = 0;
 
-  _iosItemPicker(){
-    showModalBottomSheet<int>(
+  _iosItemPicker() async {
+   final selectedItem = await showCupertinoModalPopup<String>(
         context: context,
         builder: (BuildContext context){
-          return CupertinoPicker(
-            itemExtent: 50.0,
-            onSelectedItemChanged: (index){
-              setState(() {
-                selected_item = index;
-                print("You selected ${items[selected_item]}");
-              });
-            },
-            children: List<Widget>.generate(items.length, (index){
-              return Center(
-                child: GestureDetector(
-                  child: Text(items[index]),
-                ),
-              );
-            }),
+          return Container(
+            height: MediaQuery.of(context).size.width,
+            child: CupertinoPicker(
+              itemExtent: 50.0,
+              onSelectedItemChanged: (index){
+                setState(() {
+                  selected_item = index;
+                  _region = '${items[index]}';
+                  print("You selected ${items[selected_item]}");
+                });
+              },
+              children: List<Widget>.generate(items.length, (index){
+                return Center(
+                  child: GestureDetector(
+                    onTap:() {
+                      _region = '${items[index]}';
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                    child: Text(items[index]),
+                  ),
+                );
+              }),
+            ),
           );
         }
     );
@@ -247,8 +257,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             children: <Widget>[
                               Text("Region ",
                                 style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
-                              //Text("$_region",
-                                //style: TextStyle(fontFamily: 'ProductSans'),)
+                              Text("$_region",
+                                style: TextStyle(fontFamily: 'ProductSans'),),
                             ],
                           ),
                         ),
