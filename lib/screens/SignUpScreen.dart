@@ -96,14 +96,16 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   List<String> items = [
-    "Saint-Peterburg",
-    "Moscow",
-    "Novosibirsk",
-    "Tula",
-    "Tula",
-    "Tula",
-    "Tula",
-    "Tula",
+    'Saint-Peterburg',
+    'Leningradskaya oblast',
+    'Moscow',
+    'Moscowskaya oblast',
+    'Novosibirsk',
+    'Novosibirskaya oblast',
+    'Ryazan',
+    'Ryazanskaya oblast',
+    'Tula',
+    'Tulskaya oblast',
   ];
   int selected_item = 0;
 
@@ -130,7 +132,6 @@ class _SignupScreenState extends State<SignupScreen> {
         }
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

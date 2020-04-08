@@ -126,13 +126,17 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   _androidBottomSheet() {
-    showBottomSheet(
+    showModalBottomSheet(
         context: context,
+        backgroundColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
         builder: (BuildContext context) {
           return Card(
-            color: Colors.transparent,
+            color: Colors.greenAccent,
             child: Container(
-              color: Colors.greenAccent,
+              //color: Colors.transparent,
               child: new Wrap(
                 children: <Widget>[
                   Padding(
@@ -154,8 +158,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     },
                   ),
                   new ListTile(
-                    leading: new Icon(Icons.cancel),
-                    title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans'),),
+                    leading: new Icon(Icons.cancel, color: Colors.redAccent,),
+                    title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.redAccent),),
                     onTap: () => Navigator.pop(context),
                   ),
                 ],
