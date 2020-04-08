@@ -3,15 +3,6 @@
 Flutter edition of Polka(Shelf) app
 
 ## Getting Started
-             _ _         
-            | | |        
- _ __   ___ | | | ____ _ 
-| '_ \ / _ \| | |/ / _` |
-| |_) | (_) | |   < (_| |
-| .__/ \___/|_|_|\_\__,_|
-| |                      
-|_|                      
-
 
 This project is kind of Flutter application.
 
