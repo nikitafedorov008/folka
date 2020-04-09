@@ -404,9 +404,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   child: OrientationBuilder(
                     builder: (context, orentation) {
                       return Container(
-                        height: 220,
-                        width: orentation == Orientation.portrait ? 420 : 220,
-                        color: Colors.white,
+                        height: 250,
+                        width: orentation == Orientation.portrait ? 520 : 320,
+                        //color: Colors.white,
                         child: _image == null
                             ? Image(image: AssetImage(
                             'assets/images/images.png'),)

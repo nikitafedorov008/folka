@@ -141,7 +141,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
             BottomNavigationBarItem(
               icon: Icon(Icons.search, color: Colors.black38,),
               title: Text('Search'),
-              activeIcon: Icon(Icons.domain, color: Colors.black,),
+              activeIcon: Icon(Icons.search, color: Colors.black,),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.add_circle_outline, color: Colors.transparent,),
@@ -150,12 +150,12 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
             BottomNavigationBarItem(
               icon: Icon(Icons.mail_outline, color: Colors.black38,),
               title: Text('Activity'),
-              activeIcon: Icon(Icons.domain, color: Colors.black,),
+              activeIcon: Icon(Icons.mail_outline, color: Colors.black,),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline, color: Colors.black38,),
               title: Text('Profile'),
-              activeIcon: Icon(Icons.domain, color: Colors.black,),
+              activeIcon: Icon(Icons.person_outline, color: Colors.black,),
             ),
           ],
           selectedItemColor: Colors.black87,

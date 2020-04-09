@@ -67,6 +67,8 @@ flutter:
    - assets/images/images.png
    - assets/images/notfound.png
    - assets/images/searching.png
+   - assets/images/readingsidedoodle.png
+   - assets/images/messydoodle.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

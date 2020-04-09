@@ -105,12 +105,13 @@ class _SearchScreenState extends State<SearchScreen> {
           child: OrientationBuilder(
             builder: (context, orentation) {
               return Container(
-                height: 320,
-                width: orentation == Orientation.portrait ? 420 : 220,
+                height: 520,
+                width: orentation == Orientation.portrait ? 350 : 220,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset('assets/images/searching.png'),
+                    Container(
+                        child: Image.asset('assets/images/readingsidedoodle.png')),
                     Text('Search for something or somebody',
                       style: TextStyle(fontFamily: 'ProductSans'),),
                   ],
@@ -141,7 +142,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.asset('assets/images/notfound.png'),
+                          Image.asset('assets/images/messydoodle.png'),
                           Text('Nothing found, try again later',
                             style: TextStyle(fontFamily: 'ProductSans'),),
                         ],
