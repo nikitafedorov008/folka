@@ -55,7 +55,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:[
-                    Icon(Icons.call, color: Colors.black),
+                    Icon(Icons.call, /*color: Colors.black*/),
                     Container(
                       margin: const EdgeInsets.only(top:8),
                       child: Text(
@@ -63,7 +63,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w100,
-                          color: color,
+                          //color: color,
                         ),
                       ),
                     )
@@ -76,7 +76,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:[
-                    Icon(Icons.near_me, color: Colors.black),
+                    Icon(Icons.near_me, /*color: Colors.black*/),
                     Container(
                       margin: const EdgeInsets.only(top:8),
                       child: Text(
@@ -84,7 +84,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w100,
-                          color: color,
+                          //color: color,
                         ),
                       ),
                     )
@@ -97,7 +97,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:[
-                    Icon(Icons.share, color: Colors.black),
+                    Icon(Icons.share, /*color: Colors.black*/),
                     Container(
                       margin: const EdgeInsets.only(top:8),
                       child: Text(
@@ -105,7 +105,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w100,
-                          color: color,
+                          //color: color,
                         ),
                       ),
                     )
