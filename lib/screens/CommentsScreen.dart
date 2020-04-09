@@ -113,10 +113,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         title: Text(
           'Mail',
-          style: TextStyle(fontFamily: 'ProductSans', color: Colors.black),
+          style: TextStyle(fontFamily: 'ProductSans',),
         ),
       ),
       body: Column(
