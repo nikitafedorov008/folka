@@ -154,7 +154,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       /*floatingActionButton: Stack(
         children: <Widget>[
           Padding(padding: EdgeInsets.only(left:31),
@@ -176,11 +176,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ],
       ),*/
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         title: Text(
           'Edit Profile',
           style: TextStyle(
-            color: Colors.black,
+            //color: Colors.black,
             fontFamily: 'ProductSans',
           ),
         ),

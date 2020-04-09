@@ -13,6 +13,22 @@ import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
+/*
+ ______   ______     __         __  __     ______
+/\  == \ /\  __ \   /\ \       /\ \/ /    /\  __ \
+\ \  _-/ \ \ \/\ \  \ \ \____  \ \  _"-.  \ \  __ \ ru
+ \ \_\    \ \_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\
+  \/_/     \/_____/   \/_____/   \/_/\/_/   \/_/\/_/
+                          \\||
+                          ||\\
+ ______     __  __     ______     __         ______
+/\  ___\   /\ \_\ \   /\  ___\   /\ \       /\  ___\
+\ \___  \  \ \  __ \  \ \  __\   \ \ \____  \ \  __\ en
+ \/\_____\  \ \_\ \_\  \ \_____\  \ \_____\  \ \_\
+  \/_____/   \/_/\/_/   \/_____/   \/_____/   \/_/
+
+ */
+
 class MyApp extends StatelessWidget {
   Widget _getScreenId() {
     return StreamBuilder<FirebaseUser>(
@@ -37,10 +53,20 @@ class MyApp extends StatelessWidget {
         title: 'shelf',
         debugShowCheckedModeBanner: true,
         theme: ThemeData(
+          brightness: Brightness.light,
           primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
-            color: Colors.greenAccent,
+            color: Colors.black,
           ),
           primaryColor: Colors.greenAccent,
+          hintColor: Colors.black38,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
+            color: Colors.white,
+          ),
+          hintColor: Colors.white38,
+
         ),
         home: _getScreenId(),
         routes: {

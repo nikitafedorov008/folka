@@ -63,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         bottomOpacity: 0.0,
         elevation: 1,
         title: TextField(

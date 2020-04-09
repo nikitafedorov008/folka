@@ -233,7 +233,7 @@ class _PostViewState extends State<GridPostView> {
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                         fontFamily: 'ProductSans',
-                        color: Colors.black,
+                        //color: Colors.black,
                       ),
                     ),
                     SizedBox(height: 2,),

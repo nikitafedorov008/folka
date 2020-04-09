@@ -280,7 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'ProductSans',
-                                      color: Colors.black54,
+                                      //color: Colors.black54,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),

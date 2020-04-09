@@ -129,40 +129,45 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
         builder: (BuildContext context) {
-          return Card(
-            color: Colors.greenAccent,
-            child: Container(
-              //color: Colors.transparent,
-              child: new Wrap(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: new Text('Add photo', style: TextStyle(fontFamily: 'ProductSans'),),
-                  ),
-                  new ListTile(
-                      leading: new Icon(Icons.camera),
-                      title: new Text('Take Photo', style: TextStyle(fontFamily: 'ProductSans'),),
+          return Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              //color: Colors.white,
+              child: Container(
+                //color: Colors.transparent,
+                child: new Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: new Text('Add photo', style: TextStyle(
+                          fontFamily: 'ProductSans',
+                          fontSize: 18.0),),
+                    ),
+                    new ListTile(
+                        leading: new Icon(Icons.camera),
+                        title: new Text('Take Photo', style: TextStyle(fontFamily: 'ProductSans'),),
+                        onTap: () => {
+                          _handleImage(ImageSource.camera),
+                        }
+                    ),
+                    new ListTile(
+                      leading: new Icon(Icons.photo),
+                      title: new Text('Choose from Gallery', style: TextStyle(fontFamily: 'ProductSans'),),
                       onTap: () => {
-                        _handleImage(ImageSource.camera),
-                      }
-                  ),
-                  new ListTile(
-                    leading: new Icon(Icons.photo),
-                    title: new Text('Choose from Gallery', style: TextStyle(fontFamily: 'ProductSans'),),
-                    onTap: () => {
-                      _handleImage(ImageSource.gallery),
-                    },
-                  ),
-                  new ListTile(
-                    leading: new Icon(Icons.cancel, color: Colors.redAccent,),
-                    title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.redAccent),),
-                    onTap: () => Navigator.pop(context),
-                  ),
-                ],
+                        _handleImage(ImageSource.gallery),
+                      },
+                    ),
+                    new ListTile(
+                      leading: new Icon(Icons.cancel, color: Colors.redAccent,),
+                      title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.redAccent),),
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

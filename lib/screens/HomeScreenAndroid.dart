@@ -86,7 +86,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
         backgroundColor: Colors.transparent,
         title: Text(
           'shelf', style:  TextStyle(
-            color: Colors.black,
+            //color: Colors.black,
             fontFamily: 'ProductSans',
             fontSize: 24.0
         ),
@@ -100,7 +100,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
         ),*/
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.exit_to_app, color: Colors.black,),
+            icon: Icon(Icons.exit_to_app, /*color: Colors.black,*/),
             onPressed: AuthService.logout,
           )
         ],
@@ -134,24 +134,28 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
           backgroundColor: Colors.greenAccent,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.domain),
+              icon: Icon(Icons.domain, color: Colors.black38,),
               title: Text('Home'),
+              activeIcon: Icon(Icons.domain, color: Colors.black,),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.search, color: Colors.black38,),
               title: Text('Search'),
+              activeIcon: Icon(Icons.domain, color: Colors.black,),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.add_circle_outline, color: Colors.transparent,),
               title: Text('Add'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.mail_outline),
+              icon: Icon(Icons.mail_outline, color: Colors.black38,),
               title: Text('Activity'),
+              activeIcon: Icon(Icons.domain, color: Colors.black,),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
+              icon: Icon(Icons.person_outline, color: Colors.black38,),
               title: Text('Profile'),
+              activeIcon: Icon(Icons.domain, color: Colors.black,),
             ),
           ],
           selectedItemColor: Colors.black87,

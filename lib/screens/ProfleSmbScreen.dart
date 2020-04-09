@@ -218,7 +218,7 @@ class _ProfileSMDScreenState extends State<ProfileSMDScreen> {
         title: Text(
           'shelf',
           style: TextStyle(
-            color: Colors.black,
+            //color: Colors.black,
             fontFamily: 'ProductSans',
           ),
         ),
@@ -297,7 +297,7 @@ class _ProfileSMDScreenState extends State<ProfileSMDScreen> {
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'ProductSans',
-                                      color: Colors.black54,
+                                      //color: Colors.black54,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
