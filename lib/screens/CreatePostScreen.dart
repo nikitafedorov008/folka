@@ -221,6 +221,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     showDialog(context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
             //backgroundColor: Colors.greenAccent,
             title: Text('Choose category', style: TextStyle(fontFamily: 'ProductSans'),),
             children: <Widget>[

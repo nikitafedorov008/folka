@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folka/models/UserData.dart';
 import 'package:folka/screens/DetailsScreen.dart';
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: true,
         theme: ThemeData(
           brightness: Brightness.light,
+          appBarTheme: Theme.of(context).appBarTheme.copyWith(
+            color: Colors.white,
+          ),
           primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
             color: Colors.black,
           ),
@@ -65,8 +69,10 @@ class MyApp extends StatelessWidget {
           primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
             color: Colors.white,
           ),
+          popupMenuTheme: Theme.of(context).popupMenuTheme.copyWith(
+            color: CupertinoColors.darkBackgroundGray,
+          ),
           hintColor: Colors.white38,
-
         ),
         home: _getScreenId(),
         routes: {

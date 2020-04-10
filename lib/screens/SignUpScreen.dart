@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:folka/services/AuthService.dart';
 import 'package:intl/intl.dart';
@@ -88,14 +89,6 @@ class _SignupScreenState extends State<SignupScreen> {
     return completer.future;
   }
 
-  _androidBottomSheet () {
-    showBottomSheet(
-        context: null,
-        builder: (BuildContext context) {
-        }
-    );
-  }
-
   List<String> items = [
     'Saint-Peterburg',
     'Leningradskaya oblast',
@@ -109,6 +102,11 @@ class _SignupScreenState extends State<SignupScreen> {
     'Tulskaya oblast',
   ];
   int selected_item = 0;
+  var selectedRegion = "Saint-Peterburg";
+
+  _showSelectItemPicker() {
+    return Platform.isIOS ? _iosItemPicker() : _androidItemPicker();
+  }
 
   _iosItemPicker() async {
    final selectedItem = await showCupertinoModalPopup<String>(
@@ -140,6 +138,19 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           );
         }
+    );
+  }
+
+  _androidItemPicker() async {
+    final selectedItem = await showMaterialScrollPicker(
+            context: context,
+            title: "Pick your region",
+            items: items,
+            //selectedItem: selectedRegion,
+            onChanged: (value) => setState(() {
+              selectedRegion = value;
+              _region = '${selectedRegion}';
+            })
     );
   }
 
@@ -244,7 +255,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       child: GestureDetector(
                         //onTap: () async {_showSelectRegionDialog();},
-                        onTap: _iosItemPicker,
+                        onTap: _showSelectItemPicker,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(18.0)),
