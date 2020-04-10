@@ -37,7 +37,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   String _name = '';
   String _price = '';
   String _time = '';
-  String _phone = '';
   String _location = '';
   String _category = '';
   bool _isLoading = false;
@@ -299,26 +298,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     );
   }
 
-  phoneTextFiled(User user) {
-    return user.id == Provider.of<UserData>(context).currentUserId ?
-    _phone = widget.user.phone:
-    Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.0),
-      child: TextFormField(
-        controller: _locationController,
-        style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
-        decoration: InputDecoration(
-          border: new OutlineInputBorder(
-            borderRadius: BorderRadius.circular(18.0),
-            borderSide: new BorderSide(color: Colors.greenAccent),
-          ),
-          labelText: 'Phone',
-        ),
-        onChanged: (input) => _phone = input,
-      ),
-    );
-  }
-
   _handleImage(ImageSource source) async {
     Navigator.pop(context);
     File imageFile = await ImagePicker.pickImage(source: source);
@@ -352,10 +331,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         name: _name,
         price: _price,
         time: _time,
+        location: _location,
         category: _category,
         likeCount: 0,
-        phone: _phone,// = Provider.of<User>(context).phone.toString(),
-        //phone: Provider.of<User>(context).phone,
         authorId: Provider.of<UserData>(context).currentUserId,
         timestamp: Timestamp.fromDate(DateTime.now()),
       );
@@ -365,7 +343,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       // Reset data
       _captionController.clear();
       _locationController.clear();
-      _phoneController.clear();
       _nameController.clear();
       _priceController.clear();
       _timeController.clear();

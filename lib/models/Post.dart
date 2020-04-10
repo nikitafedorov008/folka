@@ -8,7 +8,7 @@ class Post {
   final String price;
   final String name;
   final String time;
-  final String phone;
+  final String location;
   final int likeCount;
   final String authorId;
   final Timestamp timestamp;
@@ -21,7 +21,7 @@ class Post {
     this.price,
     this.name,
     this.time,
-    this.phone,
+    this.location,
     this.likeCount,
     this.authorId,
     this.timestamp,
@@ -36,7 +36,7 @@ class Post {
       price: doc['price'],
       name: doc['name'],
       time: doc['time'],
-      phone: doc['phone'],
+      location: doc['location'],
       likeCount: doc['likeCount'],
       authorId: doc['authorId'],
       timestamp: doc['timestamp'],

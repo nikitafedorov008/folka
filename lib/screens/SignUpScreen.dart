@@ -16,7 +16,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _name, _surname, _birthdate, _email, _phone, _password;
+  String _name, _surname, _birthdate, _address, _email, _phone, _password;
 
   String birthDate = "";
   int age = -1;
@@ -36,7 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       // Logging in the user w/ Firebase
-      AuthService.signUpUser(context, _name, _surname, _birthdate, _email, _phone, _password);
+      AuthService.signUpUser(context, _name, _surname, _birthdate, _address, _email, _phone, _password);
     }
   }
 
@@ -119,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
               onSelectedItemChanged: (index){
                 setState(() {
                   selected_item = index;
-                  _region = '${items[index]}';
+                  _address = '${items[index]}';
                   print("You selected ${items[selected_item]}");
                 });
               },
@@ -127,7 +127,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 return Center(
                   child: GestureDetector(
                     onTap:() {
-                      _region = '${items[index]}';
+                      _address = '${items[index]}';
                       setState(() {});
                       Navigator.pop(context);
                     },
@@ -149,7 +149,7 @@ class _SignupScreenState extends State<SignupScreen> {
             //selectedItem: selectedRegion,
             onChanged: (value) => setState(() {
               selectedRegion = value;
-              _region = '${selectedRegion}';
+              _address = '${selectedRegion}';
             })
     );
   }
@@ -268,7 +268,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             children: <Widget>[
                               Text("Region ",
                                 style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
-                              Text("$_region",
+                              Text("$_address",
                                 style: TextStyle(fontFamily: 'ProductSans'),),
                             ],
                           ),
