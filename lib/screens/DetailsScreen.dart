@@ -41,81 +41,84 @@ class _DetailsScreenState extends State<DetailsScreen> {
     Color color = Colors.black;
 
     Widget buttonSection = Container(
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-        color: Colors.black12,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:[
-              FlatButton(
-                onPressed: makeCall,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Icon(Icons.call, /*color: Colors.black*/),
-                    Container(
-                      margin: const EdgeInsets.only(top:8),
-                      child: Text(
-                        'CALL',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w100,
-                          //color: color,
+      child: Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+          color: Colors.black12,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:[
+                FlatButton(
+                  onPressed: makeCall,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                      Icon(Icons.call, /*color: Colors.black*/),
+                      Container(
+                        margin: const EdgeInsets.only(top:8),
+                        child: Text(
+                          'CALL',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w100,
+                            //color: color,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              FlatButton(
-                //onPressed: makeCall,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Icon(Icons.near_me, /*color: Colors.black*/),
-                    Container(
-                      margin: const EdgeInsets.only(top:8),
-                      child: Text(
-                        'ROUTE',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w100,
-                          //color: color,
+                FlatButton(
+                  //onPressed: makeCall,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                      Icon(Icons.near_me, /*color: Colors.black*/),
+                      Container(
+                        margin: const EdgeInsets.only(top:8),
+                        child: Text(
+                          'ROUTE',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w100,
+                            //color: color,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              FlatButton(
-                //onPressed: makeCall,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Icon(Icons.share, /*color: Colors.black*/),
-                    Container(
-                      margin: const EdgeInsets.only(top:8),
-                      child: Text(
-                        'SHARE',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w100,
-                          //color: color,
+                FlatButton(
+                  //onPressed: makeCall,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                      Icon(Icons.share, /*color: Colors.black*/),
+                      Container(
+                        margin: const EdgeInsets.only(top:8),
+                        child: Text(
+                          'SHARE',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w100,
+                            //color: color,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              /*buildButtonColumn(color, Icons.call, "CALL",),
-              buildButtonColumn(color, Icons.near_me, "ROUTE"),
-              buildButtonColumn(color, Icons.share, "SHARE"),*/
-            ],
+                /*buildButtonColumn(color, Icons.call, "CALL",),
+                buildButtonColumn(color, Icons.near_me, "ROUTE"),
+                buildButtonColumn(color, Icons.share, "SHARE"),*/
+              ],
+            ),
           ),
         ),
       ),
@@ -123,31 +126,67 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
     Widget authorSection = Row(
       children: <Widget>[
-        CircleAvatar(
-          radius: 25.0,
-          backgroundColor: Colors.grey,
-          backgroundImage: widget.author.profileImageUrl.isEmpty
-              ? AssetImage('assets/images/avatar.png')
-              : CachedNetworkImageProvider(
-              widget.author.profileImageUrl),
-        ),
-        SizedBox(width: 8.0),
-        Text(
-          widget.author.name,
-          style: TextStyle(
-            fontSize: 18.0,
-            fontFamily: 'ProductSans',
-            fontWeight: FontWeight.w600,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: CircleAvatar(
+            radius: 30.0,
+            backgroundColor: Colors.grey,
+            backgroundImage: widget.author.profileImageUrl.isEmpty
+                ? AssetImage('assets/images/avatar.png')
+                : CachedNetworkImageProvider(
+                widget.author.profileImageUrl),
           ),
         ),
-        SizedBox(width: 4.0),
-        Text(
-          widget.author.surname,
-          style: TextStyle(
-            fontSize: 18.0,
-            fontFamily: 'ProductSans',
-            fontWeight: FontWeight.w600,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                //SizedBox(width: 8.0),
+                Text(
+                  widget.author.name,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'ProductSans',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(width: 4.0),
+                Text(
+                  widget.author.surname,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'ProductSans',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(width: 8.0),
+                Icon(
+                  Icons.map,
+                  color: Colors.yellow,
+                ),
+                Text(
+                  widget.author.address,
+                  style: TextStyle(
+                    color: Colors.yellow,
+                    fontSize: 14.0,
+                    fontFamily: 'ProductSans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              widget.author.email,
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16.0,
+                fontFamily: 'ProductSans',
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -256,12 +295,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             ),*/
+            GestureDetector(
+                onTap: pushToProfile,
+                child: authorSection),
             buttonSection,
             titleSection,
             textSection,
-            GestureDetector(
-              onTap: pushToProfile,
-                child: authorSection),
           ],
         ),
       ),
