@@ -141,7 +141,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 child: new Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0,),
                       child: new Text('Add photo', style: TextStyle(
                           fontFamily: 'ProductSans',
                           fontSize: 18.0),),

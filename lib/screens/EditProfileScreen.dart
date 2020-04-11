@@ -10,6 +10,7 @@ import 'package:folka/models/User.dart';
 import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/services/StorageService.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final User user;
@@ -30,6 +31,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String _address = '';
   String _bio = '';
   bool _isLoading = false;
+  String _region = '';
 
   int age = -1;
 
@@ -217,6 +219,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         onChanged: (value) => setState(() {
           selectedRegion = value;
           _address = '${selectedRegion}';
+          _region = _address;
+          print('you choose ' + _address);
         })
     );
   }
@@ -380,7 +384,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: Row(
                         children: <Widget>[
                           Container(
-                            child: Icon(Icons.child_friendly, color: Colors.grey,),
+                            child: Icon(Icons.child_friendly, color: Colors.grey, size: 30.0,),
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -405,7 +409,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     SizedBox(height: 20.0),
                     Row(
                       children: <Widget>[
-                        Icon(Icons.map, color: Colors.grey,),
+                        Icon(Icons.map, color: Colors.grey, size: 30,),
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: 22.0,

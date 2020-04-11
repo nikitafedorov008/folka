@@ -15,6 +15,7 @@ class DatabaseService {
       'surname': user.surname,
       'profileImageUrl': user.profileImageUrl,
       'bio': user.bio,
+      'address': user.address,
     });
   }
 
