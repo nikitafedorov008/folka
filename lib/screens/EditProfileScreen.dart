@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:flutter_material_pickers/helpers/show_scroll_picker.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/services/StorageService.dart';
@@ -25,10 +27,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String _surname = '';
   String _phone = '';
   String _birthdate = '';
+  String _address = '';
   String _bio = '';
   bool _isLoading = false;
 
   int age = -1;
+
+  List<String> items = [
+    'Saint-Peterburg',
+    'Leningradskaya oblast',
+    'Moscow',
+    'Moscowskaya oblast',
+    'Novosibirsk',
+    'Novosibirskaya oblast',
+    'Ryazan',
+    'Ryazanskaya oblast',
+    'Tula',
+    'Tulskaya oblast',
+  ];
+  int selected_item = 0;
+  var selectedRegion = "Saint-Peterburg";
 
   @override
   void initState() {
@@ -37,6 +55,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _surname = widget.user.surname;
     _phone = widget.user.phone;
     _birthdate = widget.user.birthdate;
+    _address = widget.user.address;
     _bio = widget.user.bio;
   }
 
@@ -92,6 +111,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         surname: _surname,
         phone: _phone,
         birthdate: _birthdate,
+        address: _address,
         profileImageUrl: _profileImageUrl,
         bio: _bio,
       );
@@ -149,6 +169,56 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         },
       );
     return completer.future;
+  }
+
+  _showSelectItemPicker() {
+    return Platform.isIOS ? _iosItemPicker() : _androidItemPicker();
+  }
+
+  _iosItemPicker() async {
+    final selectedItem = await showCupertinoModalPopup<String>(
+        context: context,
+        builder: (BuildContext context){
+          return Container(
+            height: MediaQuery.of(context).size.width,
+            child: CupertinoPicker(
+              itemExtent: 50.0,
+              onSelectedItemChanged: (index){
+                setState(() {
+                  selected_item = index;
+                  _address = '${items[index]}';
+                  print("You selected ${items[selected_item]}");
+                });
+              },
+              children: List<Widget>.generate(items.length, (index){
+                return Center(
+                  child: GestureDetector(
+                    onTap:() {
+                      _address = '${items[index]}';
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                    child: Text(items[index]),
+                  ),
+                );
+              }),
+            ),
+          );
+        }
+    );
+  }
+
+  _androidItemPicker() async {
+    final selectedItem = await showMaterialScrollPicker(
+        context: context,
+        title: "Pick your region",
+        items: items,
+        //selectedItem: selectedRegion,
+        onChanged: (value) => setState(() {
+          selectedRegion = value;
+          _address = '${selectedRegion}';
+        })
+    );
   }
 
   @override
@@ -254,7 +324,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       validator: (input) => input.trim().length < 1
                           ? 'Please enter a valid surname'
                           : null,
-                      onSaved: (input) => _name = input,
+                      onSaved: (input) => _surname = input,
+                    ),
+                    SizedBox(height: 20.0),
+                    TextFormField(
+                      initialValue: _bio,
+                      style: TextStyle(fontSize: 18.0),
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: new BorderSide(color: Colors.greenAccent),
+                        ),
+                        icon: Icon(
+                          Icons.book,
+                          size: 30.0,
+                        ),
+                        labelText: 'Bio',
+                      ),
+                      validator: (input) => input.trim().length > 150
+                          ? 'Please enter a bio less than 150 characters'
+                          : null,
+                      onSaved: (input) => _bio = input,
                     ),
                     SizedBox(height: 20.0),
                     TextFormField(
@@ -274,7 +364,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       validator: (input) => input.trim().length < 5
                           ? 'Please enter a valid phone'
                           : null,
-                      onSaved: (input) => _name = input,
+                      onSaved: (input) => _phone = input,
                     ),
                     /*SizedBox(height: 20.0),
                     GestureDetector(
@@ -313,24 +403,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),*/
                     SizedBox(height: 20.0),
-                    TextFormField(
-                      initialValue: _bio,
-                      style: TextStyle(fontSize: 18.0),
-                      decoration: InputDecoration(
-                        border: new OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          borderSide: new BorderSide(color: Colors.greenAccent),
+                    Row(
+                      children: <Widget>[
+                        Icon(Icons.map, color: Colors.grey,),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 22.0,
+                            //vertical: 5.0,
+                          ),
+                          child: GestureDetector(
+                            //onTap: () async {_showSelectRegionDialog();},
+                            onTap: _showSelectItemPicker,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 30.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                                  border: Border.all(color: Colors.grey),
+                                ),
+                                padding: EdgeInsets.fromLTRB(10,20,20,20,),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text("Region ",
+                                      style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
+                                    Text("$_address",
+                                      style: TextStyle(fontFamily: 'ProductSans'),),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                        icon: Icon(
-                          Icons.book,
-                          size: 30.0,
-                        ),
-                        labelText: 'Bio',
-                      ),
-                      validator: (input) => input.trim().length > 150
-                          ? 'Please enter a bio less than 150 characters'
-                          : null,
-                      onSaved: (input) => _bio = input,
+                      ],
                     ),
                     Container(
                       margin: EdgeInsets.all(40.0),
