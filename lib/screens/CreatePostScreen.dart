@@ -348,11 +348,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       _timeController.clear();
 
       setState(() {
+        _image = null;
         _caption = '';
         _name = '';
         _price = '';
+        _location = '';
         _time = '';
-        _category = null;
+        _category = '';
         _isLoading = false;
       });
     }
