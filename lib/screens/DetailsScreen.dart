@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/screens/ProfleSmbScreen.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -24,8 +25,28 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
 
+  GoogleMapController mapController;
+
   @override
   Widget build(BuildContext context) {
+
+    void onMapCreated(controller) {
+      setState(() {
+        mapController = controller;
+      });
+    }
+
+    Widget mapSection = Container(
+      height: 400,
+      width: 400,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        child: GoogleMap(
+          onMapCreated: onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: LatLng(40.7128, -74.0060), zoom: 10.0)),
+      ),
+    );
 
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
@@ -301,6 +322,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             buttonSection,
             titleSection,
             textSection,
+            mapSection,
           ],
         ),
       ),
