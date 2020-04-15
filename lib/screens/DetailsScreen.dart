@@ -29,23 +29,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   GoogleMapController mapController;
   String searchAddr;
-  var productLocation = LocationData;
+  var currentLocation = LocationData;
+  var location = new Location();
+  CameraPosition _currentPosition;
+  Position _center;
+  final Set<Marker> _markers = {};
 
+  @override
+  void initState() {
+    super.initState();
+    //searchAndNavigate();
+  }
 
   @override
   Widget build(BuildContext context) {
-
+    
     searchAndNavigate() {
-      Geolocator().placemarkFromAddress(widget.author.address).then((result) {
+      searchAddr = widget.author.address+ ' ' + widget.post.location;
+      Geolocator().placemarkFromAddress(searchAddr).then((result) {
         mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
             target:
             LatLng(result[0].position.latitude, result[0].position.longitude),
-            zoom: 10.0)));
+            zoom: 15.0)));
       });
     }
 
     void onMapCreated(controller) {
       setState(() {
+        searchAndNavigate();
         mapController = controller;
       });
     }
@@ -58,15 +69,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
         child: GoogleMap(
           onMapCreated: onMapCreated,
           initialCameraPosition: CameraPosition(
-            target: LatLng(40.7128, -74.0060), zoom: 10.0)),
+            target: LatLng(40.7128, -74.0060), zoom: 10.0
+          )),
       ),
     );
 
-    @override
-    void initState() {
-      super.initState();
-      searchAndNavigate();
-    }
+    Widget addressSection = Container(
+      //padding: const EdgeInsets.all(32),
+      child: Text(
+        widget.post.location + ' ' + widget.author.address,
+        softWrap: true,
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontFamily: 'ProductSans',
+        color: Colors.yellow
+        ),
+      ),
+    );
 
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
@@ -343,6 +361,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             titleSection,
             textSection,
             mapSection,
+            addressSection,
           ],
         ),
       ),
