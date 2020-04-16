@@ -2,7 +2,7 @@
                                                      
 Flutter edition of Polka(Shelf) app
 
-## Getting Started
+## Warning: this app isn't finally done for ios
 
 This project is kind of Flutter application.
 

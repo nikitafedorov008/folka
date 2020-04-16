@@ -28,12 +28,7 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
 
   GoogleMapController mapController;
-  String searchAddr;
-  var currentLocation = LocationData;
-  var location = new Location();
-  CameraPosition _currentPosition;
-  Position _center;
-  final Set<Marker> _markers = {};
+  String searchAddress;
 
   @override
   void initState() {
@@ -43,10 +38,35 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    pushToProfile() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ProfileSMDScreen(
+            userId: widget.author.id,
+            //author: widget.author,
+            //likeCount: _likeCount,
+          ),
+        ),
+      );
+    }
+
+    Future<void> _makePhoneCall(String url) async {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
+    makeCall() {
+      _makePhoneCall('tel:${widget.author.phone}');
+    }
     
     searchAndNavigate() {
-      searchAddr = widget.author.address+ ' ' + widget.post.location;
-      Geolocator().placemarkFromAddress(searchAddr).then((result) {
+      searchAddress = widget.author.address+ ' ' + widget.post.location;
+      Geolocator().placemarkFromAddress(searchAddress).then((result) {
         mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
             target:
             LatLng(result[0].position.latitude, result[0].position.longitude),
@@ -76,13 +96,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
     Widget addressSection = Container(
       //padding: const EdgeInsets.all(32),
-      child: Text(
-        widget.post.location + ' ' + widget.author.address,
-        softWrap: true,
-        textAlign: TextAlign.justify,
-        style: TextStyle(fontFamily: 'ProductSans',
-        color: Colors.yellow
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            Icons.location_on,
+            size: 16.0,
+            color: Colors.yellow,
+          ),
+          Text(
+            widget.post.location + '-' + widget.author.address,
+            softWrap: true,
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontFamily: 'ProductSans',
+            color: Colors.yellow
+            ),
+          ),
+        ],
       ),
     );
 
@@ -236,14 +266,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ],
             ),
-            Text(
-              widget.author.email,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16.0,
-                fontFamily: 'ProductSans',
-                fontWeight: FontWeight.w500,
-              ),
+            Row(
+              children: <Widget>[
+                Text(
+                  widget.author.email,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16.0,
+                    fontFamily: 'ProductSans',
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(width: 5.0,),
+                Icon(
+                  Icons.star,
+                  color: Colors.red,
+                ),
+                Text(widget.post.likeCount.toString()),
+              ],
             ),
           ],
         ),
@@ -251,26 +291,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
 
     Widget titleSection = Container(
-      padding: const EdgeInsets.all(33),
+      padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),
       child: Row(
         children:[
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:[
-                /*Container(
-                  padding: const EdgeInsets.only(bottom:8),
-                  child: Text(
-                    widget.post.name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),*/
                 Row(
                   children: <Widget>[
-                    Icon(
-                      Icons.timer,
-                      color: Colors.green,
-                      size: 32.0,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 2.0),
+                      child: Icon(
+                        Icons.timer,
+                        color: Colors.green,
+                        size: 32.0,
+                      ),
                     ),
                     Text(
                       widget.post.price + 'RUB',
@@ -294,17 +330,39 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),),
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Divider(
+                    thickness: 3.0,
+                  ),
+                ),
               ],
             ),
           ),
-          Icon(
-            Icons.star,
-            color: Colors.red,
-          ),
-          Text(widget.post.likeCount.toString())
         ],
       ),
     );
+
+    Column buildButtonColumn(Color color, IconData icon, String lable){
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:[
+          Icon(icon, color: color),
+          Container(
+            margin: const EdgeInsets.only(top:8),
+            child: Text(
+              lable,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w100,
+                color: color,
+              ),
+            ),
+          )
+        ],
+      );
+    }
 
     return new Scaffold(
       /*appBar: new AppBar(
@@ -354,11 +412,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             ),*/
+            titleSection,
             GestureDetector(
                 onTap: pushToProfile,
                 child: authorSection),
             buttonSection,
-            titleSection,
             textSection,
             mapSection,
             addressSection,
@@ -367,52 +425,4 @@ class _DetailsScreenState extends State<DetailsScreen> {
       ),
     );
   }
-
-  pushToProfile() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => ProfileSMDScreen(
-          userId: widget.author.id,
-          //author: widget.author,
-          //likeCount: _likeCount,
-        ),
-      ),
-    );
-  }
-
-
-  Column buildButtonColumn(Color color, IconData icon, String lable){
-    return Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:[
-          Icon(icon, color: color),
-          Container(
-            margin: const EdgeInsets.only(top:8),
-            child: Text(
-              lable,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w100,
-                color: color,
-              ),
-            ),
-          )
-        ],
-    );
-  }
-
-  Future<void> _makePhoneCall(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  makeCall() {
-    _makePhoneCall('tel:${widget.author.phone}');
-  }
-
 }
