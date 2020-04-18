@@ -111,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        child: Image.asset('assets/images/readingsidedoodle.png')),
+                        child: Image.asset('assets/images/search.png')),
                     Text('Search for something or somebody',
                       style: TextStyle(fontFamily: 'ProductSans'),),
                   ],
@@ -142,7 +142,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.asset('assets/images/messydoodle.png'),
+                          Image.asset('assets/images/notfound.png'),
                           Text('Nothing found, try again later',
                             style: TextStyle(fontFamily: 'ProductSans'),),
                         ],
