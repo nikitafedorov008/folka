@@ -43,6 +43,7 @@ class _FeedScreenState extends State<FeedScreen> {
         child: OrientationBuilder(
           builder: (context, orentation) {
             return GridView.builder(
+                physics: AlwaysScrollableScrollPhysics(),
                 gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: orentation == Orientation.portrait ? 2 : 4,),
