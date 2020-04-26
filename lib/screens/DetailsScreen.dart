@@ -9,17 +9,21 @@ import 'package:folka/screens/ProfleSmbScreen.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
 class DetailsScreen extends StatefulWidget {
 
+  final String currentUserId;
+  final String userId;
+
   final Post post;
   final User author;
   Future<void> _launched;
 
-  DetailsScreen({this.post, this.author});
+  DetailsScreen({this.post, this.author, this.currentUserId, this.userId});
 
   @override
   State<StatefulWidget> createState() {
@@ -36,6 +40,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
+    //print('your id ' + widget.currentUserId);
     //searchAndNavigate();
   }
 
@@ -84,7 +89,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               SimpleDialogOption(
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.cancel, color: Colors.red,),
+                    Icon(OMIcons.cancel, color: Colors.red,),
                     SizedBox(width: 5.0,),
                     Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
                   ],
@@ -144,14 +149,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
        Widget mapSection = Container(
          height: 400,
          width: 400,
-         child: Card(
-           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-           child: GoogleMap(
-               onMapCreated: onMapCreated,
-               initialCameraPosition: CameraPosition(
-                   target: LatLng(40.7128, -74.0060), zoom: 10.0
-               )),
-         ),
+         child: GoogleMap(
+             onMapCreated: onMapCreated,
+             initialCameraPosition: CameraPosition(
+                 target: LatLng(40.7128, -74.0060), zoom: 10.0
+             )),
        );
 
        Widget addressSection = Container(
@@ -160,7 +162,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
            mainAxisAlignment: MainAxisAlignment.center,
            children: <Widget>[
              Icon(
-               Icons.location_on,
+               OMIcons.place,
                size: 16.0,
                color: Colors.yellow,
              ),
@@ -206,7 +208,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                        mainAxisSize: MainAxisSize.min,
                        mainAxisAlignment: MainAxisAlignment.center,
                        children:[
-                         Icon(Icons.call, /*color: Colors.black*/),
+                         Icon(OMIcons.call, /*color: Colors.black*/),
                          Container(
                            margin: const EdgeInsets.only(top:8),
                            child: Text(
@@ -227,7 +229,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                        mainAxisSize: MainAxisSize.min,
                        mainAxisAlignment: MainAxisAlignment.center,
                        children:[
-                         Icon(Icons.near_me, /*color: Colors.black*/),
+                         Icon(OMIcons.nearMe, /*color: Colors.black*/),
                          Container(
                            margin: const EdgeInsets.only(top:8),
                            child: Text(
@@ -248,7 +250,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                        mainAxisSize: MainAxisSize.min,
                        mainAxisAlignment: MainAxisAlignment.center,
                        children:[
-                         Icon(Icons.description, /*color: Colors.black*/),
+                         Icon(OMIcons.description, /*color: Colors.black*/),
                          Container(
                            margin: const EdgeInsets.only(top:8),
                            child: Text(
@@ -312,7 +314,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                    ),
                    SizedBox(width: 8.0),
                    Icon(
-                     Icons.map,
+                     OMIcons.map,
                      color: Colors.yellow,
                    ),
                    Text(
@@ -339,7 +341,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                    ),
                    SizedBox(width: 5.0,),
                    Icon(
-                     Icons.star,
+                     OMIcons.star,
                      color: Colors.red,
                    ),
                    Text(widget.post.likeCount.toString()),
@@ -363,7 +365,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                        Padding(
                          padding: const EdgeInsets.only(left: 2.0),
                          child: Icon(
-                           Icons.timer,
+                           Icons.attach_money,
                            color: Colors.green,
                            size: 32.0,
                          ),
@@ -375,14 +377,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                            fontFamily: 'ProductSans',
                            fontSize: 22.0,
                          ),),
-                       SizedBox(width: 10,),
+                       Text(' per', style: TextStyle(fontFamily: 'ProductSans', fontSize: 18),),
                        Icon(
-                         Icons.attach_money,
+                         Icons.timer,
                          color: Colors.blue,
                          size: 32.0,
                        ),
                        Text(
-                         widget.post.time + 'DAYS',
+                         widget.post.time,
                          style: TextStyle(
                            color: Colors.blue,
                            fontFamily: 'ProductSans',

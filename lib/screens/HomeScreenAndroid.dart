@@ -167,7 +167,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
         width: 60.0,
         child: FittedBox(
           child: FloatingActionButton(
-            tooltip: 'Increment',
+            tooltip: 'Add',
             backgroundColor: Colors.greenAccent[100],
             onPressed: () {
               setState(() {

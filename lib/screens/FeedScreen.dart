@@ -24,6 +24,7 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   void initState() {
     super.initState();
+    print('your id ' + '${widget.currentUserId}');
     _setupFeed();
   }
 
@@ -58,7 +59,7 @@ class _FeedScreenState extends State<FeedScreen> {
                         }
                         User author = snapshot.data;
                         return GridPostView(
-                          //currentUserId: widget.currentUserId,
+                          currentUserId: '${widget.currentUserId}',
                           post: post,
                           author: author,
                         );

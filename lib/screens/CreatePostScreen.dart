@@ -10,6 +10,7 @@ import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/services/StorageService.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
 class CreatePostScreen extends StatefulWidget {
@@ -47,6 +48,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   _showSelectChooseDialog() {
     return Platform.isIOS ? _iosChooseBottomSheet() : _androidChooseDialog();
+  }
+
+  _showTimeChooseDialog() {
+    return Platform.isIOS ? _iosChooseBottomSheet() : _androidTimeSheet();
   }
 
   _iosBottomSheet() {
@@ -147,21 +152,21 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           fontSize: 18.0),),
                     ),
                     new ListTile(
-                        leading: new Icon(Icons.camera),
+                        leading: new Icon(OMIcons.camera),
                         title: new Text('Take Photo', style: TextStyle(fontFamily: 'ProductSans'),),
                         onTap: () => {
                           _handleImage(ImageSource.camera),
                         }
                     ),
                     new ListTile(
-                      leading: new Icon(Icons.photo),
+                      leading: new Icon(OMIcons.photo),
                       title: new Text('Choose from Gallery', style: TextStyle(fontFamily: 'ProductSans'),),
                       onTap: () => {
                         _handleImage(ImageSource.gallery),
                       },
                     ),
                     new ListTile(
-                      leading: new Icon(Icons.cancel, color: Colors.redAccent,),
+                      leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
                       title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.redAccent),),
                       onTap: () => Navigator.pop(context),
                     ),
@@ -229,7 +234,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               SimpleDialogOption(
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.videogame_asset),
+                    Icon(OMIcons.videogameAsset),
                     SizedBox(width: 5.0,),
                     Text('Videogame Asset', style: TextStyle(fontFamily: 'ProductSans'),),
                   ],
@@ -257,7 +262,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               SimpleDialogOption(
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.radio),
+                    Icon(OMIcons.radio),
                     SizedBox(width: 5.0,),
                     Text('Electronics', style: TextStyle(fontFamily: 'ProductSans'),),
                   ],
@@ -271,7 +276,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               SimpleDialogOption(
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.child_friendly),
+                    Icon(OMIcons.childFriendly),
                     SizedBox(width: 5.0,),
                     Text('Childrens things', style: TextStyle(fontFamily: 'ProductSans'),),
                   ],
@@ -285,7 +290,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               SimpleDialogOption(
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.cancel, color: Colors.red,),
+                    Icon(OMIcons.cancel, color: Colors.red,),
                     SizedBox(width: 5.0,),
                     Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
                   ],
@@ -293,6 +298,69 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 onPressed: ()=> Navigator.pop(context),
               ),
             ],
+          );
+        }
+    );
+  }
+
+  _androidTimeSheet() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              //color: Colors.white,
+              child: Container(
+                //color: Colors.transparent,
+                child: new Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0,),
+                      child: new Text('Choose time', style: TextStyle(
+                          fontFamily: 'ProductSans',
+                          fontSize: 18.0),),
+                    ),
+                    new ListTile(
+                        leading: new Icon(OMIcons.today),
+                        title: new Text('Day', style: TextStyle(fontFamily: 'ProductSans'),),
+                      onTap: () {
+                        _time = 'Day';
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.dateRange),
+                      title: new Text('Week', style: TextStyle(fontFamily: 'ProductSans'),),
+                      onTap: () {
+                      _time = 'Week';
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.eventNote),
+                      title: new Text('Month', style: TextStyle(fontFamily: 'ProductSans'),),
+                      onTap: () {
+                        _time = 'Month';
+                        setState(() {});
+                        Navigator.pop(context);
+                      },
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
+                      title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.redAccent),),
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         }
     );
@@ -435,7 +503,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ),
                 ),
                 SizedBox(height: 10.0,),
-                Padding(
+                /*Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: TextFormField(
                     keyboardType: TextInputType.numberWithOptions(),
@@ -449,6 +517,33 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       labelText: 'Time(days)',
                     ),
                     onChanged: (input) => _time = input,
+                  ),
+                ),*/
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30.0,
+                    vertical: 5.0,
+                  ),
+                  child: GestureDetector(
+                    //onTap: () async {_showSelectRegionDialog();},
+                    onTap: _showTimeChooseDialog,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      padding: EdgeInsets.fromLTRB(10,20,20,20,),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Time ",
+                            style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
+                          Text("$_time",
+                            style: TextStyle(fontFamily: 'ProductSans'),),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(height: 10.0,),

@@ -8,6 +8,7 @@ import 'package:folka/services/AuthService.dart';
 import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/utilities/Constants.dart';
 import 'package:folka/widgets/PostView.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'CommentsScreen.dart';
 
@@ -110,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _displayButton(User user) {
     return user.id == Provider.of<UserData>(context).currentUserId ? IconButton(
-      icon: new Icon(Icons.settings),
+      icon: new Icon(OMIcons.settings),
       //color: Colors.black,
       onPressed: () => Navigator.push(context,
         MaterialPageRoute(

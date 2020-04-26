@@ -61,6 +61,9 @@ class MyApp extends StatelessWidget {
           primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
             color: Colors.black,
           ),
+          floatingActionButtonTheme: Theme.of(context).floatingActionButtonTheme.copyWith(
+            foregroundColor: Colors.black45
+          ),
           primaryColor: Colors.greenAccent,
           hintColor: Colors.black38,
         ),
@@ -68,6 +71,9 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
             color: Colors.white,
+          ),
+          floatingActionButtonTheme: Theme.of(context).floatingActionButtonTheme.copyWith(
+              foregroundColor: Colors.greenAccent[100]
           ),
           popupMenuTheme: Theme.of(context).popupMenuTheme.copyWith(
             color: CupertinoColors.darkBackgroundGray,

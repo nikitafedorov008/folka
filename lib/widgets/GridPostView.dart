@@ -239,23 +239,23 @@ class _PostViewState extends State<GridPostView> {
                     SizedBox(height: 2,),
                     Row(
                       children: <Widget>[
-                        Icon(Icons.timer, color: Colors.blue,),
+                        Icon(Icons.attach_money, color: Colors.green,),
                         Text(
-                          widget.post.time + 'DAY',
+                          widget.post.price + 'RUB',
                           style: TextStyle(
-                              color: Colors.blue,
+                              color: Colors.green,
                               fontSize: 16.0,
                               fontWeight: FontWeight.w400,
                               fontFamily: 'ProductSans'
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(width: 4,),
-                        Icon(Icons.attach_money, color: Colors.green,),
+                        Text(' per', style: TextStyle(fontFamily: 'ProductSans'),),
+                        Icon(Icons.timer, color: Colors.blue,),
                         Text(
-                          widget.post.price + 'RUB',
+                          widget.post.time,
                           style: TextStyle(
-                              color: Colors.green,
+                              color: Colors.blue,
                               fontSize: 16.0,
                               fontWeight: FontWeight.w400,
                               fontFamily: 'ProductSans'

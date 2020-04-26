@@ -11,6 +11,7 @@ import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/services/StorageService.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final User user;
@@ -340,7 +341,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           borderSide: new BorderSide(color: Colors.greenAccent),
                         ),
                         icon: Icon(
-                          Icons.book,
+                          OMIcons.book,
                           size: 30.0,
                         ),
                         labelText: 'Bio',
@@ -360,7 +361,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           borderSide: new BorderSide(color: Colors.greenAccent),
                         ),
                         icon: Icon(
-                          Icons.phone,
+                          OMIcons.phone,
                           size: 30.0,
                         ),
                         labelText: 'Phone',
@@ -409,7 +410,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     SizedBox(height: 20.0),
                     Row(
                       children: <Widget>[
-                        Icon(Icons.map, color: Colors.grey, size: 30,),
+                        Icon(OMIcons.map, color: Colors.grey, size: 30,),
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: 22.0,
