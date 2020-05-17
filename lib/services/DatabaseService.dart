@@ -150,20 +150,6 @@ class DatabaseService {
     return posts;
   }
 
-  /*static Future<List<Post>> getAllUserPosts(String userId) async {
-    QuerySnapshot userPostsSnapshot = await postsRef
-        .document(userId)
-        .collection('userPosts')
-        .where('authorId')
-        .where('name')
-        .orderBy('timestamp', descending: true)
-        .getDocuments();
-    List<Post> posts =
-    userPostsSnapshot.documents.map((doc) => Post.fromDoc(doc)).toList();
-    return posts;
-  }*/
-
-
   static Future<List<Post>> getAllUserPosts() async {
     QuerySnapshot userPostsSnapshot = await feedRef
         .where('authorId')
@@ -193,6 +179,11 @@ class DatabaseService {
     postRef.get().then((doc) {
       int likeCount = doc.data['likeCount'];
       postRef.updateData({'likeCount': likeCount + 1});
+      favouriteRef
+          .document(currentUserId)
+          .collection('favourite')
+          .document(post.id)
+          .setData({});
       likesRef
           .document(post.id)
           .collection('postLikes')

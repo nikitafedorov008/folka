@@ -30,10 +30,12 @@ class _HomeScreenIosState extends State<HomeScreenIos> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('shelf'),
+        title: Text('shelf', style: TextStyle(
+          fontFamily: 'ProductSans'
+        ),),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.exit_to_app, color: Colors.black,),
+            icon: Icon(Icons.exit_to_app,),
             onPressed: AuthService.logout,
           )
         ],

@@ -79,13 +79,15 @@ class _PostViewState extends State<PostView> {
     }
   }
 
-  GoToDetails() {
+  pushToDetails() {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => DetailsScreen(
+          //TODO make scan choose (to scan qr or give qr)
           post: widget.post,
           author: widget.author,
+          authorScanBool: true,
           //likeCount: _likeCount,
         ),
       ),
@@ -95,7 +97,7 @@ class _PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: GoToDetails,
+      onTap: pushToDetails,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
         child: Column(

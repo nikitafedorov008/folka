@@ -47,6 +47,7 @@ dependencies:
   google_maps_flutter: ^0.5.25+3
   location: ^3.0.0
   qr_flutter: ^3.1.0
+  super_qr_reader: ^2.0.0
 
 dev_dependencies:
   flutter_test:

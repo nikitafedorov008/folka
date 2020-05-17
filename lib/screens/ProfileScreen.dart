@@ -8,6 +8,7 @@ import 'package:folka/services/AuthService.dart';
 import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/utilities/Constants.dart';
 import 'package:folka/widgets/PostView.dart';
+import 'package:folka/widgets/SearchPostView.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'CommentsScreen.dart';
@@ -154,6 +155,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _displayPosts = 1;
           }),
         ),
+        IconButton(
+          icon: Icon(Icons.favorite_border),
+          iconSize: 30.0,
+          color: _displayPosts == 2
+            ? Colors.greenAccent
+            : Colors.grey[300],
+          onPressed: () => setState(() {
+            _displayPosts = 2;
+          }),
+        ),
       ],
     );
   }
@@ -178,6 +189,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  _setupFeed() async {
+    //List<Post> posts = await DatabaseService.getFeedPosts(widget.currentUserId);
+    List<Post> posts = await DatabaseService.getAllUserPosts();
+    setState(() {
+      _posts = posts;
+    });
+  }
+
   _buildDisplayPosts() {
     if (_displayPosts == 0) {
       // Grid
@@ -194,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         physics: NeverScrollableScrollPhysics(),
         children: tiles,
       );
-    } else {
+    } if (_displayPosts == 1) {
       // Column
       List<PostView> postViews = [];
       _posts.forEach((post) {
@@ -207,6 +226,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
       });
       return Column(children: postViews);
+    } else {
+      // Column favorite
+      _setupFeed();
+      return ListView.builder(
+        itemCount: _posts.length,
+        itemBuilder: (BuildContext context, int index) {
+          Post post = _posts[index];
+          return FutureBuilder(
+            future: DatabaseService.getUserWithId(post.authorId),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (!snapshot.hasData) {
+                return SizedBox.shrink();
+              }
+              User author = snapshot.data;
+              return PostView(
+                //currentUserId: widget.currentUserId,
+                post: post,
+                author: author,
+              );
+            },
+          );
+        },
+      );
     }
   }
 

@@ -10,6 +10,7 @@ final followersRef = _firestore.collection('followers');
 final followingRef = _firestore.collection('following');
 final feedsRef = _firestore.collection('feeds');
 final likesRef = _firestore.collection('likes');
+final favouriteRef = _firestore.collection('favourite');
 final commentsRef = _firestore.collection('comments');
 final activitiesRef = _firestore.collection('activities');
 final ratingRef = _firestore.collection('rating');

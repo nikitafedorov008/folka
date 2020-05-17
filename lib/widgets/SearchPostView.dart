@@ -87,6 +87,7 @@ class _PostViewState extends State<SearchPostView> {
         builder: (_) => DetailsScreen(
           post: widget.post,
           author: widget.author,
+          authorScanBool: false,
           //author: widget.author,
           //likeCount: _likeCount,
         ),

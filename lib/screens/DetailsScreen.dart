@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/screens/ProfleSmbScreen.dart';
+import 'package:folka/screens/QrScreen.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -18,12 +19,13 @@ class DetailsScreen extends StatefulWidget {
 
   final String currentUserId;
   final String userId;
+  final bool authorScanBool;
 
   final Post post;
   final User author;
   Future<void> _launched;
 
-  DetailsScreen({this.post, this.author, this.currentUserId, this.userId});
+  DetailsScreen({this.post, this.author, this.currentUserId, this.userId, this.authorScanBool});
 
   @override
   State<StatefulWidget> createState() {
@@ -40,12 +42,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    //print('your id ' + widget.currentUserId);
+    print('current user: ${widget.currentUserId}');
     //searchAndNavigate();
   }
 
   _showQr() {
-    return Platform.isIOS ? _iosQr() : _androidQr();
+    if (widget.authorScanBool == true) {
+      return Platform.isIOS ? _iosQr() : _androidQr();
+    } else if (widget.authorScanBool == false) {
+      return Platform.isIOS ? _iosQr() : _androidQr();
+    }
   }
 
   _iosQr() {
@@ -61,8 +67,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   _androidQr() {
@@ -115,6 +120,28 @@ class _DetailsScreenState extends State<DetailsScreen> {
              ),
            ),
          );
+       }
+
+       BuildContext _scaffoldContext;
+
+       pushToQr() {
+         if(widget.authorScanBool == true) {
+           Navigator.push(
+             context,
+             MaterialPageRoute(
+               builder: (_) => QrScreen(
+                 userId: widget.author.id,
+                 post: widget.post,
+                 currentUserId: widget.currentUserId,
+                 authorScanBool: widget.authorScanBool,
+                 //author: widget.author,
+                 //likeCount: _likeCount,
+               ),
+             ),
+           );
+         } else if (widget.authorScanBool == false) {
+           _showQr();
+         }
        }
 
        Future<void> _makePhoneCall(String url) async {
@@ -245,7 +272,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                      ),
                    ),
                    FlatButton(
-                     onPressed: _showQr,
+                     onPressed: pushToQr,
                      child: Column(
                        mainAxisSize: MainAxisSize.min,
                        mainAxisAlignment: MainAxisAlignment.center,

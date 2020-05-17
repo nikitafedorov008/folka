@@ -51,7 +51,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   _showTimeChooseDialog() {
-    return Platform.isIOS ? _iosChooseBottomSheet() : _androidTimeSheet();
+    return Platform.isIOS ? _iosTimeSheet() : _androidTimeSheet();
   }
 
   _iosBottomSheet() {
@@ -363,6 +363,47 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             ),
           );
         }
+    );
+  }
+
+  _iosTimeSheet() {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: Text('Choose time'),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+                child: Text('Day'),
+                onPressed: () {
+                  _time = 'Day';
+                  setState(() {});
+                  Navigator.pop(context);
+                }
+            ),
+            CupertinoActionSheetAction(
+                child: Text('Week'),
+                onPressed: () {
+                  _time = 'Week';
+                  setState(() {});
+                  Navigator.pop(context);
+                }
+            ),
+            CupertinoActionSheetAction(
+                child: Text('Month'),
+                onPressed: () {
+                  _time = 'Month';
+                  setState(() {});
+                  Navigator.pop(context);
+                }
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Cancel'),
+            onPressed: ()=> Navigator.pop(context),
+          ),
+        );
+      },
     );
   }
 

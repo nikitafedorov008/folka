@@ -80,13 +80,15 @@ class _PostViewState extends State<GridPostView> {
     }
   }
 
-  GoToDetails() {
+  pushToDetails() {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => DetailsScreen(
+          currentUserId: widget.currentUserId,
           post: widget.post,
           author: widget.author,
+          authorScanBool: false,
           //likeCount: _likeCount,
         ),
       ),
@@ -96,7 +98,7 @@ class _PostViewState extends State<GridPostView> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: GoToDetails,
+      onTap: pushToDetails,
       child: Card(
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
