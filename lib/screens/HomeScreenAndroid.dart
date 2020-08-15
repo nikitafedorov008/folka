@@ -74,6 +74,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
   Widget build(BuildContext context) {
     final String currentUserId = Provider.of<UserData>(context).currentUserId;
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         /*shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -121,7 +122,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
-        notchMargin: 4,
+        notchMargin: 6,
         clipBehavior: Clip.antiAlias,
         child: BottomNavigationBar(
           onTap: (index) {
@@ -134,28 +135,28 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
           backgroundColor: Colors.greenAccent,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.domain, color: Colors.black38,),
+              icon: Tooltip(message: 'Home', child: Icon(Icons.domain, color: Colors.black38,)),
               title: Text('Home'),
-              activeIcon: Icon(Icons.domain, color: Colors.black,),
+              activeIcon: Tooltip(message: 'Home', child: Icon(Icons.domain, color: Colors.black,)),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search, color: Colors.black38,),
+              icon: Tooltip(message: 'Search', child: Icon(Icons.search, color: Colors.black38,)),
               title: Text('Search'),
-              activeIcon: Icon(Icons.search, color: Colors.black,),
+              activeIcon: Tooltip(message: 'Search', child: Icon(Icons.search, color: Colors.black,)),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.add_circle_outline, color: Colors.transparent,),
               title: Text('Add'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.mail_outline, color: Colors.black38,),
+              icon: Tooltip(message: 'Activity', child: Icon(Icons.mail_outline, color: Colors.black38,)),
               title: Text('Activity'),
-              activeIcon: Icon(Icons.mail_outline, color: Colors.black,),
+              activeIcon: Tooltip(message: 'Activity', child: Icon(Icons.mail_outline, color: Colors.black,)),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline, color: Colors.black38,),
+              icon: Tooltip(message: 'Profile', child: Icon(Icons.person_outline, color: Colors.black38,)),
               title: Text('Profile'),
-              activeIcon: Icon(Icons.person_outline, color: Colors.black,),
+              activeIcon: Tooltip(message: 'Profile', child: Icon(Icons.person_outline, color: Colors.black,)),
             ),
           ],
           selectedItemColor: Colors.black87,

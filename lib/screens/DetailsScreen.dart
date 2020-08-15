@@ -7,9 +7,11 @@ import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/screens/ProfleSmbScreen.dart';
 import 'package:folka/screens/QrScreen.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,6 +47,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
     print('current user: ${widget.currentUserId}');
     //searchAndNavigate();
   }
+
+
 
   _showQr() {
     if (widget.authorScanBool == true) {
@@ -106,6 +110,203 @@ class _DetailsScreenState extends State<DetailsScreen> {
         },);
       }
 
+  Future<void> _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  makeCall() {
+    _launchUrl('tel:${widget.author.phone}');
+  }
+
+  sendSms() {
+    _launchUrl('sms:${widget.author.phone}?body=Hi%20there,%20its%20shelf%20app%20user');
+  }
+
+  sendEmail() {
+    _launchUrl(
+        'mailto:${widget.author.email}'
+        '?subject=Shelf app - ${widget.post.name}'
+            '&body=<body>, e.g. mailto:smith@example.org'
+            '?subject=News&body=Hi%20there,%20its%20shelf%20app%20user');
+  }
+
+  makeRoute() {
+    MapsLauncher.launchQuery( widget.post.location/*+ '' + widget.author.address*/);
+  }
+
+  // https://yandex.ru/dev/taxi/doc/dg/concepts/deeplinks-docpage/ ссылка на документацию
+  takeTaxi() {
+    _launchUrl('https://3.redirect.appmetrica.yandex.com/route?'
+        //Широта точки назначения
+        + 'end-lat=' + '${Geocoder.local.findAddressesFromQuery(widget.post.location)}'
+        //Долгота точки назначения
+        + '&end-lon=' + '${Geocoder.local.findAddressesFromQuery(widget.post.location)}'
+        //Идентификатор источника
+        + '&ref=' + 'shelf'
+        //Идентификатор, который определяет логику редиректа
+        + '&appmetrica_tracking_id=' + '25395763362139037'
+    );
+  }
+
+  _iosRouteBottomSheet() {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: Text('Choose Route'),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              child: Text('Route'),
+              onPressed: () => makeRoute(),
+            ),
+            CupertinoActionSheetAction(
+              child: Text('Take Taxi'),
+              onPressed: () => takeTaxi(),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Cancel'),
+            onPressed: () => Navigator.pop(context),
+          ),
+        );
+      },
+    );
+  }
+
+  _androidRouteBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              //color: Colors.white,
+              child: Container(
+                //color: Colors.transparent,
+                child: new Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0,),
+                      child: new Text('Choose Route', style: TextStyle(
+                          fontFamily: 'ProductSans',
+                          fontSize: 18.0),),
+                    ),
+                    new ListTile(
+                        leading: new Icon(OMIcons.map),
+                        title: new Text('Route', style: TextStyle(fontFamily: 'ProductSans'),),
+                        onTap: () => {
+                          makeRoute(),
+                        }
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.localTaxi),
+                      title: new Text('Take Taxi', style: TextStyle(fontFamily: 'ProductSans'),),
+                      onTap: () => {
+                        makeRoute(),
+                      },
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
+                      title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.redAccent),),
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+  _iosContactBottomSheet() {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: Text('Choose Action'),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              child: Text('Call'),
+              onPressed: () => makeCall(),
+            ),
+            CupertinoActionSheetAction(
+              child: Text('SMS'),
+              onPressed: () => sendSms(),
+            ),
+            CupertinoActionSheetAction(
+              child: Text('Email'),
+              onPressed: () => sendEmail(),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Cancel'),
+            onPressed: () => Navigator.pop(context),
+          ),
+        );
+      },
+    );
+  }
+
+  _androidContactBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              //color: Colors.white,
+              child: Container(
+                //color: Colors.transparent,
+                child: new Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0,),
+                      child: new Text('Choose Action', style: TextStyle(
+                          fontFamily: 'ProductSans',
+                          fontSize: 18.0),),
+                    ),
+                    new ListTile(
+                        leading: new Icon(OMIcons.phone),
+                        title: new Text('Call', style: TextStyle(fontFamily: 'ProductSans'),),
+                        onTap: () => { makeCall(),}
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.sms),
+                      title: new Text('SMS', style: TextStyle(fontFamily: 'ProductSans'),),
+                      onTap: () => { sendSms(),},
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.email),
+                      title: new Text('Email', style: TextStyle(fontFamily: 'ProductSans'),),
+                      onTap: () => { sendEmail(),},
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
+                      title: new Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.redAccent),),
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -144,24 +345,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
          }
        }
 
-       Future<void> _makePhoneCall(String url) async {
-         if (await canLaunch(url)) {
-           await launch(url);
-         } else {
-           throw 'Could not launch $url';
-         }
-       }
-
-       makeCall() {
-         _makePhoneCall('tel:${widget.author.phone}');
-       }
-
        searchAndNavigate() {
          searchAddress = widget.author.address+ ' ' + widget.post.location;
          Geolocator().placemarkFromAddress(searchAddress).then((result) {
            mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-               target:
-               LatLng(result[0].position.latitude, result[0].position.longitude),
+               target: LatLng(result[0].position.latitude, result[0].position.longitude),
                zoom: 15.0)));
          });
        }
@@ -173,13 +361,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
          });
        }
 
+       _showSelectContactSheet() {
+         return Platform.isIOS ? _iosContactBottomSheet() : _androidContactBottomSheet();
+       }
+
+       _showSelectRouteSheet() {
+         return Platform.isIOS ? _iosRouteBottomSheet() : _androidRouteBottomSheet();
+       }
+
        Widget mapSection = Container(
          height: 400,
          width: 400,
          child: GoogleMap(
              onMapCreated: onMapCreated,
              initialCameraPosition: CameraPosition(
-                 target: LatLng(40.7128, -74.0060), zoom: 10.0
+                 target: LatLng(59.9617101, 30.3135917), zoom: 10.0
              )),
        );
 
@@ -230,16 +426,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  children:[
                    FlatButton(
-                     onPressed: makeCall,
+                     onPressed: _showSelectContactSheet,
                      child: Column(
                        mainAxisSize: MainAxisSize.min,
                        mainAxisAlignment: MainAxisAlignment.center,
                        children:[
-                         Icon(OMIcons.call, /*color: Colors.black*/),
+                         Icon(OMIcons.message, /*color: Colors.black*/),
                          Container(
                            margin: const EdgeInsets.only(top:8),
                            child: Text(
-                             'CALL',
+                             'CONTACT',
                              style: TextStyle(
                                fontSize: 12,
                                fontWeight: FontWeight.w100,
@@ -251,7 +447,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                      ),
                    ),
                    FlatButton(
-                     //onPressed: makeCall,
+                     onPressed: _showSelectRouteSheet,
                      child: Column(
                        mainAxisSize: MainAxisSize.min,
                        mainAxisAlignment: MainAxisAlignment.center,

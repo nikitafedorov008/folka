@@ -8,9 +8,12 @@ import 'package:folka/screens/FeedScreen.dart';
 import 'package:folka/screens/HomeScreenIos.dart';
 import 'package:folka/screens/LoginScreen.dart';
 import 'package:folka/screens/SignUpScreen.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
 import 'screens/HomeScreenAndroid.dart';
 import 'package:flutter/services.dart';
+
+import 'screens/IntroScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
           Provider.of<UserData>(context).currentUserId = snapshot.data.uid;
           return Platform.isIOS ? HomeScreenIos() : HomeScreenAndroid();
         } else {
-          return LoginScreen();
+          return IntroScreen();
         }
       },
     );
