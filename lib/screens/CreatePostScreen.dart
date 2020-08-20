@@ -47,7 +47,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   _showSelectChooseDialog() {
-    return Platform.isIOS ? _iosChooseBottomSheet() : _androidChooseDialog();
+    return Platform.isIOS ? _iosChooseBottomSheet() : _androidChooseBottomSheet();
   }
 
   _showTimeChooseDialog() {
@@ -89,7 +89,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             CupertinoActionSheetAction(
               child: Text('Videogame Asset'),
                 onPressed: () {
-                  _category = 'Gadgets';
+                  _category = 'Videogame Asset';
                   setState(() {});
                   Navigator.pop(context);
                 }
@@ -126,6 +126,105 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           ),
         );
       },
+    );
+  }
+
+  _androidChooseBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: OrientationBuilder(
+              builder: (context, orentation) {
+                return Container(
+                  //height: orentation == Orientation.portrait ? 320 : 220,
+                  child: ListView(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          16.0, 12.0, 16.0, 12.0,),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            new Text('Choose category', style: TextStyle(
+                                fontFamily: 'ProductSans',
+                                fontSize: 18.0),),
+                            MaterialButton(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(OMIcons.cancel, color: Colors.red,),
+                                  SizedBox(width: 4,),
+                                  Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
+                                ],
+                              ),
+                              onPressed: ()=> Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        leading: Icon(OMIcons.videogameAsset),
+                        title: Text('Videogames Asset', style: TextStyle(
+                            fontFamily: 'ProductSans'),),
+                        subtitle: Text('consoles and stuff', style: TextStyle(
+                            fontFamily: 'ProductSans'),),
+                        onTap: () {
+                          _category = 'Videogame Asset';
+                          setState(() {});
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(OMIcons.devicesOther),
+                        title: Text('Gadgets', style: TextStyle(
+                            fontFamily: 'ProductSans'),),
+                        subtitle: Text('phones, tablets, watches and laptops',
+                          style: TextStyle(fontFamily: 'ProductSans'),),
+                        onTap: () {
+                          _category = 'Gadgets';
+                          setState(() {});
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(OMIcons.videogameAsset),
+                        title: Text('Electronics', style: TextStyle(
+                            fontFamily: 'ProductSans'),),
+                        subtitle: Text(
+                          'dishwashers, mixers, multicookers and hoem electronics',
+                          style: TextStyle(fontFamily: 'ProductSans'),),
+                        onTap: () {
+                          _category = 'Electronics';
+                          setState(() {});
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(OMIcons.childFriendly),
+                        title: Text('Children stuff', style: TextStyle(
+                            fontFamily: 'ProductSans'),),
+                        subtitle: Text(
+                          'everthing for parents and their children',
+                          style: TextStyle(fontFamily: 'ProductSans'),),
+                        onTap: () {
+                          _category = 'Childrens things';
+                          setState(() {});
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ),
+          );
+        }
     );
   }
 
@@ -210,87 +309,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.cancel, color: Colors.red,),
-                    SizedBox(width: 5.0,),
-                    Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
-                  ],
-                ),
-                onPressed: ()=> Navigator.pop(context),
-              ),
-            ],
-          );
-        }
-    );
-  }
-  _androidChooseDialog() {
-    showDialog(context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            //backgroundColor: Colors.greenAccent,
-            title: Text('Choose category', style: TextStyle(fontFamily: 'ProductSans'),),
-            children: <Widget>[
-              SimpleDialogOption(
-                child: Row(
-                  children: <Widget>[
-                    Icon(OMIcons.videogameAsset),
-                    SizedBox(width: 5.0,),
-                    Text('Videogame Asset', style: TextStyle(fontFamily: 'ProductSans'),),
-                  ],
-                ),
-                  onPressed: () {
-                    _category = 'Videogame Asset';
-                    setState(() {});
-                    Navigator.pop(context);
-                  }
-              ),
-              SimpleDialogOption(
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.devices_other),
-                    SizedBox(width: 5.0,),
-                    Text('Gadgets', style: TextStyle(fontFamily: 'ProductSans'),),
-                  ],
-                ),
-                  onPressed: () {
-                    _category = 'Gadgets';
-                    setState(() {});
-                    Navigator.pop(context);
-                  }
-              ),
-              SimpleDialogOption(
-                child: Row(
-                  children: <Widget>[
-                    Icon(OMIcons.radio),
-                    SizedBox(width: 5.0,),
-                    Text('Electronics', style: TextStyle(fontFamily: 'ProductSans'),),
-                  ],
-                ),
-                  onPressed: () {
-                    _category = 'Electronics';
-                    setState(() {});
-                    Navigator.pop(context);
-                  }
-              ),
-              SimpleDialogOption(
-                child: Row(
-                  children: <Widget>[
-                    Icon(OMIcons.childFriendly),
-                    SizedBox(width: 5.0,),
-                    Text('Childrens things', style: TextStyle(fontFamily: 'ProductSans'),),
-                  ],
-                ),
-                onPressed: () {
-                  _category = 'Childrens things';
-                  setState(() {});
-                  Navigator.pop(context);
-                }
-              ),
-              SimpleDialogOption(
-                child: Row(
-                  children: <Widget>[
-                    Icon(OMIcons.cancel, color: Colors.red,),
                     SizedBox(width: 5.0,),
                     Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
                   ],
