@@ -65,7 +65,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         bottomOpacity: 0.0,
-        elevation: 1,
+        elevation: 0,
         title: TextField(
           controller: _searchController,
           decoration: InputDecoration(

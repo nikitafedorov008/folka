@@ -7,6 +7,7 @@ import 'package:folka/models/Post.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/screens/ProfleSmbScreen.dart';
 import 'package:folka/screens/QrScreen.dart';
+import 'package:folka/services/ShareService.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -665,6 +666,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                  expandedHeight: 350.0,
                  floating: false,
                  pinned: true,
+                 actions: <Widget>[
+                   IconButton(
+                     icon: Icon(OMIcons.share),
+                     tooltip: 'share',
+                     onPressed: () {
+                       share(
+                         context,
+                         '${widget.post.name} -\n'
+                         '${widget.post.caption}\n\n'
+                         'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
+                         'location: ${widget.post.location +' '+ widget.author.address}\n\n'
+                         'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
+                         'tel: ${widget.author.phone}\n'
+                         'email: ${widget.author.email}\n\n'
+                         'send from Shelf app\n\n'
+                         'https://play.google.com/store/apps/details?id=nudle.shelf',
+                       );
+                     },
+                   ),
+                 ],
                  flexibleSpace: FlexibleSpaceBar(
                    title: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans'),),
                    background: Container(

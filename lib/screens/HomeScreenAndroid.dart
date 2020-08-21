@@ -9,7 +9,9 @@ import 'package:folka/screens/FeedScreen.dart';
 import 'package:folka/screens/ProfileScreen.dart';
 import 'package:folka/screens/SearchScreen.dart';
 import 'package:folka/services/AuthService.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 class HomeScreenAndroid extends StatefulWidget {
 
@@ -25,6 +27,8 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
     initialPage: 0,
     keepPage: true,
   );
+
+  final QuickActions _quickActions = QuickActions();
 
   @override
   Future<void> initState() {
@@ -49,6 +53,48 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
       FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
       FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
     }*/
+
+    _quickActions.initialize((String shortcut) {
+      print(shortcut);
+      if (shortcut != null) {
+        if (shortcut == 'add') {
+          pageChanged(2);
+        } else if (shortcut == 'search') {
+          pageChanged(1);
+        } else if (shortcut == 'mail') {
+          pageChanged(3);
+        } else if (shortcut == 'account') {
+          pageChanged(4);
+        } else {
+          debugPrint('No one shortcut selected');
+        }
+      }
+    });
+
+    _quickActions.setShortcutItems(
+      <ShortcutItem>[
+        const ShortcutItem(
+          type: 'add',
+          localizedTitle: 'Add',
+          icon: 'add',
+        ),
+        const ShortcutItem(
+          type: 'search',
+          localizedTitle: 'Search',
+          icon: 'searchs',
+        ),
+        const ShortcutItem(
+          type: 'mail',
+          localizedTitle: 'Mail',
+          icon: 'mail',
+        ),
+        const ShortcutItem(
+          type: 'account',
+          localizedTitle: 'Account',
+          icon: 'account',
+        ),
+      ],
+    );
   }
 
   void pageChanged(int index) {
@@ -176,7 +222,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
               });
             },
             child: Icon(
-              Icons.add,
+              OMIcons.add,
               color: Colors.black,
             ),
             // elevation: 5.0,
