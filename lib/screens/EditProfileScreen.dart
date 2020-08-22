@@ -252,6 +252,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),*/
       appBar: AppBar(
         //backgroundColor: Colors.white,
+        bottomOpacity: 0.0,
+        elevation: 0,
         title: Text(
           'Edit Profile',
           style: TextStyle(

@@ -145,12 +145,12 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
               onPressed: null
           ),
         ),*/
-        actions: <Widget>[
+        /*actions: <Widget>[
           IconButton(
             icon: Icon(Icons.exit_to_app, /*color: Colors.black,*/),
             onPressed: AuthService.logout,
           )
-        ],
+        ],*/
       ),
       body: PageView(
         controller: pageController,

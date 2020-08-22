@@ -15,6 +15,7 @@ import 'package:location/location.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:super_qr_reader/super_qr_reader.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -41,6 +42,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   GoogleMapController mapController;
   String searchAddress;
+
+  String result = '';
 
   @override
   void initState() {
@@ -326,7 +329,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
        BuildContext _scaffoldContext;
 
-       pushToQr() {
+       pushToQr() async {
          if(widget.authorScanBool == true) {
            Navigator.push(
              context,
@@ -342,7 +345,28 @@ class _DetailsScreenState extends State<DetailsScreen> {
              ),
            );
          } else if (widget.authorScanBool == false) {
-           _showQr();
+           String results = await Navigator.push(
+               context,
+               MaterialPageRoute(
+                 builder: (context) => ScanView(),
+               ),
+           ); if (results != null) {
+             setState(() {
+               result = results;
+               print('qr code result = ' + result);
+             });
+             Navigator.push(
+               context,
+               MaterialPageRoute(
+                 builder: (context) => QrScreen(
+                   userId: widget.author.id,
+                   post: widget.post,
+                   currentUserId: widget.currentUserId,
+                   authorScanBool: widget.authorScanBool,
+                 ),
+               ),
+             );
+           }
          }
        }
 
@@ -589,7 +613,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                        Padding(
                          padding: const EdgeInsets.only(left: 2.0),
                          child: Icon(
-                           Icons.attach_money,
+                           OMIcons.attachMoney,
                            color: Colors.green,
                            size: 32.0,
                          ),
@@ -603,7 +627,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                          ),),
                        Text(' per', style: TextStyle(fontFamily: 'ProductSans', fontSize: 18),),
                        Icon(
-                         Icons.timer,
+                         OMIcons.timer,
                          color: Colors.blue,
                          size: 32.0,
                        ),

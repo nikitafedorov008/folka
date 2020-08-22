@@ -23,13 +23,17 @@ class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
+enum WhyFarther { settings, exit}
+
 class _ProfileScreenState extends State<ProfileScreen> {
+
   bool _isFollowing = false;
   int _followerCount = 0;
   int _followingCount = 0;
   List<Post> _posts = [];
   int _displayPosts = 0; // 0 - grid, 1 - column
   User _profileUser;
+  WhyFarther _selection;
 
   @override
   void initState() {
@@ -109,18 +113,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-
   _displayButton(User user) {
-    return user.id == Provider.of<UserData>(context).currentUserId ? IconButton(
+    return user.id == Provider.of<UserData>(context).currentUserId ? PopupMenuButton<WhyFarther>(
       icon: new Icon(OMIcons.settings),
       //color: Colors.black,
-      onPressed: () => Navigator.push(context,
+      onSelected: (WhyFarther result) {
+        setState(() {
+          _selection = result;
+          print('selected $result');
+          if(result == WhyFarther.settings) {
+            Navigator.push(context,
+              MaterialPageRoute(
+                builder: (_) => EditProfileScreen(
+                  user: user,
+                ),
+              ),
+            );
+          } else {
+            AuthService.logout();
+          }
+        });
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<WhyFarther>>[
+        const PopupMenuItem<WhyFarther>(
+          value: WhyFarther.settings,
+          child: Text('Edit Profile'),
+        ),
+        const PopupMenuItem<WhyFarther>(
+          value: WhyFarther.exit,
+          child: Text('Exit from account'),
+        ),
+      ],
+      //     navigate to settings
+      /*onPressed: () => Navigator.push(context,
         MaterialPageRoute(
           builder: (_) => EditProfileScreen(
             user: user,
           ),
         ),
-      ),
+      ),*/
     ): IconButton(
       icon: new Icon(
         _isFollowing ? Icons.check_circle_outline : Icons.radio_button_unchecked,
