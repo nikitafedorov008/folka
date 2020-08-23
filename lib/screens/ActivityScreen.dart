@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:folka/models/Activity.dart';
@@ -6,6 +8,7 @@ import 'package:folka/models/UserData.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/screens/CommentsScreen.dart';
 import 'package:folka/services/DatabaseService.dart';
+import 'package:folka/widgets/HidingAppBar.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -92,14 +95,25 @@ class _ActivityScreenState extends State<ActivityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () => _setupActivities(),
-        child: ListView.builder(
-          itemCount: _activities.length,
-          itemBuilder: (BuildContext context, int index) {
-            Activity activity = _activities[index];
-            return _buildActivity(activity);
-          },
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          if(Platform.isIOS) {
+          } else if(Platform.isAndroid){
+            return <Widget>[
+              HidingAppBar(forceElevated: innerBoxIsScrolled),
+            ];
+          }
+        },
+        body: RefreshIndicator(
+          onRefresh: () => _setupActivities(),
+          child: ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: _activities.length,
+            itemBuilder: (BuildContext context, int index) {
+              Activity activity = _activities[index];
+              return _buildActivity(activity);
+            },
+          ),
         ),
       ),
     );

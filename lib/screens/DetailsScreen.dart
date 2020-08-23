@@ -684,6 +684,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
          body: NestedScrollView(
            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
              return<Widget>[
+               SliverOverlapAbsorber(
+                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+               ),
                SliverAppBar(
                  backgroundColor: Colors.transparent,
                  elevation: 0,

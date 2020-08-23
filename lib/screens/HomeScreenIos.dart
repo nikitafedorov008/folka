@@ -74,31 +74,32 @@ class _HomeScreenIosState extends State<HomeScreenIos> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.receipt,
+              CupertinoIcons.news,
+              //Icons.receipt,
               size: 32.0,
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.search,
+              CupertinoIcons.search,
               size: 32.0,
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.add_circle,
+              CupertinoIcons.add_circled,
               size: 32.0,
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.mail,
+              CupertinoIcons.mail,
               size: 32.0,
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.account_circle,
+              CupertinoIcons.person,
               size: 32.0,
             ),
           ),

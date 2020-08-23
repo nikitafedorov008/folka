@@ -22,6 +22,7 @@ class HomeScreenAndroid extends StatefulWidget {
 
 class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
   int bottomSelectedIndex = 0;
+  bool nav;
 
   PageController pageController = PageController(
     initialPage: 0,
@@ -121,7 +122,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
     final String currentUserId = Provider.of<UserData>(context).currentUserId;
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
+      /*appBar: AppBar(
         /*shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(30.0),
@@ -151,83 +152,197 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
             onPressed: AuthService.logout,
           )
         ],*/
-      ),
-      body: PageView(
-        controller: pageController,
-        onPageChanged: (index) {
-          pageChanged(index);
+      ),*/
+      
+      body: OrientationBuilder(
+        builder: (context, orentation) {
+          if (orentation == Orientation.portrait) {
+            nav == true;
+            return PageView(
+              controller: pageController,
+              onPageChanged: (index) {
+                pageChanged(index);
+              },
+              children: <Widget>[
+                FeedScreen(currentUserId: currentUserId),
+                SearchScreen(),
+                CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
+                ActivityScreen(currentUserId: currentUserId),
+                ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
+              ],
+            );
+          } else if (orentation == Orientation.landscape) {
+            return Row(
+              children: <Widget>[
+                Expanded(
+                  child: PageView(
+                    controller: pageController,
+                    onPageChanged: (index) {
+                      pageChanged(index);
+                    },
+                    children: <Widget>[
+                      FeedScreen(currentUserId: currentUserId),
+                      SearchScreen(),
+                      CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
+                      ActivityScreen(currentUserId: currentUserId),
+                      ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
+                    ],
+                  ),
+                ),
+                NavigationRail(
+                  extended: false,
+                  groupAlignment: 0,
+                  selectedIndex: bottomSelectedIndex,
+                  onDestinationSelected: (int index){
+                    setState(() {
+                      bottomTapped(index);
+                    });
+                  },
+                  labelType: NavigationRailLabelType.none,
+                  backgroundColor: Colors.greenAccent,
+                  selectedLabelTextStyle: TextStyle(fontFamily: 'ProductSans', color: Colors.black),
+                  selectedIconTheme: IconThemeData(color: Colors.black),
+                  unselectedLabelTextStyle: TextStyle(fontFamily: 'ProductSans', color: Colors.black),
+                  unselectedIconTheme: IconThemeData(color: Colors.black38),
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Tooltip(message: 'Home', child: Icon(Icons.business)),
+                      selectedIcon: Tooltip(message: 'Home', child: Icon(Icons.business,)),
+                      label: Text('Home',),
+                    ),
+                    NavigationRailDestination(
+                      icon: Tooltip(message: 'Search', child: Icon(Icons.search)),
+                      selectedIcon: Icon(Icons.search,),
+                      label: Tooltip(message: 'Search', child: Text('Search',)),
+                    ),
+                    NavigationRailDestination(
+                      icon: Tooltip(message: 'Add', child: FloatingActionButton(
+                        tooltip: 'Add',
+                        backgroundColor: Colors.black54,
+                        onPressed: () {
+                          setState(() {
+                            pageController.jumpToPage(2);
+                          });
+                        },
+                        child: Icon(
+                          OMIcons.add,
+                          color: Colors.greenAccent,
+                        ),
+                        // elevation: 5.0,
+                      ),),
+                      selectedIcon: FloatingActionButton(
+                        tooltip: 'Add',
+                        backgroundColor: Colors.black87,
+                        onPressed: () {
+                          setState(() {
+                            pageController.jumpToPage(2);
+                          });
+                        },
+                        child: Icon(
+                          OMIcons.add,
+                          color: Colors.greenAccent,
+                        ),
+                        // elevation: 5.0,
+                      ),
+                      label: Text('Add',),
+                    ),
+                    NavigationRailDestination(
+                      icon: Tooltip(message: 'Activity', child: Icon(Icons.mail_outline)),
+                      selectedIcon: Icon(Icons.mail_outline,),
+                      label: Tooltip(message: 'Activity', child: Text('Activity',)),
+                    ),
+                    NavigationRailDestination(
+                      icon: Tooltip(message: 'Profile', child: Icon(Icons.person_outline)),
+                      selectedIcon: Icon(Icons.person_outline,),
+                      label: Tooltip(message: 'Profile', child: Text('Profile',)),
+                    ),
+                  ],
+                ),
+                VerticalDivider(thickness: 0, width: 0,),
+              ],
+            );
+          }
         },
-        children: <Widget>[
-          FeedScreen(currentUserId: currentUserId),
-          SearchScreen(),
-          CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
-          ActivityScreen(currentUserId: currentUserId),
-          ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
-        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 6,
-        clipBehavior: Clip.antiAlias,
-        child: BottomNavigationBar(
-          onTap: (index) {
-            bottomTapped(index);
-            _onItemTapped(index);
-          },
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.greenAccent,
-          items: [
-            BottomNavigationBarItem(
-              icon: Tooltip(message: 'Home', child: Icon(Icons.domain, color: Colors.black38,)),
-              title: Text('Home'),
-              activeIcon: Tooltip(message: 'Home', child: Icon(Icons.domain, color: Colors.black,)),
-            ),
-            BottomNavigationBarItem(
-              icon: Tooltip(message: 'Search', child: Icon(Icons.search, color: Colors.black38,)),
-              title: Text('Search'),
-              activeIcon: Tooltip(message: 'Search', child: Icon(Icons.search, color: Colors.black,)),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle_outline, color: Colors.transparent,),
-              title: Text('Add'),
-            ),
-            BottomNavigationBarItem(
-              icon: Tooltip(message: 'Activity', child: Icon(Icons.mail_outline, color: Colors.black38,)),
-              title: Text('Activity'),
-              activeIcon: Tooltip(message: 'Activity', child: Icon(Icons.mail_outline, color: Colors.black,)),
-            ),
-            BottomNavigationBarItem(
-              icon: Tooltip(message: 'Profile', child: Icon(Icons.person_outline, color: Colors.black38,)),
-              title: Text('Profile'),
-              activeIcon: Tooltip(message: 'Profile', child: Icon(Icons.person_outline, color: Colors.black,)),
-            ),
-          ],
-          selectedItemColor: Colors.black87,
-          currentIndex: bottomSelectedIndex,
-        ),
+      bottomNavigationBar: OrientationBuilder(
+        builder: (context, orentation) {
+          if (orentation == Orientation.portrait) {
+            return BottomAppBar(
+              shape: CircularNotchedRectangle(),
+              notchMargin: 6,
+              clipBehavior: Clip.antiAlias,
+              child: BottomNavigationBar(
+                onTap: (index) {
+                  bottomTapped(index);
+                  _onItemTapped(index);
+                },
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.greenAccent,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Tooltip(message: 'Home', child: Icon(Icons.domain, color: Colors.black38,)),
+                    title: Text('Home'),
+                    activeIcon: Tooltip(message: 'Home', child: Icon(Icons.domain, color: Colors.black,)),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Tooltip(message: 'Search', child: Icon(Icons.search, color: Colors.black38,)),
+                    title: Text('Search'),
+                    activeIcon: Tooltip(message: 'Search', child: Icon(Icons.search, color: Colors.black,)),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.add_circle_outline, color: Colors.transparent,),
+                    title: Text('Add'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Tooltip(message: 'Activity', child: Icon(Icons.mail_outline, color: Colors.black38,)),
+                    title: Text('Activity'),
+                    activeIcon: Tooltip(message: 'Activity', child: Icon(Icons.mail_outline, color: Colors.black,)),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Tooltip(message: 'Profile', child: Icon(Icons.person_outline, color: Colors.black38,)),
+                    title: Text('Profile'),
+                    activeIcon: Tooltip(message: 'Profile', child: Icon(Icons.person_outline, color: Colors.black,)),
+                  ),
+                ],
+                selectedItemColor: Colors.black87,
+                currentIndex: bottomSelectedIndex,
+              ),
+            );
+          } else {
+            return BottomAppBar();
+          }
+        }
       ),
-      floatingActionButton: Container(
-        height: 60.0,
-        width: 60.0,
-        child: FittedBox(
-          child: FloatingActionButton(
-            tooltip: 'Add',
-            backgroundColor: Colors.greenAccent[100],
-            onPressed: () {
-              setState(() {
-                pageController.jumpToPage(2);
-              });
-            },
-            child: Icon(
-              OMIcons.add,
-              color: Colors.black,
-            ),
-            // elevation: 5.0,
-          ),
-        ),
+      floatingActionButton: OrientationBuilder(
+        builder: (context, orentation) {
+          if (orentation == Orientation.portrait) {
+            return Container(
+              height: 60.0,
+              width: 60.0,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  tooltip: 'Add',
+                  backgroundColor: Colors.greenAccent[100],
+                  onPressed: () {
+                    setState(() {
+                      pageController.jumpToPage(2);
+                    });
+                  },
+                  child: Icon(
+                    OMIcons.add,
+                    color: Colors.black,
+                  ),
+                  // elevation: 5.0,
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        }
       ),
     );
   }
