@@ -98,6 +98,22 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
     );
   }
 
+  pageView(String currentUserId) {
+    return PageView(
+      controller: pageController,
+      onPageChanged: (index) {
+        pageChanged(index);
+      },
+      children: <Widget>[
+        FeedScreen(currentUserId: currentUserId),
+        SearchScreen(),
+        CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
+        ActivityScreen(currentUserId: currentUserId),
+        ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
+      ],
+    );
+  }
+
   void pageChanged(int index) {
     setState(() {
       bottomSelectedIndex = index;
@@ -115,6 +131,22 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
     setState(() {
       pageController = index;
     });
+  }
+
+  buildPageView(String currentUserId) {
+    return PageView(
+      controller: pageController,
+      onPageChanged: (index) {
+        pageChanged(index);
+      },
+      children: <Widget>[
+        FeedScreen(currentUserId: currentUserId),
+        SearchScreen(),
+        CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
+        ActivityScreen(currentUserId: currentUserId),
+        ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
+      ],
+    );
   }
 
   @override
@@ -153,41 +185,16 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
           )
         ],*/
       ),*/
-      
+
       body: OrientationBuilder(
-        builder: (context, orentation) {
-          if (orentation == Orientation.portrait) {
-            nav == true;
-            return PageView(
-              controller: pageController,
-              onPageChanged: (index) {
-                pageChanged(index);
-              },
-              children: <Widget>[
-                FeedScreen(currentUserId: currentUserId),
-                SearchScreen(),
-                CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
-                ActivityScreen(currentUserId: currentUserId),
-                ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
-              ],
-            );
-          } else if (orentation == Orientation.landscape) {
+        builder: (context, orientation){
+          if (orientation == Orientation.portrait) {
+            return pageView(currentUserId);
+          } else {
             return Row(
               children: <Widget>[
                 Expanded(
-                  child: PageView(
-                    controller: pageController,
-                    onPageChanged: (index) {
-                      pageChanged(index);
-                    },
-                    children: <Widget>[
-                      FeedScreen(currentUserId: currentUserId),
-                      SearchScreen(),
-                      CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
-                      ActivityScreen(currentUserId: currentUserId),
-                      ProfileScreen(currentUserId: currentUserId, userId: currentUserId,),
-                    ],
-                  ),
+                  child: pageView(currentUserId),
                 ),
                 NavigationRail(
                   extended: false,
@@ -262,7 +269,7 @@ class _HomeScreenAndroidState extends State<HomeScreenAndroid> {
               ],
             );
           }
-        },
+        }
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: OrientationBuilder(

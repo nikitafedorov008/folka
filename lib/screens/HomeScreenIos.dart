@@ -19,92 +19,88 @@ class _HomeScreenIosState extends State<HomeScreenIos> {
   PageController _pageController;
 
   @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final String currentUserId = Provider.of<UserData>(context).currentUserId;
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('shelf', style: TextStyle(
-          fontFamily: 'ProductSans'
-        ),),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.exit_to_app,),
-            onPressed: AuthService.logout,
-          )
-        ],
-      ),
-      body: PageView(
-        controller: _pageController,
-        children: <Widget>[
-          FeedScreen(currentUserId: currentUserId),
-          SearchScreen(),
-          CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,),
-          ActivityScreen(currentUserId: currentUserId),
-          ProfileScreen(
-            currentUserId: currentUserId,
-            userId: currentUserId,
+    return CupertinoPageScaffold(
+      child: CupertinoTabScaffold(
+          tabBar: CupertinoTabBar(
+            currentIndex: _currentTab,
+            onTap: (int index) {
+              setState(() {
+                _currentTab = index;
+              });
+              _pageController.animateToPage(
+                index,
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeIn,
+              );
+            },
+            backgroundColor: Colors.transparent,
+            activeColor: Colors.greenAccent,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.news,
+                  //Icons.receipt,
+                  size: 32.0,
+                ),
+                title: Text('Feed'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.search,
+                  size: 32.0,
+                ),
+                title: Text('Search'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.add_circled,
+                  size: 32.0,
+                ),
+                title: Text('Add'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.mail,
+                  size: 32.0,
+                ),
+                title: Text('Activity'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.person,
+                  size: 32.0,
+                ),
+                title: Text('Profile'),
+              ),
+            ],
           ),
-        ],
-        onPageChanged: (int index) {
-          setState(() {
-            _currentTab = index;
-          });
-        },
-      ),
-      bottomNavigationBar: CupertinoTabBar(
-        currentIndex: _currentTab,
-        onTap: (int index) {
-          setState(() {
-            _currentTab = index;
-          });
-          _pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeIn,
-          );
-        },
-        activeColor: Colors.greenAccent,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.news,
-              //Icons.receipt,
-              size: 32.0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.search,
-              size: 32.0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.add_circled,
-              size: 32.0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.mail,
-              size: 32.0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              CupertinoIcons.person,
-              size: 32.0,
-            ),
-          ),
-        ],
-      ),
+        tabBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return FeedScreen(currentUserId: currentUserId);
+              break;
+            case 1:
+              return SearchScreen();
+              break;
+            case 2:
+              return CreatePostScreen(currentUserId: currentUserId, userId: currentUserId,);
+              break;
+            case 3:
+              return ActivityScreen(currentUserId: currentUserId);
+              break;
+            case 4:
+              return ProfileScreen(
+                currentUserId: currentUserId,
+                userId: currentUserId,
+              );
+              break;
+            default:
+              return FeedScreen(currentUserId: currentUserId);
+              break;
+          }
+        }),
     );
   }
 }

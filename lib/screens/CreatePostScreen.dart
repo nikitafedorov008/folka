@@ -8,6 +8,7 @@ import 'package:folka/models/User.dart';
 import 'package:folka/models/UserData.dart';
 import 'package:folka/services/DatabaseService.dart';
 import 'package:folka/services/StorageService.dart';
+import 'package:folka/widgets/HidingAppBar.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -492,194 +493,201 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SingleChildScrollView(
-          child: Container(
-            //height: height,
-            child: Column(
-              children: <Widget>[
-                _isLoading
-                    ? Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: LinearProgressIndicator(
-                    backgroundColor: Colors.greenAccent,
-                    valueColor: AlwaysStoppedAnimation(Colors.green),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            HidingAppBar(forceElevated: innerBoxIsScrolled),
+          ];
+        },
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SingleChildScrollView(
+            child: Container(
+              //height: height,
+              child: Column(
+                children: <Widget>[
+                  _isLoading
+                      ? Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.greenAccent,
+                      valueColor: AlwaysStoppedAnimation(Colors.green),
+                    ),
+                  )
+                      : SizedBox.shrink(),
+                  GestureDetector(
+                    onTap: _showSelectImageDialog,
+                    child: OrientationBuilder(
+                      builder: (context, orentation) {
+                        return Container(
+                          height: 250,
+                          width: orentation == Orientation.portrait ? 520 : 320,
+                          //color: Colors.white,
+                          child: _image == null
+                              ? Image(image: AssetImage(
+                              'assets/images/images.png'),)
+                              : Image(
+                            image: FileImage(_image),
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }
+                    ),
                   ),
-                )
-                    : SizedBox.shrink(),
-                GestureDetector(
-                  onTap: _showSelectImageDialog,
-                  child: OrientationBuilder(
-                    builder: (context, orentation) {
-                      return Container(
-                        height: 250,
-                        width: orentation == Orientation.portrait ? 520 : 320,
-                        //color: Colors.white,
-                        child: _image == null
-                            ? Image(image: AssetImage(
-                            'assets/images/images.png'),)
-                            : Image(
-                          image: FileImage(_image),
-                          fit: BoxFit.cover,
+                  SizedBox(height: 20.0),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      controller: _nameController,
+                      style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: new BorderSide(color: Colors.greenAccent),
                         ),
-                      );
-                    }
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: TextFormField(
-                    controller: _nameController,
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
-                    decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        borderSide: new BorderSide(color: Colors.greenAccent),
+                        labelText: 'Name',
                       ),
-                      labelText: 'Name',
+                      onChanged: (input) => _name = input,
                     ),
-                    onChanged: (input) => _name = input,
                   ),
-                ),
-                SizedBox(height: 10.0,),
-                Row(),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: TextFormField(
-                    keyboardType: TextInputType.numberWithOptions(),
-                    controller: _priceController,
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
-                    decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        borderSide: new BorderSide(color: Colors.greenAccent),
+                  SizedBox(height: 10.0,),
+                  Row(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      keyboardType: TextInputType.numberWithOptions(),
+                      controller: _priceController,
+                      style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: new BorderSide(color: Colors.greenAccent),
+                        ),
+                        labelText: 'Price',
                       ),
-                      labelText: 'Price',
+                      onChanged: (input) => _price = input,
                     ),
-                    onChanged: (input) => _price = input,
                   ),
-                ),
-                SizedBox(height: 10.0,),
-                /*Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: TextFormField(
-                    keyboardType: TextInputType.numberWithOptions(),
-                    controller: _timeController,
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
-                    decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        borderSide: new BorderSide(color: Colors.greenAccent),
+                  SizedBox(height: 10.0,),
+                  /*Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      keyboardType: TextInputType.numberWithOptions(),
+                      controller: _timeController,
+                      style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: new BorderSide(color: Colors.greenAccent),
+                        ),
+                        labelText: 'Time(days)',
                       ),
-                      labelText: 'Time(days)',
+                      onChanged: (input) => _time = input,
                     ),
-                    onChanged: (input) => _time = input,
-                  ),
-                ),*/
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30.0,
-                    vertical: 5.0,
-                  ),
-                  child: GestureDetector(
-                    //onTap: () async {_showSelectRegionDialog();},
-                    onTap: _showTimeChooseDialog,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(18.0)),
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      padding: EdgeInsets.fromLTRB(10,20,20,20,),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Time ",
-                            style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
-                          Text("$_time",
-                            style: TextStyle(fontFamily: 'ProductSans'),),
-                        ],
+                  ),*/
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 30.0,
+                      vertical: 5.0,
+                    ),
+                    child: GestureDetector(
+                      //onTap: () async {_showSelectRegionDialog();},
+                      onTap: _showTimeChooseDialog,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                          border: Border.all(color: Colors.grey),
+                        ),
+                        padding: EdgeInsets.fromLTRB(10,20,20,20,),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Time ",
+                              style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
+                            Text("$_time",
+                              style: TextStyle(fontFamily: 'ProductSans'),),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10.0,),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 30.0,
-                    vertical: 5.0,
-                  ),
-                  child: GestureDetector(
-                    //onTap: ()=> selectDate(context, DateTime.now(),),
-                    onTap: () async {_showSelectChooseDialog();},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(18.0)),
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      padding: EdgeInsets.fromLTRB(10,20,20,20,),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Category ",
-                            style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
-                          Text("$_category",
-                            style: TextStyle(fontFamily: 'ProductSans'),)
-                        ],
+                  SizedBox(height: 10.0,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 30.0,
+                      vertical: 5.0,
+                    ),
+                    child: GestureDetector(
+                      //onTap: ()=> selectDate(context, DateTime.now(),),
+                      onTap: () async {_showSelectChooseDialog();},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                          border: Border.all(color: Colors.grey),
+                        ),
+                        padding: EdgeInsets.fromLTRB(10,20,20,20,),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Category ",
+                              style: TextStyle(fontSize: 16, fontFamily: 'ProductSans', color: Colors.grey[600]),),
+                            Text("$_category",
+                              style: TextStyle(fontFamily: 'ProductSans'),)
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10.0,),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: TextFormField(
-                    controller: _locationController,
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
-                    decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        borderSide: new BorderSide(color: Colors.greenAccent),
+                  SizedBox(height: 10.0,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      controller: _locationController,
+                      style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: new BorderSide(color: Colors.greenAccent),
+                        ),
+                        labelText: 'Location',
                       ),
-                      labelText: 'Location',
+                      onChanged: (input) => _location = input,
                     ),
-                    onChanged: (input) => _location = input,
                   ),
-                ),
-                SizedBox(height: 10.0,),
-                //phoneTextFiled(user),
-                //SizedBox(height: 10.0,),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: TextFormField(
-                    controller: _captionController,
-                    style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
-                    decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        borderSide: new BorderSide(color: Colors.greenAccent),
+                  SizedBox(height: 10.0,),
+                  //phoneTextFiled(user),
+                  //SizedBox(height: 10.0,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      controller: _captionController,
+                      style: TextStyle(fontSize: 18.0, fontFamily: 'productSans'),
+                      decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: new BorderSide(color: Colors.greenAccent),
+                        ),
+                        labelText: 'Caption',
                       ),
-                      labelText: 'Caption',
+                      onChanged: (input) => _caption = input,
                     ),
-                    onChanged: (input) => _caption = input,
                   ),
-                ),
-                SizedBox(height: 10.0,),
-                FlatButton (
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
+                  SizedBox(height: 10.0,),
+                  FlatButton (
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(18.0),
+                    ),
+                    child: Text('add product',
+                      style: TextStyle(fontFamily: 'ProductSans'),),
+                    color: Colors.greenAccent,
+                    textColor: Colors.black,
+                    onPressed: _submit,
                   ),
-                  child: Text('add product',
-                    style: TextStyle(fontFamily: 'ProductSans'),),
-                  color: Colors.greenAccent,
-                  textColor: Colors.black,
-                  onPressed: _submit,
-                ),
-                SizedBox(height: 30.0,),
-              ],
+                  SizedBox(height: 30.0,),
+                ],
+              ),
             ),
           ),
         ),

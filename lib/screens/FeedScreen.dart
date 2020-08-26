@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:folka/models/Post.dart';
@@ -23,6 +24,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   List<Post> _posts = [];
+  bool isIos;
 
   @override
   void initState() {
@@ -44,12 +46,9 @@ class _FeedScreenState extends State<FeedScreen> {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          if(Platform.isIOS) {
-          } else if(Platform.isAndroid){
-            return <Widget>[
-              HidingAppBar(forceElevated: innerBoxIsScrolled),
-            ];
-          }
+          return <Widget>[
+            HidingAppBar(forceElevated: innerBoxIsScrolled),
+          ];
         },
         body: RefreshIndicator(
           onRefresh: () => _setupFeed(),

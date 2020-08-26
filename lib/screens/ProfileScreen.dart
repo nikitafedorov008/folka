@@ -118,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _displayButton(User user) {
     return user.id == Provider.of<UserData>(context).currentUserId ? PopupMenuButton<WhyFarther>(
-      icon: new Icon(OMIcons.settings),
+      icon: Icon(OMIcons.settings),
       //color: Colors.black,
       onSelected: (WhyFarther result) {
         setState(() {
@@ -300,12 +300,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             User user = User.fromDoc(snapshot.data);
             return NestedScrollView(
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-               if(Platform.isIOS) {
-               } else if(Platform.isAndroid){
-                 return <Widget>[
-                   HidingAppBar(forceElevated: innerBoxIsScrolled),
-                 ];
-               }
+                return <Widget>[
+                  HidingAppBar(forceElevated: innerBoxIsScrolled),
+                ];
               },
               body: ListView(
                 padding: EdgeInsets.zero,

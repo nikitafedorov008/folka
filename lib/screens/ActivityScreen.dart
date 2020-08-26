@@ -97,12 +97,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          if(Platform.isIOS) {
-          } else if(Platform.isAndroid){
-            return <Widget>[
-              HidingAppBar(forceElevated: innerBoxIsScrolled),
-            ];
-          }
+          return <Widget>[
+            HidingAppBar(forceElevated: innerBoxIsScrolled),
+          ];
         },
         body: RefreshIndicator(
           onRefresh: () => _setupActivities(),
