@@ -142,10 +142,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: OrientationBuilder(
-              builder: (context, orentation) {
+                builder: (context, orientation) {
+                  //height: orientation == Orientation.portrait ? 320 : 220,
                 return Container(
-                  //height: orentation == Orientation.portrait ? 320 : 220,
+                  height: 350,
                   child: ListView(
+                    physics: BouncingScrollPhysics(),
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.fromLTRB(

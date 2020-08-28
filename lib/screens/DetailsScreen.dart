@@ -42,7 +42,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   GoogleMapController mapController;
   String searchAddress;
-
   String result = '';
 
   @override
@@ -86,7 +85,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               borderRadius: BorderRadius.circular(16.0),
             ),
             //backgroundColor: Colors.greenAccent,
-            title: Text('Let scan yhis qr code', style: TextStyle(fontFamily: 'ProductSans'),),
+            title: Text('Let scan this qr code', style: TextStyle(fontFamily: 'ProductSans'),),
             children: <Widget>[
               SimpleDialogOption(
                 child: Container(
@@ -219,16 +218,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     new ListTile(
                         leading: new Icon(OMIcons.map),
                         title: new Text('Route', style: TextStyle(fontFamily: 'ProductSans'),),
-                        onTap: () => {
-                          makeRoute(),
-                        }
+                        onTap: () => makeRoute(),
                     ),
                     new ListTile(
                       leading: new Icon(OMIcons.localTaxi),
                       title: new Text('Take Taxi', style: TextStyle(fontFamily: 'ProductSans'),),
-                      onTap: () => {
-                        makeRoute(),
-                      },
+                      onTap: () => makeRoute(),
                     ),
                     new ListTile(
                       leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
@@ -317,8 +312,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
               //color: Colors.white,
               child: Container(
+                height: 330,
                 //color: Colors.transparent,
-                child: new Wrap(
+                child: new ListView(
+                  physics: BouncingScrollPhysics(),
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0,),
@@ -329,7 +326,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     new ListTile(
                         leading: new Icon(OMIcons.phone),
                         title: new Text('Call', style: TextStyle(fontFamily: 'ProductSans'),),
-                        onTap: () => { makeCall(),}
+                        onTap: () => makeCall(),
                     ),
                     new ListTile(
                       leading: new Icon(OMIcons.sms),
@@ -342,67 +339,90 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       onTap: () => sendEmail(),
                     ),
                     new ListTile(
-                      leading: new Icon(OMIcons.dashboard),
-                      title: new Text('Dashboard Message', style: TextStyle(fontFamily: 'ProductSans'),),
-                      onTap: () {
-                        Navigator.pop(context);
-                        showDialog(context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                title: Text('Dashboard Message', style: TextStyle(fontFamily: 'ProductSans'),),
-                                content: Container(
-                                  height: 290,
-                                  width: 520,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Container(
-                                          child: Image(image: AssetImage('assets/images/messages.png'),)
+                        leading: new Icon(OMIcons.dashboard),
+                        title: new Text('Dashboard Message', style: TextStyle(fontFamily: 'ProductSans'),),
+                        onTap: () {
+                          Navigator.pop(context);
+                          showDialog(context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  title: Text('Dashboard Message', style: TextStyle(fontFamily: 'ProductSans'),),
+                                  content: Container(
+                                    height: 290,
+                                    width: 520,
+                                    child: OrientationBuilder(
+                                      builder: (context, orientation){
+                                        if (orientation == Orientation.portrait) {
+                                          return Column(
+                                            children: <Widget>[
+                                              Container(
+                                                  child: Image(image: AssetImage('assets/images/messages.png'),)
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  '1. Choose picture of this product\n'
+                                                      '2. Write your message on dashboard\n'
+                                                      '3. Send it and wait for answer',
+                                                  style: TextStyle(fontFamily: 'ProductSans'),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        } else {
+                                          return Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  child: Image(image: AssetImage('assets/images/messages.png'),)
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  '1. Choose picture of this product\n'
+                                                      '2. Write your message on dashboard\n'
+                                                      '3. Send it and wait for answer',
+                                                  style: TextStyle(fontFamily: 'ProductSans'),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16.0),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          '1. Choose picture of this product\n'
-                                          '2. Write your message on dashboard\n'
-                                          '3. Send it and wait for answer',
-                                          style: TextStyle(fontFamily: 'ProductSans'),
-                                        ),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(OMIcons.checkCircle),
+                                          Text('Lets Go', style: TextStyle(fontFamily: 'ProductSans'),),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
+                                      onPressed: ()=> pushToProfile(),
                                     ),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(OMIcons.checkCircle),
-                                        Text('Lets Go', style: TextStyle(fontFamily: 'ProductSans'),),
-                                      ],
+                                    FlatButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16.0),
+                                      ),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(OMIcons.cancel, color: Colors.red,),
+                                          Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
+                                        ],
+                                      ),
+                                      onPressed: ()=> Navigator.pop(context),
                                     ),
-                                    onPressed: ()=> pushToProfile(),
-                                  ),
-                                  FlatButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(OMIcons.cancel, color: Colors.red,),
-                                        Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
-                                      ],
-                                    ),
-                                    onPressed: ()=> Navigator.pop(context),
-                                  ),
-                                ],
-                              );
-                            }
-                        );
-                      }
+                                  ],
+                                );
+                              }
+                          );
+                        }
                     ),
                     new ListTile(
                       leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
