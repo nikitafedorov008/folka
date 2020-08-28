@@ -114,6 +114,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
         },);
       }
 
+  pushToProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ProfileSMDScreen(
+          userId: widget.author.id,
+          //author: widget.author,
+          //likeCount: _likeCount,
+        ),
+      ),
+    );
+  }
+
   Future<void> _launchUrl(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -250,6 +263,37 @@ class _DetailsScreenState extends State<DetailsScreen> {
               child: Text('Email'),
               onPressed: () => sendEmail(),
             ),
+            CupertinoActionSheetAction(
+              child: Text('Dashboard message'),
+              onPressed: () {
+                Navigator.pop(context);
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) => CupertinoAlertDialog(
+                      title: new Text('Dashboard message'),
+                      content: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: new Text(
+                          '1. Choose picture of this product\n'
+                          '2. Write your message on dashboard\n'
+                          '3. Send it and wait for answer',
+                        ),
+                      ),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          isDefaultAction: true,
+                          child: Text('Lets Go'),
+                          onPressed: ()=> pushToProfile(),
+                        ),
+                        CupertinoDialogAction(
+                          child: Text('Cancel', style: TextStyle(color: CupertinoColors.destructiveRed),),
+                          onPressed: ()=> Navigator.pop(context),
+                        )
+                      ],
+                    )
+                );
+              }
+            ),
           ],
           cancelButton: CupertinoActionSheetAction(
             child: Text('Cancel'),
@@ -290,12 +334,75 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     new ListTile(
                       leading: new Icon(OMIcons.sms),
                       title: new Text('SMS', style: TextStyle(fontFamily: 'ProductSans'),),
-                      onTap: () => { sendSms(),},
+                      onTap: () => sendSms(),
                     ),
                     new ListTile(
                       leading: new Icon(OMIcons.email),
                       title: new Text('Email', style: TextStyle(fontFamily: 'ProductSans'),),
-                      onTap: () => { sendEmail(),},
+                      onTap: () => sendEmail(),
+                    ),
+                    new ListTile(
+                      leading: new Icon(OMIcons.dashboard),
+                      title: new Text('Dashboard Message', style: TextStyle(fontFamily: 'ProductSans'),),
+                      onTap: () {
+                        Navigator.pop(context);
+                        showDialog(context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                title: Text('Dashboard Message', style: TextStyle(fontFamily: 'ProductSans'),),
+                                content: Container(
+                                  height: 290,
+                                  width: 520,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                          child: Image(image: AssetImage('assets/images/messages.png'),)
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          '1. Choose picture of this product\n'
+                                          '2. Write your message on dashboard\n'
+                                          '3. Send it and wait for answer',
+                                          style: TextStyle(fontFamily: 'ProductSans'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(OMIcons.checkCircle),
+                                        Text('Lets Go', style: TextStyle(fontFamily: 'ProductSans'),),
+                                      ],
+                                    ),
+                                    onPressed: ()=> pushToProfile(),
+                                  ),
+                                  FlatButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(OMIcons.checkCircle, color: Colors.red,),
+                                        Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
+                                      ],
+                                    ),
+                                    onPressed: ()=> Navigator.pop(context),
+                                  ),
+                                ],
+                              );
+                            }
+                        );
+                      }
                     ),
                     new ListTile(
                       leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
@@ -313,19 +420,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-       pushToProfile() {
-         Navigator.push(
-           context,
-           MaterialPageRoute(
-             builder: (_) => ProfileSMDScreen(
-               userId: widget.author.id,
-               //author: widget.author,
-               //likeCount: _likeCount,
-             ),
-           ),
-         );
-       }
 
        BuildContext _scaffoldContext;
 
