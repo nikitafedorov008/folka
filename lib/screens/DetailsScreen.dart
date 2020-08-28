@@ -392,7 +392,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     ),
                                     child: Row(
                                       children: <Widget>[
-                                        Icon(OMIcons.checkCircle, color: Colors.red,),
+                                        Icon(OMIcons.cancel, color: Colors.red,),
                                         Text('Cancel', style: TextStyle(fontFamily: 'ProductSans', color: Colors.red),),
                                       ],
                                     ),
