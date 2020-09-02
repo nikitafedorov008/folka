@@ -14,7 +14,8 @@ Here there is list of few resources are used in this Flutter project:
 - [Bottom bar navigation with floating action button](https://medium.com/coding-with-flutter/flutter-bottomappbar-navigation-with-fab-8b962bb55013)
 - [Illustrations for projects](https://undraw.co/)
 
-##Screenshots
+
+## Screenshots
 
 Android
 
