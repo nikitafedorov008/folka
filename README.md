@@ -20,7 +20,7 @@ Android
 
 <img src="screenshots/introscreen.jpg" height="480px" > <img src="screenshots/loginscreen.jpg" height="480px" > <img src="screenshots/signupscreen.jpg" height="480px" > <img src="screenshots/feedscreen.jpg" height="480px" > <img src="screenshots/searchscreentwo.jpg" height="480px" >
 <img src="screenshots/createpostscreen.jpg" height="480px" > <img src="screenshots/createpostscreenthree.jpg" height="480px" > <img src="screenshots/activityscreen.jpg" height="480px" > <img src="screenshots/profilescreen.jpg" height="480px" > <img src="screenshots/editprofilescreen.jpg" height="480px" >
-<img src="screenshots/detailscreen.jpg" height="480px" > <img src="screenshots/detailscreenthree.jpg" height="480px" > <img src="screenshots/feedscreenwhite.jpg" height="480px" ><img src="screenshots/feedscreenlandscape.jpg" height="240px" >
+<img src="screenshots/detailscreen.jpg" height="480px" > <img src="screenshots/detailscreenthree.jpg" height="480px" > <img src="screenshots/feedscreenwhite.jpg" height="480px" >  <img src="screenshots/feedscreenlandscape.jpg" height="240px" >
 
 Ios
 
