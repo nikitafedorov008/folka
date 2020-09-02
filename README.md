@@ -14,6 +14,19 @@ Here there is list of few resources are used in this Flutter project:
 - [Bottom bar navigation with floating action button](https://medium.com/coding-with-flutter/flutter-bottomappbar-navigation-with-fab-8b962bb55013)
 - [Illustrations for projects](https://undraw.co/)
 
+##Screenshots
+
+Android
+
+<img src="screenshots/introscreen.jpg" height="480px" > <img src="screenshots/loginscreen.jpg" height="480px" > <img src="screenshots/signupscreen.jpg" height="480px" > <img src="screenshots/feedscreen.jpg" height="480px" > <img src="screenshots/searchscreentwo.jpg" height="480px" >
+<img src="screenshots/createpostscreen.jpg" height="480px" > <img src="screenshots/createpostscreenthree.jpg" height="480px" > <img src="screenshots/activityscreen.jpg" height="480px" > <img src="screenshots/profilescreen.jpg" height="480px" > <img src="screenshots/editprofilescreen.jpg" height="480px" >
+<img src="screenshots/deatilscreen.jpg" height="480px" > <img src="screenshots/detailscreenthree.jpg" height="480px" > <img src="screenshots/feedscreenwhite.jpg" height="480px" >
+<img src="screenshots/feedscreenlandscape.jpg" height="480px" >
+
+Ios
+
+<img src="screenshots/feedscreenios.jpg" height="480px" > <img src="screenshots/deatilscreenios.jpg" height="480px" > <img src="screenshots/deatilscreeniostwo.jpg" height="480px" > <img src="screenshots/feedscreen.jpg" height="480px" > <img src="screenshots/searchscreentwo.jpg" height="480px" >
+
 For help getting started with Flutter, view
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.

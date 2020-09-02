@@ -370,7 +370,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   style: TextStyle(fontFamily: 'ProductSans'),
                                                 ),
                                               ),
-                                            ],
+                            z                ],
                                           );
                                         } else {
                                           return Row(
