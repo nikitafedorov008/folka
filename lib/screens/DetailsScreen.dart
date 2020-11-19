@@ -370,7 +370,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   style: TextStyle(fontFamily: 'ProductSans'),
                                                 ),
                                               ),
-                            z                ],
+                                            ],
                                           );
                                         } else {
                                           return Row(
@@ -577,7 +577,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                              'CONTACT',
                              style: TextStyle(
                                fontSize: 12,
-                               fontWeight: FontWeight.w100,
+                               fontWeight: FontWeight.w300,
                                //color: color,
                              ),
                            ),
@@ -598,7 +598,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                              'ROUTE',
                              style: TextStyle(
                                fontSize: 12,
-                               fontWeight: FontWeight.w100,
+                               fontWeight: FontWeight.w300,
                                //color: color,
                              ),
                            ),
@@ -619,7 +619,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                              'SCAN',
                              style: TextStyle(
                                fontSize: 12,
-                               fontWeight: FontWeight.w100,
+                               fontWeight: FontWeight.w300,
                                //color: color,
                              ),
                            ),
@@ -724,34 +724,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                  children:[
                    Row(
                      children: <Widget>[
-                       Padding(
-                         padding: const EdgeInsets.only(left: 2.0),
-                         child: Icon(
-                           OMIcons.attachMoney,
-                           color: Colors.green,
-                           size: 32.0,
+                       Chip(
+                         avatar: CircleAvatar(
+                           backgroundColor: Colors.green,
+                           child: Icon(OMIcons.attachMoney, color: Colors.black87, size: 24,),
                          ),
+                         label: Text(widget.post.price + ' RUB', style: TextStyle(fontFamily: 'ProductSans', fontSize: 22, color: Colors.green),),
                        ),
-                       Text(
-                         widget.post.price + 'RUB',
-                         style: TextStyle(
-                           color: Colors.green,
-                           fontFamily: 'ProductSans',
-                           fontSize: 22.0,
-                         ),),
-                       Text(' per', style: TextStyle(fontFamily: 'ProductSans', fontSize: 18),),
-                       Icon(
-                         OMIcons.timer,
-                         color: Colors.blue,
-                         size: 32.0,
+                       Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                         child: Text(' per', style: TextStyle(fontFamily: 'ProductSans', fontSize: 18),),
                        ),
-                       Text(
-                         widget.post.time,
-                         style: TextStyle(
-                           color: Colors.blue,
-                           fontFamily: 'ProductSans',
-                           fontSize: 22.0,
-                         ),),
+                       Chip(
+                         avatar: CircleAvatar(
+                           backgroundColor: Colors.blue,
+                           child: Icon(OMIcons.timer, color: Colors.black87, size: 24,),
+                         ),
+                         label: Text(widget.post.time, style: TextStyle(fontFamily: 'ProductSans', fontSize: 22, color: Colors.blue),),
+                       ),
                      ],
                    ),
                    Padding(
@@ -802,7 +792,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                  handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                ),
                SliverAppBar(
-                 backgroundColor: Colors.transparent,
+                 backgroundColor: Colors.black26,
                  elevation: 0,
                  expandedHeight: 350.0,
                  floating: false,
@@ -828,7 +818,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                    ),
                  ],
                  flexibleSpace: FlexibleSpaceBar(
-                   title: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans'),),
+                   title: Container(
+                     decoration: BoxDecoration(
+                       color: Colors.greenAccent,
+                       /*border: Border.all(
+                         color: Colors.orangeAccent,
+                         width: 2,
+                       ),*/
+                       borderRadius: BorderRadius.circular(14),
+                     ),
+                     child: Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                       child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87),),
+                     ),
+                   ),
                    background: Container(
                      height: 350,
                      width: 241,

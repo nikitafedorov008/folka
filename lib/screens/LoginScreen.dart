@@ -18,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _formKey.currentState.save();
       // Logging in the user w/ Firebase
       AuthService.login(_email, _password);
+      Navigator.pop(context);
     }
   }
 

@@ -442,7 +442,24 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   _cropImage(File imageFile) async {
     File croppedImage = await ImageCropper.cropImage(
       sourcePath: imageFile.path,
-      aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+      //compressQuality: 10,
+      androidUiSettings: AndroidUiSettings(
+          toolbarTitle: 'Edit photo',
+          activeControlsWidgetColor: Colors.greenAccent,
+          activeWidgetColor: Colors.greenAccent,
+          toolbarColor: Colors.greenAccent,
+          toolbarWidgetColor: Colors.black87,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: true,
+      ),
+      /*aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],*/
+      //aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0,),
     );
     return croppedImage;
   }
