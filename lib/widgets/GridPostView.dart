@@ -141,7 +141,7 @@ class _PostViewState extends State<GridPostView> {
                                   )
                                       : Icon(Icons.star_border),
                                   iconSize: 25.0,
-                                  color: Colors.white,
+                                  color: Colors.greenAccent,
                                   onPressed: _likePost,
                                 ),
                               ],
@@ -151,7 +151,7 @@ class _PostViewState extends State<GridPostView> {
                                 IconButton(
                                   icon: Icon(Icons.mail_outline),
                                   iconSize: 25.0,
-                                  color: Colors.white,
+                                  color: Colors.greenAccent,
                                   onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -232,7 +232,7 @@ class _PostViewState extends State<GridPostView> {
                     Text(
                       widget.post.name,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         fontSize: 18,
                         fontFamily: 'ProductSans',
                         //color: Colors.black,

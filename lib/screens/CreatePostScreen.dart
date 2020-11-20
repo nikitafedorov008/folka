@@ -450,7 +450,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           toolbarColor: Colors.greenAccent,
           toolbarWidgetColor: Colors.black87,
           initAspectRatio: CropAspectRatioPreset.square,
-          lockAspectRatio: true,
+          //lockAspectRatio: true,
       ),
       /*aspectRatioPresets: [
         CropAspectRatioPreset.square,

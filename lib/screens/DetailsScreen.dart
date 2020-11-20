@@ -14,6 +14,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:super_qr_reader/super_qr_reader.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -541,12 +542,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
        );
 
        Widget textSection = Container(
-         padding: const EdgeInsets.all(32),
-         child: Text(
-           widget.post.caption,
-           softWrap: true,
-           textAlign: TextAlign.justify,
-           style: TextStyle(fontFamily: 'ProductSans'),
+         padding: const EdgeInsets.fromLTRB(22, 10, 22, 12,),
+         child: Column(
+           crossAxisAlignment: CrossAxisAlignment.start,
+           children: [
+             Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+               Icon(OMIcons.category, color: Colors.grey,),
+               Text('Category: ' + widget.post.category, style: TextStyle(fontFamily: 'ProductSans', fontSize: 16, color: Colors.grey),),
+             ],),
+             SizedBox(height: 12,),
+             Text(
+               widget.post.caption,
+               softWrap: true,
+               textAlign: TextAlign.justify,
+               style: TextStyle(fontFamily: 'ProductSans'),
+             ),
+           ],
          ),
        );
 
@@ -778,100 +791,213 @@ class _DetailsScreenState extends State<DetailsScreen> {
          );
        }
 
-       return new Scaffold(
-         /*appBar: new AppBar(
-        bottomOpacity: 0.0,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: new Text("Details", style: TextStyle(fontFamily: 'ProductSans'),),
-      ),*/
-         body: NestedScrollView(
-           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
-             return<Widget>[
-               SliverOverlapAbsorber(
-                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-               ),
-               SliverAppBar(
-                 backgroundColor: Colors.black26,
-                 elevation: 0,
-                 expandedHeight: 350.0,
-                 floating: false,
-                 pinned: true,
-                 actions: <Widget>[
-                   IconButton(
-                     icon: Icon(OMIcons.share),
-                     tooltip: 'share',
-                     onPressed: () {
-                       share(
-                         context,
-                         '${widget.post.name} -\n'
-                         '${widget.post.caption}\n\n'
-                         'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
-                         'location: ${widget.post.location +' '+ widget.author.address}\n\n'
-                         'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
-                         'tel: ${widget.author.phone}\n'
-                         'email: ${widget.author.email}\n\n'
-                         'send from Shelf app\n\n'
-                         'https://play.google.com/store/apps/details?id=nudle.shelf',
-                       );
-                     },
-                   ),
-                 ],
-                 flexibleSpace: FlexibleSpaceBar(
-                   title: Container(
-                     decoration: BoxDecoration(
-                       color: Colors.greenAccent,
-                       /*border: Border.all(
-                         color: Colors.orangeAccent,
-                         width: 2,
-                       ),*/
-                       borderRadius: BorderRadius.circular(14),
+       bodyView() {
+         return ListView(
+           children: <Widget>[
+             /*Container(
+                height: 350,
+                width: 241,
+                //height: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(widget.post.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),*/
+             titleSection,
+             GestureDetector(
+                 onTap: pushToProfile,
+                 child: authorSection),
+             buttonSection,
+             textSection,
+             mapSection,
+             addressSection,
+           ],
+         );
+       }
+
+       return Scaffold(
+         body: OrientationBuilder(
+           builder: (context, orientation){
+         if (orientation == Orientation.portrait) {
+           return NestedScrollView(
+             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
+               return<Widget>[
+                 SliverOverlapAbsorber(
+                   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                 ),
+                 SliverAppBar(
+                   backgroundColor: Colors.black26,
+                   elevation: 0,
+                   expandedHeight: 350.0,
+                   floating: false,
+                   pinned: true,
+                   actions: <Widget>[
+                     IconButton(
+                       icon: Icon(OMIcons.share),
+                       tooltip: 'share',
+                       onPressed: () {
+                         share(
+                           context,
+                           '${widget.post.name} -\n'
+                               '${widget.post.caption}\n\n'
+                               'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
+                               'location: ${widget.post.location +' '+ widget.author.address}\n\n'
+                               'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
+                               'tel: ${widget.author.phone}\n'
+                               'email: ${widget.author.email}\n\n'
+                               'send from Shelf app\n\n'
+                               'https://play.google.com/store/apps/details?id=nudle.shelf',
+                         );
+                       },
                      ),
-                     child: Padding(
-                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                       child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87),),
+                   ],
+                   flexibleSpace: FlexibleSpaceBar(
+                     title: Container(
+                       decoration: BoxDecoration(
+                         color: Colors.greenAccent,
+                         /*border: Border.all(
+                           color: Colors.orangeAccent,
+                           width: 2,
+                         ),*/
+                         borderRadius: BorderRadius.circular(14),
+                       ),
+                       child: Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                         child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87),),
+                       ),
                      ),
-                   ),
-                   background: Container(
-                     height: 350,
-                     width: 241,
-                     //height: MediaQuery.of(context).size.width,
-                     decoration: BoxDecoration(
-                       //borderRadius: BorderRadius.circular(12.0),
-                       image: DecorationImage(
-                         image: CachedNetworkImageProvider(widget.post.imageUrl),
-                         fit: BoxFit.cover,
+                     background: GestureDetector(
+                       child: Container(
+                         height: 350,
+                         width: 241,
+                         //height: MediaQuery.of(context).size.width,
+                         decoration: BoxDecoration(
+                           //borderRadius: BorderRadius.circular(12.0),
+                           image: DecorationImage(
+                             image: CachedNetworkImageProvider(widget.post.imageUrl),
+                             fit: BoxFit.cover,
+                           ),
+                         ),
+                       ),
+                       onTap: () => showDialog(
+                         context: context,
+                         child: SimpleDialog(
+                           backgroundColor: Colors.transparent,
+                           children: <Widget>[
+                             Container(
+                               decoration: BoxDecoration(
+                                 color: Colors.black,
+                                 borderRadius: BorderRadius.all(
+                                     Radius.circular(30)
+                                 ),
+                               ),
+                               width: MediaQuery.of(context).size.width,
+                               height: 400,
+                               child: Padding(
+                                 padding: const EdgeInsets.all(10.0),
+                                 child: PhotoView(
+                                   backgroundDecoration: BoxDecoration(
+                                     color: Colors.black,
+                                     borderRadius: BorderRadius.all(
+                                         Radius.circular(30)
+                                     ),
+                                   ),
+                                   imageProvider: CachedNetworkImageProvider(widget.post.imageUrl,),
+                                 ),
+                               ),
+                             ),
+                           ],
+                         ),
                        ),
                      ),
                    ),
                  ),
-               ),
-             ];
-           },
-           body: ListView(
-             children: <Widget>[
-               /*Container(
-              height: 350,
-              width: 241,
-              //height: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(widget.post.imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),*/
-               titleSection,
+               ];
+             },
+             body: bodyView(),
+           );
+         } else {
+           return Row(
+             children: [
                GestureDetector(
-                   onTap: pushToProfile,
-                   child: authorSection),
-               buttonSection,
-               textSection,
-               mapSection,
-               addressSection,
+                 child: Container(
+                   alignment: Alignment.topLeft,
+                   child: Padding(
+                     padding: const EdgeInsets.fromLTRB(2, 26, 0, 0),
+                     child: Row(
+                       children: [
+                         Stack(children: [
+                           IconButton(icon: Icon(Icons.arrow_back, size: 23,), onPressed: () { Navigator.pop(context); },),
+                         ],),
+                         Stack(children: [
+                           Container(
+                             decoration: BoxDecoration(
+                               color: Colors.greenAccent,
+                               /*border: Border.all(
+                               color: Colors.orangeAccent,
+                               width: 2,
+                             ),*/
+                               borderRadius: BorderRadius.circular(14),
+                             ),
+                             child: Padding(
+                               padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                               child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87, fontSize: 23),),
+                             ),
+                           ),
+                         ],)
+                       ],
+                     ),
+                   ),
+                   height: 450,
+                   width: 430,
+                   //height: MediaQuery.of(context).size.width,
+                   decoration: BoxDecoration(
+                     //borderRadius: BorderRadius.circular(12.0),
+                     image: DecorationImage(
+                       image: CachedNetworkImageProvider(widget.post.imageUrl),
+                       fit: BoxFit.cover,
+                     ),
+                   ),
+                 ),
+                 onTap: () => showDialog(
+                   context: context,
+                   child: SimpleDialog(
+                     backgroundColor: Colors.transparent,
+                     children: <Widget>[
+                       Container(
+                         decoration: BoxDecoration(
+                           color: Colors.black,
+                           borderRadius: BorderRadius.all(
+                               Radius.circular(30)
+                           ),
+                         ),
+                         width: MediaQuery.of(context).size.height,
+                         height: 300,
+                         child: Padding(
+                           padding: const EdgeInsets.all(10.0),
+                           child: PhotoView(
+                             backgroundDecoration: BoxDecoration(
+                               color: Colors.black,
+                               borderRadius: BorderRadius.all(
+                                   Radius.circular(30)
+                               ),
+                             ),
+                             imageProvider: CachedNetworkImageProvider(widget.post.imageUrl,),
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+               ),
+               Expanded(child: bodyView()),
              ],
-           ),
+           );
+         }
+           }
          ),
        );
      }
