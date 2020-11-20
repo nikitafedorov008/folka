@@ -928,6 +928,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                    child: Padding(
                      padding: const EdgeInsets.fromLTRB(2, 26, 0, 0),
                      child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: [
                          Stack(children: [
                            IconButton(icon: Icon(Icons.arrow_back, size: 23,), onPressed: () { Navigator.pop(context); },),
@@ -947,12 +948,32 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87, fontSize: 23),),
                              ),
                            ),
-                         ],)
+                         ],),
+                         Stack(children: [
+                           IconButton(icon: Icon(OMIcons.share, size: 23,), onPressed: () { share(
+                             context,
+                             '${widget.post.name} -\n'
+                                 '${widget.post.caption}\n\n'
+                                 'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
+                                 'location: ${widget.post.location +' '+ widget.author.address}\n\n'
+                                 'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
+                                 'tel: ${widget.author.phone}\n'
+                                 'email: ${widget.author.email}\n\n'
+                                 'send from Shelf app\n\n'
+                                 'https://play.google.com/store/apps/details?id=nudle.shelf',
+                           ); },),
+                         ],),
                        ],
                      ),
                    ),
-                   height: 450,
-                   width: 430,
+                   height: MediaQuery
+                   .of(context)
+                   .size
+                   .height,
+                   width: MediaQuery
+                   .of(context)
+                   .size
+                   .width / 2.5,
                    //height: MediaQuery.of(context).size.width,
                    decoration: BoxDecoration(
                      //borderRadius: BorderRadius.circular(12.0),
