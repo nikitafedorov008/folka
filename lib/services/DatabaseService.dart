@@ -139,6 +139,17 @@ class DatabaseService {
     return posts;
   }
 
+  static Future<List<Post>> getFavouritePosts(String userId) async {
+    QuerySnapshot userPostsSnapshot = await favouriteRef
+        .document(userId)
+        .collection('favouritePosts')
+        .orderBy('timestamp', descending: true)
+        .getDocuments();
+    List<Post> posts =
+    userPostsSnapshot.documents.map((doc) => Post.fromDoc(doc)).toList();
+    return posts;
+  }
+
   static Future<List<Post>> getUserPosts(String userId) async {
     QuerySnapshot userPostsSnapshot = await postsRef
         .document(userId)
@@ -176,14 +187,21 @@ class DatabaseService {
         .document(post.authorId)
         .collection('userPosts')
         .document(post.id);
+    favouriteRef.document(currentUserId).collection('favouritePosts').add({
+      'imageUrl': post.imageUrl,
+      'caption': post.caption,
+      'name': post.name,
+      'price': post.price,
+      'time': post.time,
+      'category': post.category,
+      'likeCount': post.likeCount,
+      'location': post.location,
+      'authorId': post.authorId,
+      'timestamp': post.timestamp,
+    });
     postRef.get().then((doc) {
       int likeCount = doc.data['likeCount'];
       postRef.updateData({'likeCount': likeCount + 1});
-      favouriteRef
-          .document(currentUserId)
-          .collection('favourite')
-          .document(post.id)
-          .setData({});
       likesRef
           .document(post.id)
           .collection('postLikes')
@@ -198,6 +216,16 @@ class DatabaseService {
         .document(post.authorId)
         .collection('userPosts')
         .document(post.id);
+    favouriteRef
+        .document(currentUserId)
+        .collection('favouritePosts')
+        .document(post.id)
+        .get()
+        .then((doc) {
+      if (doc.exists) {
+        doc.reference.delete();
+      }
+    });
     postRef.get().then((doc) {
       int likeCount = doc.data['likeCount'];
       postRef.updateData({'likeCount': likeCount - 1});

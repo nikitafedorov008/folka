@@ -45,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _setupFollowers();
     _setupFollowing();
     _setupPosts();
+    _setupFavourite();
     _setupProfileUser();
   }
 
@@ -74,6 +75,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _setupPosts() async {
     List<Post> posts = await DatabaseService.getUserPosts(widget.userId);
+    setState(() {
+      _posts = posts;
+    });
+  }
+
+  _setupFavourite() async {
+    List<Post> posts = await DatabaseService.getFavouritePosts(widget.userId);
     setState(() {
       _posts = posts;
     });
@@ -234,6 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _buildDisplayPosts() {
     if (_displayPosts == 0) {
       // Grid
+      _setupPosts();
       List<GridTile> tiles = [];
       _posts.forEach(
             (post) => tiles.add(_buildTilePost(post)),
@@ -249,6 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     } if (_displayPosts == 1) {
       // Column
+      _setupPosts();
       List<PostView> postViews = [];
       _posts.forEach((post) {
         postViews.add(
@@ -260,29 +270,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
       });
       return Column(children: postViews);
-    } else {
+    } if(_displayPosts == 2){
       // Column favorite
-      _setupFeed();
-      return ListView.builder(
-        itemCount: _posts.length,
-        itemBuilder: (BuildContext context, int index) {
-          Post post = _posts[index];
-          return FutureBuilder(
-            future: DatabaseService.getUserWithId(post.authorId),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) {
-                return SizedBox.shrink();
-              }
-              User author = snapshot.data;
-              return PostView(
-                //currentUserId: widget.currentUserId,
-                post: post,
-                author: author,
-              );
-            },
-          );
-        },
-      );
+      _setupFavourite();
+      List<PostView> postViews = [];
+      _posts.forEach((post) {
+        postViews.add(
+          PostView(
+            currentUserId: widget.currentUserId,
+            post: post,
+            author: _profileUser,
+          ),
+        );
+      });
+      return Column(children: postViews);
     }
   }
 
