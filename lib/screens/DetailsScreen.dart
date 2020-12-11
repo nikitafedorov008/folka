@@ -44,6 +44,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   GoogleMapController mapController;
   String searchAddress;
   String result = '';
+  LatLng taxiLatLng;
 
   @override
   void initState() {
@@ -159,9 +160,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
   takeTaxi() {
     _launchUrl('https://3.redirect.appmetrica.yandex.com/route?'
         //Широта точки назначения
-        + 'end-lat=' + '${Geocoder.local.findAddressesFromQuery(widget.post.location)}'
+        //+ 'end-lat=' + '${Geocoder.local.findAddressesFromQuery(widget.post.location)}'
+        + 'end-lat=' + '${taxiLatLng.latitude}'
         //Долгота точки назначения
-        + '&end-lon=' + '${Geocoder.local.findAddressesFromQuery(widget.post.location)}'
+        //+ '&end-lon=' + '${Geocoder.local.findAddressesFromQuery(widget.post.location)}'
+        + '&end-lon=' + '${taxiLatLng.longitude}'
         //Идентификатор источника
         + '&ref=' + 'shelf'
         //Идентификатор, который определяет логику редиректа
@@ -224,7 +227,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     new ListTile(
                       leading: new Icon(OMIcons.localTaxi),
                       title: new Text('Take Taxi', style: TextStyle(fontFamily: 'ProductSans'),),
-                      onTap: () => makeRoute(),
+                      onTap: () => takeTaxi(),
                     ),
                     new ListTile(
                       leading: new Icon(OMIcons.cancel, color: Colors.redAccent,),
@@ -489,7 +492,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
          searchAddress = widget.author.address+ ' ' + widget.post.location;
          Geolocator().placemarkFromAddress(searchAddress).then((result) {
            mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-               target: LatLng(result[0].position.latitude, result[0].position.longitude),
+               target: taxiLatLng = LatLng(result[0].position.latitude, result[0].position.longitude),
                zoom: 15.0)));
          });
        }
