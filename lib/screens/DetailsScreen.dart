@@ -512,9 +512,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
          return Platform.isIOS ? _iosRouteBottomSheet() : _androidRouteBottomSheet();
        }
 
-       Widget mapSection = Container(
-         height: 400,
-         width: 400,
+       Widget _mapSection = Container(
+         decoration: BoxDecoration(
+           border: Border.all(
+             color: Colors.black,
+             width: 8,
+           ),
+           borderRadius: BorderRadius.circular(12),
+         ),
+         height: 220,
+         width: 600,
          child: GoogleMap(
              onMapCreated: onMapCreated,
              initialCameraPosition: CameraPosition(
@@ -522,7 +529,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
              )),
        );
 
-       Widget addressSection = Container(
+       Widget _addressSection = Container(
          //padding: const EdgeInsets.all(32),
          child: Row(
            mainAxisAlignment: MainAxisAlignment.center,
@@ -544,7 +551,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
          ),
        );
 
-       Widget textSection = Container(
+       Widget _textSection = Container(
          padding: const EdgeInsets.fromLTRB(22, 10, 22, 12,),
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
@@ -569,91 +576,91 @@ class _DetailsScreenState extends State<DetailsScreen> {
        //Color color = Theme.of(context).primaryColor;
        Color color = Colors.black;
 
-       Widget buttonSection = Container(
-         child: Padding(
-           padding: const EdgeInsets.all(6.0),
-           child: Card(
-             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-             color: Colors.black12,
-             child: Padding(
-               padding: const EdgeInsets.all(8.0),
-               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                 children:[
-                   FlatButton(
-                     onPressed: _showSelectContactSheet,
-                     child: Column(
-                       mainAxisSize: MainAxisSize.min,
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children:[
-                         Icon(OMIcons.message, /*color: Colors.black*/),
-                         Container(
-                           margin: const EdgeInsets.only(top:8),
-                           child: Text(
-                             'CONTACT',
-                             style: TextStyle(
-                               fontSize: 12,
-                               fontWeight: FontWeight.w300,
-                               //color: color,
-                             ),
+       Widget _buttonSection = Container(
+         child: Card(
+           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(34)),
+           color: Colors.greenAccent,
+           child: Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+               children:[
+                 FlatButton(
+                   onPressed: _showSelectContactSheet,
+                   child: Column(
+                     mainAxisSize: MainAxisSize.min,
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children:[
+                       Icon(OMIcons.message, color: Colors.black87),
+                       Container(
+                         margin: const EdgeInsets.only(top:8),
+                         child: Text(
+                           'CONTACT',
+                           style: TextStyle(
+                             fontSize: 12,
+                             fontWeight: FontWeight.normal,
+                             color: Colors.black87,
+                             //color: color,
                            ),
-                         )
-                       ],
-                     ),
+                         ),
+                       )
+                     ],
                    ),
-                   FlatButton(
-                     onPressed: _showSelectRouteSheet,
-                     child: Column(
-                       mainAxisSize: MainAxisSize.min,
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children:[
-                         Icon(OMIcons.nearMe, /*color: Colors.black*/),
-                         Container(
-                           margin: const EdgeInsets.only(top:8),
-                           child: Text(
-                             'ROUTE',
-                             style: TextStyle(
-                               fontSize: 12,
-                               fontWeight: FontWeight.w300,
-                               //color: color,
-                             ),
+                 ),
+                 FlatButton(
+                   onPressed: _showSelectRouteSheet,
+                   child: Column(
+                     mainAxisSize: MainAxisSize.min,
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children:[
+                       Icon(OMIcons.nearMe, color: Colors.black87,),
+                       Container(
+                         margin: const EdgeInsets.only(top:8),
+                         child: Text(
+                           'ROUTE',
+                           style: TextStyle(
+                             fontSize: 12,
+                             fontWeight: FontWeight.normal,
+                             color: Colors.black87,
+                             //color: color,
                            ),
-                         )
-                       ],
-                     ),
+                         ),
+                       )
+                     ],
                    ),
-                   FlatButton(
-                     onPressed: pushToQr,
-                     child: Column(
-                       mainAxisSize: MainAxisSize.min,
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children:[
-                         Icon(OMIcons.description, /*color: Colors.black*/),
-                         Container(
-                           margin: const EdgeInsets.only(top:8),
-                           child: Text(
-                             'SCAN',
-                             style: TextStyle(
-                               fontSize: 12,
-                               fontWeight: FontWeight.w300,
-                               //color: color,
-                             ),
+                 ),
+                 FlatButton(
+                   onPressed: pushToQr,
+                   child: Column(
+                     mainAxisSize: MainAxisSize.min,
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children:[
+                       Icon(OMIcons.description, color: Colors.black87,),
+                       Container(
+                         margin: const EdgeInsets.only(top:8),
+                         child: Text(
+                           'SCAN',
+                           style: TextStyle(
+                             fontSize: 12,
+                             fontWeight: FontWeight.normal,
+                             color: Colors.black87,
+                             //color: color,
                            ),
-                         )
-                       ],
-                     ),
+                         ),
+                       )
+                     ],
                    ),
-                   /*buildButtonColumn(color, Icons.call, "CALL",),
-                buildButtonColumn(color, Icons.near_me, "ROUTE"),
-                buildButtonColumn(color, Icons.share, "SHARE"),*/
-                 ],
-               ),
+                 ),
+                 /*buildButtonColumn(color, Icons.call, "CALL",),
+              buildButtonColumn(color, Icons.near_me, "ROUTE"),
+              buildButtonColumn(color, Icons.share, "SHARE"),*/
+               ],
              ),
            ),
          ),
        );
 
-       Widget authorSection = Row(
+       Widget _authorSection = Row(
          children: <Widget>[
            Padding(
              padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -812,11 +819,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
              titleSection,
              GestureDetector(
                  onTap: pushToProfile,
-                 child: authorSection),
-             buttonSection,
-             textSection,
-             mapSection,
-             addressSection,
+                 child: _authorSection),
+             _buttonSection,
+             _textSection,
+             _mapSection,
+             _addressSection,
            ],
          );
        }
@@ -825,102 +832,273 @@ class _DetailsScreenState extends State<DetailsScreen> {
          body: OrientationBuilder(
            builder: (context, orientation){
          if (orientation == Orientation.portrait) {
-           return NestedScrollView(
-             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
-               return<Widget>[
-                 SliverOverlapAbsorber(
-                   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                 ),
-                 SliverAppBar(
-                   backgroundColor: Colors.black26,
-                   elevation: 0,
-                   expandedHeight: 350.0,
-                   floating: false,
-                   pinned: true,
-                   actions: <Widget>[
-                     IconButton(
-                       icon: Icon(OMIcons.share),
-                       tooltip: 'share',
-                       onPressed: () {
-                         share(
-                           context,
-                           '${widget.post.name} -\n'
-                               '${widget.post.caption}\n\n'
-                               'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
-                               'location: ${widget.post.location +' '+ widget.author.address}\n\n'
-                               'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
-                               'tel: ${widget.author.phone}\n'
-                               'email: ${widget.author.email}\n\n'
-                               'send from Shelf app\n\n'
-                               'https://play.google.com/store/apps/details?id=nudle.shelf',
-                         );
-                       },
-                     ),
-                   ],
-                   flexibleSpace: FlexibleSpaceBar(
-                     title: Container(
-                       decoration: BoxDecoration(
-                         color: Colors.greenAccent,
-                         /*border: Border.all(
-                           color: Colors.orangeAccent,
-                           width: 2,
-                         ),*/
-                         borderRadius: BorderRadius.circular(14),
-                       ),
-                       child: Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                         child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87),),
-                       ),
-                     ),
-                     background: GestureDetector(
-                       child: Container(
-                         height: 350,
-                         width: 241,
-                         //height: MediaQuery.of(context).size.width,
-                         decoration: BoxDecoration(
-                           //borderRadius: BorderRadius.circular(12.0),
-                           image: DecorationImage(
-                             image: CachedNetworkImageProvider(widget.post.imageUrl),
+           return Scaffold(
+             body: Stack(
+               children: <Widget>[
+                 Container(
+                   foregroundDecoration: BoxDecoration(
+                       color: Colors.black26
+                   ),
+                   height: 360,
+                   width: MediaQuery.of(context).size.width,
+                   child: GestureDetector(
+                           child: CachedNetworkImage(
+                             imageUrl: widget.post.imageUrl,
+                             placeholder: (context, url) => Center(
+                               child: Container(
+                                   child: CircularProgressIndicator()
+                               ),
+                             ),
+                             errorWidget: (context, url, error) => Column(
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [
+                                   Text("Ошибка при загрузке картинки"),
+                                   Icon(Icons.error)
+                                 ]
+                             ),
                              fit: BoxFit.cover,
                            ),
-                         ),
-                       ),
-                       onTap: () => showDialog(
-                         context: context,
-                         child: SimpleDialog(
-                           backgroundColor: Colors.transparent,
-                           children: <Widget>[
-                             Container(
-                               decoration: BoxDecoration(
-                                 color: Colors.black,
-                                 borderRadius: BorderRadius.all(
-                                     Radius.circular(30)
-                                 ),
-                               ),
-                               width: MediaQuery.of(context).size.width,
-                               height: 400,
-                               child: Padding(
-                                 padding: const EdgeInsets.all(10.0),
-                                 child: PhotoView(
-                                   backgroundDecoration: BoxDecoration(
+                           onTap: () => showDialog(
+                             context: context,
+                             child: SimpleDialog(
+                               backgroundColor: Colors.transparent,
+                               children: <Widget>[
+                                 Container(
+                                   decoration: BoxDecoration(
                                      color: Colors.black,
                                      borderRadius: BorderRadius.all(
                                          Radius.circular(30)
                                      ),
                                    ),
-                                   imageProvider: CachedNetworkImageProvider(widget.post.imageUrl,),
+                                   width: MediaQuery.of(context).size.width,
+                                   height: 400,
+                                   child: Padding(
+                                     padding: const EdgeInsets.all(10.0),
+                                     child: PhotoView(
+                                       backgroundDecoration: BoxDecoration(
+                                         color: Colors.black,
+                                         borderRadius: BorderRadius.all(
+                                             Radius.circular(30)
+                                         ),
+                                       ),
+                                       imageProvider: CachedNetworkImageProvider(
+                                           widget.post.imageUrl
+                                       ),
+                                     ),
+                                   ),
                                  ),
+                               ],
+                             ),
+                           ),
+                   ),
+                 ),
+                 SingleChildScrollView(
+                   padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: <Widget>[
+                       const SizedBox(height: 250),
+                       Padding(
+                         padding: const EdgeInsets.symmetric(horizontal:16.0),
+                         child: Text(
+                           widget.post.name,
+                           style: TextStyle(color: Colors.white, fontSize: 28.0, fontWeight: FontWeight.bold, fontFamily: 'ProductSans',),
+                         ),
+                       ),
+                       Row(
+                         children: <Widget>[
+                           const SizedBox(width: 16.0),
+                           Container(
+                             padding: const EdgeInsets.symmetric(
+                               vertical: 8.0,
+                               horizontal: 16.0,
+                             ),
+                             decoration: BoxDecoration(
+                                 color: Colors.grey,
+                                 borderRadius: BorderRadius.circular(20.0)),
+                             child: Text(
+                               widget.post.category,
+                               style: TextStyle(color: Colors.white, fontSize: 13.0, fontFamily: 'ProductSans',),
+                             ),
+                           ),
+                           Spacer(),
+                           IconButton(
+                             icon: Icon(Icons.favorite_border,),
+                             tooltip: 'like',
+                             //onPressed: () { changePlaceLike(); },
+                           ),
+                         ],
+                       ),
+                       Container(
+                         padding: const EdgeInsets.all(32.0),
+                         //color: Colors.white,
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           mainAxisSize: MainAxisSize.min,
+                           children: <Widget>[
+                             Row(
+                               children: <Widget>[
+                                 Expanded(
+                                   child: Column(
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: <Widget>[
+                                       Row(
+                                         children: <Widget>[
+                                           Icon(
+                                             Icons.star,
+                                             color: Colors.greenAccent,
+                                           ),
+                                           Icon(
+                                             Icons.star,
+                                             color: Colors.greenAccent,
+                                           ),
+                                           Icon(
+                                             Icons.star,
+                                             color: Colors.greenAccent,
+                                           ),
+                                           Icon(
+                                             Icons.star,
+                                             color: Colors.greenAccent,
+                                           ),
+                                           Icon(
+                                             Icons.star_border,
+                                             color: Colors.greenAccent,
+                                           ),
+                                         ],
+                                       ),
+                                       Text.rich(TextSpan(children: [
+                                         WidgetSpan(
+                                             child: Icon(OMIcons.locationOn, size: 16.0, color: Colors.grey,)
+                                         ),
+                                         TextSpan(
+                                           text: widget.post.location,
+                                         )
+                                       ]), style: TextStyle(color: Colors.grey, fontSize: 12.0, fontFamily: 'ProductSans',),)
+                                     ],
+                                   ),
+                                 ),
+                                 Column(
+                                   children: <Widget>[
+                                     Text("\₽ ${widget.post.price}", style: TextStyle(
+                                         color: Colors.greenAccent,
+                                         fontWeight: FontWeight.bold,
+                                         fontFamily: 'ProductSans',
+                                         fontSize: 20.0
+                                     ),),
+                                     Text("/per ${widget.post.time}",style: TextStyle(
+                                         fontFamily: 'ProductSans',
+                                         fontSize: 12.0,
+                                         color: Colors.grey
+                                     ),)
+                                   ],
+                                 )
+                               ],
+                             ),
+                             const SizedBox(height: 30.0),
+                             _buttonSection,
+                             /*SizedBox(
+                               width: double.infinity,
+                               child: RaisedButton(
+                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                                 color: Colors.orangeAccent,
+                                 textColor: Colors.white,
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: [
+                                     Icon(Icons.map),
+                                     SizedBox(width: 2,),
+                                     Text("Найти на карте", style: TextStyle(
+                                       fontWeight: FontWeight.normal,
+                                       fontFamily: 'ProductSans',
+                                     ),),
+                                   ],
+                                 ),
+                                 padding: const EdgeInsets.symmetric(
+                                   vertical: 16.0,
+                                   horizontal: 32.0,
+                                 ),
+                                 onPressed: () {MapsLauncher.launchQuery(widget.author.address + ' ' + widget.post.location,);},
+                               ),
+                             ),*/
+                             const SizedBox(height: 30.0),
+                             Text("DESCRIPTION".toUpperCase(), style: TextStyle(
+                                 fontWeight: FontWeight.w600,
+                                 fontFamily: 'ProductSans',
+                                 fontSize: 14.0
+                             ),),
+                             const SizedBox(height: 10.0),
+                             Text(
+                               widget.post.caption, textAlign: TextAlign.justify, style: TextStyle(
+                                 fontWeight: FontWeight.w300,
+                                 fontFamily: 'ProductSans',
+                                 fontSize: 14.0
+                             ),),
+                             const SizedBox(height: 10.0),
+                             _mapSection,
+                             const SizedBox(height: 10.0),
+                             _authorSection,
+                             Container(
+                               //padding: const EdgeInsets.symmetric(horizontal: 8),
+                               child: Wrap(
+                                 alignment: WrapAlignment.spaceAround,
+                                 children: [
+                                   //Chip(label: Text('#'+widget.place.goals[0]),),
+                                   //Chip(label: Text('#'+widget.place.goals[1]),),
+                                   //Chip(label: Text('#'+widget.place.goals[2]),),
+                                 ],
                                ),
                              ),
                            ],
                          ),
                        ),
-                     ),
+                     ],
                    ),
                  ),
-               ];
-             },
-             body: bodyView(),
+                 Positioned(
+                   top: 0,
+                   left: 0,
+                   right: 0,
+                   child: AppBar(
+                     backgroundColor: Colors.transparent,
+                     elevation: 0,
+                     centerTitle: true,
+                     /*title: Container(
+                       decoration: BoxDecoration(
+                         color: Colors.greenAccent,
+                         border: Border.all(
+                           color: Colors.greenAccent,
+                           width: 4,
+                         ),
+                         borderRadius: BorderRadius.circular(12),
+                       ),
+                       child: new Text('DETAILS', style: TextStyle(fontFamily: 'ProductSans', fontSize:  16, color: Colors.black87),),
+                     ),*/
+                     actions: <Widget>[
+                       Padding(
+                           padding: EdgeInsets.only(right: 20.0),
+                           child: GestureDetector(
+                             onTap: ()=> share(
+                               context,
+                               '${widget.post.name} -\n'
+                                   '${widget.post.caption}\n\n'
+                                   'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
+                                   'location: ${widget.post.location +' '+ widget.author.address}\n\n'
+                                   'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
+                                   'tel: ${widget.author.phone}\n'
+                                   'email: ${widget.author.email}\n\n'
+                                   'send from Shelf app\n\n'
+                                   'https://play.google.com/store/apps/details?id=nudle.shelf',),
+                             child: Icon(
+                               OMIcons.share,
+                               size: 26.0,
+                             ),
+                           )
+                       ),
+                     ],
+                   ),
+                 ),
+               ],
+             ),
            );
          } else {
            return Row(
@@ -928,46 +1106,95 @@ class _DetailsScreenState extends State<DetailsScreen> {
                GestureDetector(
                  child: Container(
                    alignment: Alignment.topLeft,
-                   child: Padding(
-                     padding: const EdgeInsets.fromLTRB(2, 26, 0, 0),
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         Stack(children: [
-                           IconButton(icon: Icon(Icons.arrow_back, size: 23,), onPressed: () { Navigator.pop(context); },),
-                         ],),
-                         Stack(children: [
-                           Container(
-                             decoration: BoxDecoration(
-                               color: Colors.greenAccent,
-                               /*border: Border.all(
-                               color: Colors.orangeAccent,
-                               width: 2,
-                             ),*/
-                               borderRadius: BorderRadius.circular(14),
-                             ),
-                             child: Padding(
-                               padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                               child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87, fontSize: 23),),
+                   child: Stack(
+                     children: [
+                       Stack(
+                         children: [
+                           Positioned(
+                             bottom: 12,
+                             left: 12,
+                             child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Padding(
+                                   padding: const EdgeInsets.symmetric(horizontal:16.0),
+                                   child: Text(
+                                     widget.post.name,
+                                     style: TextStyle(color: Colors.white, fontSize: 28.0, fontWeight: FontWeight.bold, fontFamily: 'ProductSans',),
+                                   ),
+                                 ),
+                                 Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: <Widget>[
+                                     const SizedBox(width: 16.0),
+                                     Container(
+                                       padding: const EdgeInsets.symmetric(
+                                         vertical: 8.0,
+                                         horizontal: 16.0,
+                                       ),
+                                       decoration: BoxDecoration(
+                                           color: Colors.grey,
+                                           borderRadius: BorderRadius.circular(20.0)),
+                                       child: Text(
+                                         widget.post.category,
+                                         style: TextStyle(color: Colors.white, fontSize: 13.0, fontFamily: 'ProductSans',),
+                                       ),
+                                     ),
+                                     //Spacer(),
+                                     IconButton(
+                                       icon: Icon(Icons.favorite_border,),
+                                       tooltip: 'like',
+                                       //onPressed: () { changePlaceLike(); },
+                                     ),
+                                   ],
+                                 ),
+                               ],
                              ),
                            ),
-                         ],),
-                         Stack(children: [
-                           IconButton(icon: Icon(OMIcons.share, size: 23,), onPressed: () { share(
-                             context,
-                             '${widget.post.name} -\n'
-                                 '${widget.post.caption}\n\n'
-                                 'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
-                                 'location: ${widget.post.location +' '+ widget.author.address}\n\n'
-                                 'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
-                                 'tel: ${widget.author.phone}\n'
-                                 'email: ${widget.author.email}\n\n'
-                                 'send from Shelf app\n\n'
-                                 'https://play.google.com/store/apps/details?id=nudle.shelf',
-                           ); },),
-                         ],),
-                       ],
-                     ),
+                         ],
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.fromLTRB(2, 26, 0, 0),
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Stack(children: [
+                               IconButton(icon: Icon(OMIcons.arrowBack, size: 23,), onPressed: () { Navigator.pop(context); },),
+                             ],),
+                             Stack(children: [
+                               Container(
+                                 decoration: BoxDecoration(
+                                   color: Colors.greenAccent,
+                                   /*border: Border.all(
+                                 color: Colors.orangeAccent,
+                                 width: 2,
+                               ),*/
+                                   borderRadius: BorderRadius.circular(14),
+                                 ),
+                                 child: Padding(
+                                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                                   //child: new Text(widget.post.name, style: TextStyle(fontFamily: 'ProductSans', color: Colors.black87, fontSize: 23),),
+                                 ),
+                               ),
+                             ],),
+                             Stack(children: [
+                               IconButton(icon: Icon(OMIcons.share, size: 23,), onPressed: () { share(
+                                 context,
+                                 '${widget.post.name} -\n'
+                                     '${widget.post.caption}\n\n'
+                                     'price = ${widget.post.price}RUB in ${widget.post.time}\n\n'
+                                     'location: ${widget.post.location +' '+ widget.author.address}\n\n'
+                                     'property owner: ${widget.author.name +' '+ widget.author.surname}\n\n'
+                                     'tel: ${widget.author.phone}\n'
+                                     'email: ${widget.author.email}\n\n'
+                                     'send from Shelf app\n\n'
+                                     'https://play.google.com/store/apps/details?id=nudle.shelf',
+                               ); },),
+                             ],),
+                           ],
+                         ),
+                       ),
+                     ],
                    ),
                    height: MediaQuery
                    .of(context)
@@ -1017,7 +1244,170 @@ class _DetailsScreenState extends State<DetailsScreen> {
                    ),
                  ),
                ),
-               Expanded(child: bodyView()),
+               //bodyView
+               Expanded(child: SingleChildScrollView(
+                 padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: <Widget>[
+                     //const SizedBox(height: 250),
+                     /*Padding(
+                       padding: const EdgeInsets.symmetric(horizontal:16.0),
+                       child: Text(
+                         widget.post.name,
+                         style: TextStyle(color: Colors.white, fontSize: 28.0, fontWeight: FontWeight.bold, fontFamily: 'ProductSans',),
+                       ),
+                     ),
+                     Row(
+                       children: <Widget>[
+                         const SizedBox(width: 16.0),
+                         Container(
+                           padding: const EdgeInsets.symmetric(
+                             vertical: 8.0,
+                             horizontal: 16.0,
+                           ),
+                           decoration: BoxDecoration(
+                               color: Colors.grey,
+                               borderRadius: BorderRadius.circular(20.0)),
+                           child: Text(
+                             widget.post.category,
+                             style: TextStyle(color: Colors.white, fontSize: 13.0, fontFamily: 'ProductSans',),
+                           ),
+                         ),
+                         Spacer(),
+                         IconButton(
+                           icon: Icon(Icons.favorite_border,),
+                           tooltip: 'like',
+                           //onPressed: () { changePlaceLike(); },
+                         ),
+                       ],
+                     ),*/
+                     Container(
+                       padding: const EdgeInsets.all(32.0),
+                       //color: Colors.white,
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         mainAxisSize: MainAxisSize.min,
+                         children: <Widget>[
+                           Row(
+                             children: <Widget>[
+                               Expanded(
+                                 child: Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   children: <Widget>[
+                                     Row(
+                                       children: <Widget>[
+                                         Icon(
+                                           Icons.star,
+                                           color: Colors.greenAccent,
+                                         ),
+                                         Icon(
+                                           Icons.star,
+                                           color: Colors.greenAccent,
+                                         ),
+                                         Icon(
+                                           Icons.star,
+                                           color: Colors.greenAccent,
+                                         ),
+                                         Icon(
+                                           Icons.star,
+                                           color: Colors.greenAccent,
+                                         ),
+                                         Icon(
+                                           Icons.star_border,
+                                           color: Colors.greenAccent,
+                                         ),
+                                       ],
+                                     ),
+                                     Text.rich(TextSpan(children: [
+                                       WidgetSpan(
+                                           child: Icon(OMIcons.locationOn, size: 16.0, color: Colors.grey,)
+                                       ),
+                                       TextSpan(
+                                         text: widget.post.location,
+                                       )
+                                     ]), style: TextStyle(color: Colors.grey, fontSize: 12.0, fontFamily: 'ProductSans',),)
+                                   ],
+                                 ),
+                               ),
+                               Column(
+                                 children: <Widget>[
+                                   Text("\₽ ${widget.post.price}", style: TextStyle(
+                                       color: Colors.greenAccent,
+                                       fontWeight: FontWeight.bold,
+                                       fontFamily: 'ProductSans',
+                                       fontSize: 20.0
+                                   ),),
+                                   Text("/per ${widget.post.time}",style: TextStyle(
+                                       fontFamily: 'ProductSans',
+                                       fontSize: 12.0,
+                                       color: Colors.grey
+                                   ),)
+                                 ],
+                               )
+                             ],
+                           ),
+                           const SizedBox(height: 30.0),
+                           _buttonSection,
+                           /*SizedBox(
+                               width: double.infinity,
+                               child: RaisedButton(
+                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                                 color: Colors.orangeAccent,
+                                 textColor: Colors.white,
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: [
+                                     Icon(Icons.map),
+                                     SizedBox(width: 2,),
+                                     Text("Найти на карте", style: TextStyle(
+                                       fontWeight: FontWeight.normal,
+                                       fontFamily: 'ProductSans',
+                                     ),),
+                                   ],
+                                 ),
+                                 padding: const EdgeInsets.symmetric(
+                                   vertical: 16.0,
+                                   horizontal: 32.0,
+                                 ),
+                                 onPressed: () {MapsLauncher.launchQuery(widget.author.address + ' ' + widget.post.location,);},
+                               ),
+                             ),*/
+                           const SizedBox(height: 30.0),
+                           Text("DESCRIPTION".toUpperCase(), style: TextStyle(
+                               fontWeight: FontWeight.w600,
+                               fontFamily: 'ProductSans',
+                               fontSize: 14.0
+                           ),),
+                           const SizedBox(height: 10.0),
+                           Text(
+                             widget.post.caption, textAlign: TextAlign.justify, style: TextStyle(
+                               fontWeight: FontWeight.w300,
+                               fontFamily: 'ProductSans',
+                               fontSize: 14.0
+                           ),),
+                           const SizedBox(height: 10.0),
+                           _mapSection,
+                           const SizedBox(height: 10.0),
+                           _authorSection,
+                           Container(
+                             //padding: const EdgeInsets.symmetric(horizontal: 8),
+                             child: Wrap(
+                               alignment: WrapAlignment.spaceAround,
+                               children: [
+                                 //Chip(label: Text('#'+widget.place.goals[0]),),
+                                 //Chip(label: Text('#'+widget.place.goals[1]),),
+                                 //Chip(label: Text('#'+widget.place.goals[2]),),
+                               ],
+                             ),
+                           ),
+                         ],
+                       ),
+                     ),
+                   ],
+                 ),
+               ),
+               ),
              ],
            );
          }
