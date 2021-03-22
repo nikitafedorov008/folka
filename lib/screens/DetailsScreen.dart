@@ -860,7 +860,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                            ),
                            onTap: () => showDialog(
                              context: context,
-                             child: SimpleDialog(
+                             builder: (_)=> new SimpleDialog(
                                backgroundColor: Colors.transparent,
                                children: <Widget>[
                                  Container(
@@ -1215,7 +1215,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                  ),
                  onTap: () => showDialog(
                    context: context,
-                   child: SimpleDialog(
+                   builder: (_) => SimpleDialog(
                      backgroundColor: Colors.transparent,
                      children: <Widget>[
                        Container(
