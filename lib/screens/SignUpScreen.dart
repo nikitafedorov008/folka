@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:folka/screens/TermsScreen.dart';
 import 'package:folka/services/AuthService.dart';
 import 'package:intl/intl.dart';
@@ -79,8 +79,8 @@ class _SignupScreenState extends State<SignupScreen> {
       DatePicker.showDatePicker(
         context,
         dateFormat: 'yyyy-mmm-dd',
-        locale: 'en',
-        onConfirm2: (temp, selectedIndex) {
+        //locale: 'en',
+        onConfirm: (temp, selectedIndex) {
           if (temp == null) return null;
           completer.complete(temp);
 

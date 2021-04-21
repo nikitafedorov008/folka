@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
 import 'package:flutter_material_pickers/helpers/show_scroll_picker.dart';
 import 'package:folka/models/User.dart';
 import 'package:folka/services/DatabaseService.dart';
@@ -163,8 +163,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       DatePicker.showDatePicker(
         context,
         dateFormat: 'yyyy-mmm-dd',
-        locale: 'en',
-        onConfirm2: (temp, selectedIndex) {
+        //locale: 'en',
+        onConfirm: (temp, selectedIndex) {
           if (temp == null) return null;
           completer.complete(temp);
 

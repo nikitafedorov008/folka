@@ -42,7 +42,7 @@ dependencies:
   intl: ^0.16.0
   #ui
   animator: ^1.0.0+3
-  flutter_cupertino_date_picker: ^0.8.0
+  flutter_cupertino_date_picker_fork: ^1.0.3
   outline_material_icons: ^0.1.1
   flutter_statusbarcolor: ^0.2.3
   flutter_staggered_grid_view: ^0.2.7
